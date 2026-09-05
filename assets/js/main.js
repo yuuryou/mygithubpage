@@ -1,4 +1,4 @@
-/* Jason Xu — jasonxy.us redesign
+/* Jason Xu — jasonyxu.us redesign
    GSAP motion: SplitText headings, ScrollTrigger reveals, parallax, progress bar, gallery lightbox.
    Robustness: every block is isolated in try/catch; all reveal states use immediateRender:false
    so content is NEVER permanently hidden even if a trigger fails. */
