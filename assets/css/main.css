@@ -641,7 +641,7 @@ a:hover { text-decoration: none; }
      backdrop-filter on every frame, which made the background lag /
      reveal black space and made card blur pop in only after scrolling
      stopped. Samsung Internet still exhibits this with GIFs.) */
-  .home-bg { background-image: url("../photos/meadow/20260627_091609.jpg"); }
+  .home-bg { background-image: url("../photos-keep/meadow/20260627_091609.jpg"); }
   .home-bg-video { display: none; }
   .gallery-item figcaption { transform: none; padding: 22px 12px 10px; }
   .gallery-item:hover img { transform: none; }

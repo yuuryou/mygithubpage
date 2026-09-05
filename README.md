@@ -7,7 +7,7 @@ Personal site of Jason Xu, hosted on GitHub Pages at https://jasonyxu.us/.
 - Pure static HTML/CSS/JS — no build step, no framework
 - GSAP 3.13 (ScrollTrigger + SplitText), local copies under `assets/js/`
 - Fonts: Fraunces (display) + Inter (body) via Google Fonts
-- Photos: local originals under `assets/photos/` (JPG/HEIC) plus a few legacy
+- Photos: local originals under `assets/photos-keep/` (JPG/HEIC) plus a few legacy
   GoDaddy CDN links (`img1.wsimg.com`) still referenced from older pages
 
 ## Pages
