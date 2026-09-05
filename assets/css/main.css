@@ -344,7 +344,7 @@ a:hover { text-decoration: none; }
 .lightbox { position: fixed; inset: 0; z-index: 1500; background: linear-gradient(160deg, rgba(24, 22, 28, 0.58), rgba(8, 8, 11, 0.72)); display: grid; place-items: center; padding: 40px; -webkit-backdrop-filter: blur(28px) var(--glass-sat); backdrop-filter: blur(28px) var(--glass-sat); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.35s ease, visibility 0s linear 0.35s; }
 .lightbox[hidden] { display: none; }
 .lightbox.is-open { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity 0.35s ease, visibility 0s; }
-.lightbox img { max-width: min(92vw, 1200px); max-height: 82vh; object-fit: contain; border-radius: 8px; opacity: 0; transform: scale(0.96); transition: opacity 0.32s ease, transform 0.38s var(--ease); }
+.lightbox img { max-width: min(92vw, 1200px, calc(100vw - 80px)); max-height: 82vh; object-fit: contain; border-radius: 8px; opacity: 0; transform: scale(0.96); transition: opacity 0.32s ease, transform 0.38s var(--ease); }
 .lightbox.is-open img { opacity: 1; transform: scale(1); }
 .lightbox.is-closing img { opacity: 0; transform: scale(0.96); }
 .lightbox-caption { position: absolute; bottom: 28px; left: 0; right: 0; text-align: center; color: var(--text-dim); font-size: 14px; }
