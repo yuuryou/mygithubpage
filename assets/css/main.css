@@ -90,6 +90,10 @@ a:hover { text-decoration: none; }
 }
 .brand-name { font-family: var(--serif); font-size: 18px; font-weight: 600; letter-spacing: 0.2px; }
 .nav-links { display: flex; align-items: center; gap: 4px; }
+/* Mobile sheet nav lives OUTSIDE .site-nav (body-level sibling) so its own
+   backdrop-filter is not clipped by the header's backdrop root; hidden on
+   desktop where the inline .nav-links--bar is used. */
+.nav-links--sheet { display: none; }
 .nav-link {
   color: var(--text-dim); font-size: 14px; font-weight: 500; padding: 8px 14px; border-radius: 999px;
   transition: color 0.2s ease, background 0.2s ease;
@@ -553,12 +557,15 @@ a:hover { text-decoration: none; }
   .section { padding: 72px 16px; }
   .section--intro { padding-top: 96px; }
   .section--photos { padding-bottom: 88px; }
-  .nav-links {
+  .nav-links--bar { display: none; }
+  .nav-links--sheet {
     position: fixed; top: var(--nav-h); left: 0; right: 0;
     flex-direction: column; align-items: stretch; gap: 0; padding: 12px 20px 20px;
     /* 2026-09-04 bright liquid-glass pass: match .site-nav exactly
        (180deg gradient with rgba(255,255,255,0.15) highlight, blur 24px,
-       border rgba(255,255,255,0.17), inset highlight + soft drop shadow). */
+       border rgba(255,255,255,0.17), inset highlight + soft drop shadow).
+       Real backdrop blur now works because this sheet is a body-level
+       sibling of .site-nav instead of a child inside its backdrop root. */
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.055) 55%, rgba(255, 255, 255, 0.10) 100%);
     -webkit-backdrop-filter: blur(24px) var(--glass-sat);
     backdrop-filter: blur(24px) var(--glass-sat);
@@ -567,7 +574,7 @@ a:hover { text-decoration: none; }
     display: none;
     max-height: calc(100dvh - var(--nav-h)); overflow-y: auto; overscroll-behavior: contain;
   }
-  .nav-links.open { display: flex; }
+  .nav-links--sheet.open { display: flex; }
   .nav-toggle { display: block; }
   .nav-link { padding: 14px 16px; border-radius: 12px; font-size: 16px; }
   .nav-link:hover { background: rgba(255, 255, 255, 0.18); color: var(--text); }
@@ -672,6 +679,10 @@ a:hover { text-decoration: none; }
     radial-gradient(ellipse at center, rgba(10, 10, 13, 0.16) 0%, rgba(10, 10, 13, 0.42) 58%, rgba(10, 10, 13, 0.66) 100%);
 }
 .wm-page #main { position: relative; z-index: 2; }
+/* 2026-09-04 fix: social strip was hidden behind the fixed full-bleed
+   .wm-cinema (inside #main's z-index:2 stacking context). Raise .findme
+   above #main so the buttons are visible again. */
+.wm-page .findme { position: relative; z-index: 3; }
 .wm-page .site-footer {
   position: relative; z-index: 2;
   /* 2026-09-04 v2: fully transparent footer (user rejected white/black
@@ -1192,4 +1203,28 @@ body { text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 8px rgba(0, 0, 0, 0.18)
 .home-page :is(a, button, [role="button"]):focus-visible,
 .home-page a:visited {
   color: #ffffff !important;
+}
+
+/* 2026-09-04 Jason Xu glow unification (task 2): the hero "Jason Xu" title
+   token is #ffffff + text-shadow 0 1px 2px rgba(0,0,0,.90), 0 3px 12px
+   rgba(0,0,0,.62), 0 9px 30px rgba(0,0,0,.35). Promote every remaining
+   dimmer-look home text (tagline/hero-sub, intro paragraphs, buttons, card
+   copy) to that exact same color + glow tier. Elements with their own
+   stronger layered glow (hero-title itself, .line--serif, kicker) keep
+   theirs via higher specificity / later equal rules; pure-white color was
+   already forced above, this only unifies the shadow glow level. */
+.home-page .hero-sub,
+.home-page .hero-cta,
+.home-page .hero-cta .btn,
+.home-page .narrow p,
+.home-page .section--intro p,
+.home-page .lead,
+.home-page .card-text,
+.home-page .card-title,
+.home-page p,
+.home-page .btn,
+.home-page a,
+.home-page button {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.90), 0 3px 12px rgba(0, 0, 0, 0.62), 0 9px 30px rgba(0, 0, 0, 0.35) !important;
 }

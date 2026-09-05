@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="./assets/icon.png">
 <link rel="apple-touch-icon" href="./assets/icon-192.png">
-<link rel="stylesheet" href="./assets/css/main.css?v=20260904b">
+<link rel="stylesheet" href="./assets/css/main.css?v=20260904d">
 </head>
 <body class="wm-page" data-page="winter">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -26,7 +26,7 @@
       <img class="brand-mark" src="./assets/icon.png" alt="" width="34" height="34">
       <span class="brand-name">Jason Xu</span>
     </a>
-    <nav class="nav-links" id="navLinks" aria-label="Primary">
+    <nav class="nav-links nav-links--bar" aria-label="Primary">
       <a class="nav-link" href="./index.html">Home</a><a class="nav-link" href="./interests.html">My interests</a><a class="nav-link active" href="./winter-meadow.html" aria-current="page">Winter & Meadow</a><a class="nav-link" href="./publications.html">Publications</a><a class="nav-link" href="./about.html">About Me</a>
     </nav>
     <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle navigation">
@@ -34,6 +34,15 @@
     </button>
   </div>
 </header>
+<!-- 2026-09-04 mobile sheet nav: kept OUTSIDE .site-nav on purpose. A child of a
+     backdrop-filter element cannot produce its own real backdrop blur (Chromium
+     backdrop-root clipping), which made the dropdown look like transparent
+     glass. As a body-level fixed sibling it blurs page content exactly like the
+     top bar. Desktop uses the inline .nav-links--bar above; this sheet is only
+     shown inside the <=760px hamburger layout. -->
+<nav class="nav-links nav-links--sheet" id="navLinks" aria-label="Primary">
+  <a class="nav-link" href="./index.html">Home</a><a class="nav-link" href="./interests.html">My interests</a><a class="nav-link active" href="./winter-meadow.html" aria-current="page">Winter & Meadow</a><a class="nav-link" href="./publications.html">Publications</a><a class="nav-link" href="./about.html">About Me</a>
+</nav>
 <main id="main">
 <div class="wm-cinema" id="wmCinema" aria-hidden="true">
   <div class="wm-scrim" aria-hidden="true"></div>
@@ -310,10 +319,10 @@
   <img id="lightboxImg" src="" alt="">
   <p class="lightbox-caption" id="lightboxCaption"></p>
 </div>
-<script src="./assets/js/gsap.min.js?v=20260904b"></script>
-<script src="./assets/js/ScrollTrigger.min.js?v=20260904b"></script>
-<script src="./assets/js/SplitText.min.js?v=20260904b"></script>
-<script src="./assets/js/main.js?v=20260904b"></script>
+<script src="./assets/js/gsap.min.js?v=20260904d"></script>
+<script src="./assets/js/ScrollTrigger.min.js?v=20260904d"></script>
+<script src="./assets/js/SplitText.min.js?v=20260904d"></script>
+<script src="./assets/js/main.js?v=20260904d"></script>
 
 </body>
 </html>
