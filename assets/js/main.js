@@ -6,6 +6,10 @@
   "use strict";
 
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Touch devices: skip scroll-triggered reveals/parallax. Content stays
+  // fully visible (no fade-in delay when reaching a card) and the page
+  // avoids per-frame scroll compositing that made effects feel late.
+  var coarse = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
   /* ---------- Vimeo hero: iframe starts hidden; fade in only when player sends "ready" ---------- */
   var vimeo = document.querySelector(".hero-media iframe");
@@ -186,6 +190,7 @@
   /* Split headings — word reveal; waits for fonts, never hides content on failure */
   function bindSplits() {
     safe(function () {
+      if (coarse) return; // touch: keep headings plainly visible
       document.querySelectorAll(".js-split").forEach(function (el) {
         if (!el.textContent.trim()) return;
         var split = SplitText.create(el, { type: "words", wordsClass: "split-word" });
@@ -207,6 +212,7 @@
 
   /* Generic reveals — immediateRender:false keeps content visible until trigger fires */
   safe(function () {
+    if (coarse) return; // touch: cards render fully, no fade-in lag
     gsap.utils.toArray(".reveal").forEach(function (el) {
       gsap.fromTo(el,
         { y: 34, opacity: 0 },
@@ -220,6 +226,7 @@
 
   /* Home photo strip parallax drift */
   safe(function () {
+    if (coarse) return;
     var strip = document.querySelector(".js-photo-strip");
     if (strip) {
       gsap.to(strip, {
@@ -232,6 +239,7 @@
 
   /* Parallax on gallery images (subtle) */
   safe(function () {
+    if (coarse) return;
     gsap.utils.toArray(".gallery-item img").forEach(function (img) {
       gsap.fromTo(img, { yPercent: -8 }, {
         yPercent: 8,
@@ -361,6 +369,7 @@
 
   /* --- 3D card entrances on scroll (opacity is handled by .reveal) --- */
   safe(function () {
+    if (coarse) return;
     gsap.utils.toArray(".card, .link-card, .cat-3d, .gallery-item, .pub").forEach(function (el) {
       gsap.fromTo(el,
         { rotationY: -10, transformPerspective: 900 },
