@@ -572,10 +572,23 @@ a:hover { text-decoration: none; }
     backdrop-filter: blur(24px) var(--glass-sat);
     border-bottom: 1px solid rgba(255, 255, 255, 0.17);
     box-shadow: var(--glass-inset), inset 0 -1px 0 rgba(255, 255, 255, 0.06), 0 8px 28px rgba(0, 0, 0, 0.22);
-    display: none;
+    display: flex;
+    /* Drop-down animation: sheet stays flex but invisible/inert until
+       .open. transform+opacity animate (display cannot); visibility's
+       delayed hide removes it from hit-test/tab order AFTER the closing
+       fade finishes, and becomes immediate again when .open returns. */
+    visibility: hidden; opacity: 0;
+    transform: translateY(-16px);
+    pointer-events: none;
+    transition: transform 0.34s var(--ease), opacity 0.30s ease, visibility 0s linear 0.34s;
     max-height: calc(100dvh - var(--nav-h)); overflow-y: auto; overscroll-behavior: contain;
   }
-  .nav-links--sheet.open { display: flex; }
+  .nav-links--sheet.open {
+    visibility: visible; opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    transition: transform 0.38s var(--ease), opacity 0.30s ease;
+  }
   .nav-toggle { display: block; }
   .nav-link { padding: 14px 16px; border-radius: 12px; font-size: 16px; }
   .nav-link:hover { background: rgba(255, 255, 255, 0.18); color: var(--text); }
