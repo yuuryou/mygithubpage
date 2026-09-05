@@ -556,13 +556,18 @@ a:hover { text-decoration: none; }
   .nav-links {
     position: fixed; top: var(--nav-h); left: 0; right: 0;
     flex-direction: column; align-items: stretch; gap: 0; padding: 12px 20px 20px;
-    background: rgba(11, 11, 14, 0.96); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-    border-bottom: 1px solid var(--border); display: none;
+    background: var(--glass-line);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) var(--glass-sat);
+    backdrop-filter: blur(var(--glass-blur)) var(--glass-sat);
+    border-bottom: 1px solid var(--glass-edge);
+    box-shadow: var(--glass-inset), 0 18px 40px rgba(0, 0, 0, 0.28);
+    display: none;
     max-height: calc(100dvh - var(--nav-h)); overflow-y: auto; overscroll-behavior: contain;
   }
   .nav-links.open { display: flex; }
   .nav-toggle { display: block; }
   .nav-link { padding: 14px 16px; border-radius: 12px; font-size: 16px; }
+  .nav-link:hover { background: var(--glass-hi); color: var(--text); }
   .cat-cards { grid-template-columns: 1fr; }
   .gpt-hero-card { grid-template-columns: 1fr; }
   .cv-list--two { grid-template-columns: 1fr; }
@@ -1165,4 +1170,23 @@ body { text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 8px rgba(0, 0, 0, 0.18)
   z-index: -2;
   pointer-events: none;
   background: linear-gradient(170deg, rgba(6, 9, 12, 0.58), rgba(6, 9, 12, 0.30) 62%, rgba(6, 9, 12, 0.38));
+}
+
+/* 2026-09-04 homepage pure-white text pass: force ONLY home-page text elements
+   to #ffffff (base + hover/active/focus/visited). Selector scoped to body
+   .home-page so other pages are untouched. text-shadow/glow declarations are
+   intentionally NOT present here -- existing glow stays intact. svg is not
+   matched so decorative icons keep their own color rules / currentColor. */
+.home-page,
+.home-page :is(h1, h2, h3, h4, h5, h6, p, span, a, strong, em, small, li,
+               figcaption, time, blockquote, cite, code, label, button,
+               summary, th, td, address, q, pre, abbr, sub, sup, dt, dd, legend) {
+  color: #ffffff !important;
+}
+.home-page :is(a, button, [role="button"]):hover,
+.home-page :is(a, button, [role="button"]):active,
+.home-page :is(a, button, [role="button"]):focus,
+.home-page :is(a, button, [role="button"]):focus-visible,
+.home-page a:visited {
+  color: #ffffff !important;
 }
