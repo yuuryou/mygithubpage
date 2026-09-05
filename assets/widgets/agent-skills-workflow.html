@@ -1,0 +1,452 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body><script>window.onmessage = function(event) {event.source.postMessage({iframeId: event.data, scrollHeight: document.body.getBoundingClientRect().height || document.body.scrollHeight}, event.origin);};</script><body style='margin: 0;'><div style="display: flex; justify-content: center"><section class="agent-skill-section" aria-labelledby="agent-skill-title">
+  <div class="agent-skill-hero">
+    <div class="agent-skill-copy">
+      <p class="agent-skill-kicker">
+        <span class="agent-skill-kicker__dot" aria-hidden="true"></span>
+        Reusable AI workflows
+      </p>
+
+      <h2 id="agent-skill-title">
+        Give your agent<br />
+        <span>a repeatable way to work.</span>
+      </h2>
+
+      <p class="agent-skill-intro">
+        An <strong>agent skill</strong> is a reusable workflow that combines
+        instructions, tools, context, and quality checks. It helps an AI agent
+        perform a specific task consistently—without requiring you to explain
+        the same process from scratch each time.
+      </p>
+    </div>
+
+    <aside class="agent-skill-card" aria-label="Example agent skill">
+      <div class="agent-skill-card__top">
+        <div class="agent-skill-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+            <path d="M12 3.5 14.2 9.8 20.5 12l-6.3 2.2L12 20.5l-2.2-6.3L3.5 12l6.3-2.2L12 3.5Z" />
+          </svg>
+        </div>
+
+        <span class="agent-skill-card__status">
+          <span aria-hidden="true"></span>
+          Ready to use
+        </span>
+      </div>
+
+      <div class="agent-skill-card__body">
+        <p class="agent-skill-card__label">Example skill</p>
+        <h3>Research synthesis</h3>
+        <p>
+          Compare sources, extract methods and limitations, then return a
+          concise cited summary.
+        </p>
+      </div>
+
+      <ul class="agent-skill-card__features">
+        <li>
+          <span class="agent-skill-card__check" aria-hidden="true">✓</span>
+          Clear instructions
+        </li>
+        <li>
+          <span class="agent-skill-card__check" aria-hidden="true">✓</span>
+          Connected tools
+        </li>
+        <li>
+          <span class="agent-skill-card__check" aria-hidden="true">✓</span>
+          Output standards
+        </li>
+      </ul>
+    </aside>
+  </div>
+
+  <div class="agent-skill-how">
+    <div class="agent-skill-how__heading">
+      <p class="agent-skill-kicker">Simple by design</p>
+      <h3>How to use a skill</h3>
+      <p>
+        Start with the workflow, then supply the details that are unique to
+        your task.
+      </p>
+    </div>
+
+    <ol class="agent-skill-steps">
+      <li>
+        <span class="agent-skill-step__number">01</span>
+        <div>
+          <h4>Choose a skill</h4>
+          <p>Select the workflow that best matches what you want to accomplish.</p>
+        </div>
+      </li>
+
+      <li>
+        <span class="agent-skill-step__number">02</span>
+        <div>
+          <h4>Add your context</h4>
+          <p>Provide files, links, examples, constraints, or relevant material.</p>
+        </div>
+      </li>
+
+      <li>
+        <span class="agent-skill-step__number">03</span>
+        <div>
+          <h4>Describe the outcome</h4>
+          <p>State the format, audience, depth, and standards for the result.</p>
+        </div>
+      </li>
+
+      <li>
+        <span class="agent-skill-step__number">04</span>
+        <div>
+          <h4>Review and refine</h4>
+          <p>Check the output and iterate when new constraints or evidence arise.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <aside class="agent-skill-prompt" aria-label="Example agent-skill prompt">
+    <div class="agent-skill-prompt__icon" aria-hidden="true">✦</div>
+
+    <div>
+      <p class="agent-skill-prompt__label">Example prompt</p>
+      <p class="agent-skill-prompt__text">
+        “Use the research-synthesis skill to compare these three articles,
+        identify their methods and limitations, and return a cited table.”
+      </p>
+    </div>
+  </aside>
+</section>
+
+<style>
+  :root {
+    --skill-bg: #0b0d12;
+    --skill-surface: #121722;
+    --skill-surface-raised: #181f2d;
+    --skill-ink: #f4f7fb;
+    --skill-muted: #a8b2c3;
+    --skill-muted-soft: #768196;
+    --skill-border: rgba(166, 181, 209, 0.16);
+    --skill-border-strong: rgba(166, 181, 209, 0.25);
+    --skill-accent: #9b8cff;
+    --skill-accent-bright: #b9adff;
+    --skill-accent-soft: rgba(155, 140, 255, 0.13);
+    --skill-success: #57d39a;
+    --skill-shadow: 0 28px 70px rgba(0, 0, 0, 0.32);
+  }
+
+  .agent-skill-section,
+  .agent-skill-section * {
+    box-sizing: border-box;
+  }
+
+  .agent-skill-section {
+    max-width: 1180px;
+    margin: 3rem auto;
+    padding: clamp(1.4rem, 5vw, 4.5rem);
+    overflow: hidden;
+    border: 1px solid var(--skill-border);
+    border-radius: 28px;
+    background:
+      radial-gradient(
+        circle at 92% 6%,
+        rgba(155, 140, 255, 0.18) 0,
+        transparent 27rem
+      ),
+      radial-gradient(
+        circle at 6% 95%,
+        rgba(69, 158, 214, 0.1) 0,
+        transparent 25rem
+      ),
+      var(--skill-bg);
+    color: var(--skill-ink);
+    font-family:
+      Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
+  }
+
+  .agent-skill-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(290px, 0.8fr);
+    gap: clamp(2rem, 8vw, 7rem);
+    align-items: center;
+  }
+
+  .agent-skill-kicker {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0 0 1rem;
+    color: var(--skill-accent-bright);
+    font-size: 0.76rem;
+    font-weight: 750;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+
+  .agent-skill-kicker__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--skill-accent);
+    box-shadow: 0 0 0 5px rgba(155, 140, 255, 0.12);
+  }
+
+  .agent-skill-copy h2 {
+    max-width: 13ch;
+    margin: 0;
+    font-size: clamp(2.35rem, 5.6vw, 4.75rem);
+    font-weight: 760;
+    letter-spacing: -0.065em;
+    line-height: 0.97;
+  }
+
+  .agent-skill-copy h2 span {
+    color: var(--skill-accent-bright);
+  }
+
+  .agent-skill-intro {
+    max-width: 59ch;
+    margin: 1.6rem 0 0;
+    color: var(--skill-muted);
+    font-size: clamp(1rem, 1.4vw, 1.08rem);
+    line-height: 1.8;
+  }
+
+  .agent-skill-intro strong {
+    color: var(--skill-ink);
+    font-weight: 700;
+  }
+
+  .agent-skill-card {
+    padding: 1.25rem;
+    border: 1px solid var(--skill-border-strong);
+    border-radius: 20px;
+    background:
+      linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.07),
+        rgba(255, 255, 255, 0.025)
+      ),
+      var(--skill-surface);
+    box-shadow: var(--skill-shadow);
+  }
+
+  .agent-skill-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .agent-skill-card__icon {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border: 1px solid rgba(155, 140, 255, 0.25);
+    border-radius: 12px;
+    background: var(--skill-accent-soft);
+    color: var(--skill-accent-bright);
+  }
+
+  .agent-skill-card__icon svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .agent-skill-card__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--skill-success);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .agent-skill-card__status span {
+    width: 0.48rem;
+    height: 0.48rem;
+    border-radius: 50%;
+    background: var(--skill-success);
+    box-shadow: 0 0 0 5px rgba(87, 211, 154, 0.12);
+  }
+
+  .agent-skill-card__body {
+    padding: 1.55rem 0 1.25rem;
+  }
+
+  .agent-skill-card__label,
+  .agent-skill-prompt__label {
+    margin: 0 0 0.45rem;
+    color: var(--skill-muted-soft);
+    font-size: 0.74rem;
+    font-weight: 750;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .agent-skill-card h3 {
+    margin: 0;
+    color: var(--skill-ink);
+    font-size: 1.35rem;
+    letter-spacing: -0.03em;
+  }
+
+  .agent-skill-card__body > p:last-child {
+    margin: 0.6rem 0 0;
+    color: var(--skill-muted);
+    font-size: 0.93rem;
+    line-height: 1.65;
+  }
+
+  .agent-skill-card__features {
+    display: grid;
+    gap: 0.7rem;
+    margin: 0;
+    padding: 1.15rem 0 0;
+    border-top: 1px solid var(--skill-border);
+    list-style: none;
+  }
+
+  .agent-skill-card__features li {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: #dbe2ee;
+    font-size: 0.89rem;
+    font-weight: 600;
+  }
+
+  .agent-skill-card__check {
+    display: grid;
+    width: 1.25rem;
+    height: 1.25rem;
+    place-items: center;
+    border: 1px solid rgba(87, 211, 154, 0.23);
+    border-radius: 50%;
+    background: rgba(87, 211, 154, 0.1);
+    color: var(--skill-success);
+    font-size: 0.72rem;
+    font-weight: 900;
+  }
+
+  .agent-skill-how {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.75fr) minmax(0, 1.25fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    margin-top: clamp(3.5rem, 8vw, 7rem);
+    padding-top: clamp(2rem, 5vw, 4.2rem);
+    border-top: 1px solid var(--skill-border);
+  }
+
+  .agent-skill-how__heading h3 {
+    margin: 0;
+    font-size: clamp(1.7rem, 3.2vw, 2.45rem);
+    letter-spacing: -0.045em;
+    line-height: 1.06;
+  }
+
+  .agent-skill-how__heading > p:last-child {
+    max-width: 33ch;
+    margin: 0.95rem 0 0;
+    color: var(--skill-muted);
+    line-height: 1.7;
+  }
+
+  .agent-skill-steps {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .agent-skill-steps li {
+    display: flex;
+    gap: 0.9rem;
+    min-height: 140px;
+    padding: 1.15rem;
+    border: 1px solid var(--skill-border);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.025);
+  }
+
+  .agent-skill-step__number {
+    flex: 0 0 auto;
+    color: var(--skill-accent-bright);
+    font-size: 0.77rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+  }
+
+  .agent-skill-steps h4 {
+    margin: 0;
+    color: var(--skill-ink);
+    font-size: 0.98rem;
+    letter-spacing: -0.015em;
+  }
+
+  .agent-skill-steps p {
+    margin: 0.42rem 0 0;
+    color: var(--skill-muted);
+    font-size: 0.87rem;
+    line-height: 1.58;
+  }
+
+  .agent-skill-prompt {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 1rem;
+    align-items: start;
+    margin-top: clamp(2rem, 5vw, 4rem);
+    padding: 1.25rem 1.35rem;
+    border: 1px solid rgba(155, 140, 255, 0.22);
+    border-radius: 16px;
+    background:
+      linear-gradient(
+        105deg,
+        rgba(155, 140, 255, 0.14),
+        rgba(155, 140, 255, 0.045)
+      ),
+      var(--skill-surface-raised);
+  }
+
+  .agent-skill-prompt__icon {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border-radius: 9px;
+    background: var(--skill-accent);
+    color: #0d0b1a;
+    font-size: 1rem;
+  }
+
+  .agent-skill-prompt__text {
+    margin: 0;
+    color: #d9d7f3;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 760px) {
+    .agent-skill-section {
+      margin: 1rem auto;
+      border-radius: 20px;
+    }
+
+    .agent-skill-hero,
+    .agent-skill-how {
+      grid-template-columns: 1fr;
+    }
+
+    .agent-skill-card {
+      max-width: 560px;
+    }
+
+    .agent-skill-steps {
+      grid-template-columns: 1fr;
+    }
+  }
+</style></div><script>(function(){function wf(){var b=document.body;if(!b)return;var h=Math.max(b.scrollHeight,b.offsetHeight,document.documentElement?document.documentElement.scrollHeight:0);if(h>80&&window.parent!==window){try{parent.postMessage({type:"widget-height",name:"agent-skills-workflow",h:h},"*");}catch(e){}}}
+window.addEventListener("load",function(){setTimeout(wf,200);setTimeout(wf,900);setTimeout(wf,2200);});
+window.addEventListener("resize",wf);})();</script></body></body></html>

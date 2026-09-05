@@ -1,0 +1,366 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body><script>window.onmessage = function(event) {event.source.postMessage({iframeId: event.data, scrollHeight: document.body.getBoundingClientRect().height || document.body.scrollHeight}, event.origin);};</script><body style='margin: 0'><section class="trauma-study-compact" aria-labelledby="trauma-study-title">
+  <div class="trauma-study-compact__copy">
+    <p class="trauma-study-compact__kicker">
+      <span aria-hidden="true"></span>
+      Evidence-informed learning
+    </p>
+
+    <h2 id="trauma-study-title">
+      Childhood Trauma<br />
+      <em>Study</em>
+    </h2>
+
+    <p class="trauma-study-compact__intro">
+      A bilingual educational resource for understanding childhood trauma,
+      complex trauma, and developmental effects through accessible explanations,
+      structured learning pages, and supporting references.
+    </p>
+
+    <p class="trauma-study-compact__link">
+      <a
+        href="https://github.com/yuuryou/childhood-trauma-study"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Explore the study on GitHub
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          aria-hidden="true"
+        >
+          <path d="M14 4h6v6"></path>
+          <path d="M20 4 10 14"></path>
+          <path d="M20 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1 1-1h5"></path>
+        </svg>
+      </a>
+    </p>
+  </div>
+
+  <div class="trauma-study-compact__guide">
+    <div class="trauma-study-compact__project">
+      <div class="trauma-study-compact__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65">
+          <path d="M4.5 5.5A2.5 2.5 0 0 1 7 3h10a2.5 2.5 0 0 1 2.5 2.5v11A2.5 2.5 0 0 1 17 19H9l-4.5 3v-16.5Z"></path>
+          <path d="M8 8.5h8"></path>
+          <path d="M8 12h5.5"></path>
+          <path d="M8 15.5h7"></path>
+        </svg>
+      </div>
+
+      <div>
+        <p>Resource format</p>
+        <h3>A bilingual learning guide</h3>
+        <span>Trauma · development · references</span>
+      </div>
+    </div>
+
+    <div class="trauma-study-compact__how">
+      <p class="trauma-study-compact__label">How to use it</p>
+
+      <ol>
+        <li>
+          <span>01</span>
+          Begin with the introductory material in your preferred language.
+        </li>
+        <li>
+          <span>02</span>
+          Read the development and complex-trauma sections for context.
+        </li>
+        <li>
+          <span>03</span>
+          Consult the references and seek professional support for personal concerns.
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <aside class="trauma-study-compact__note" aria-label="Important note">
+    <span aria-hidden="true">✦</span>
+    <p>
+      <strong>Important:</strong>
+      This project is educational and does not provide diagnosis, treatment, or
+      crisis support. If these topics feel personally urgent or destabilizing,
+      contact a qualified mental-health professional or local emergency and
+      crisis services.
+    </p>
+  </aside>
+</section>
+
+<style>
+  :root {
+    --trauma-study-bg: #0b0d12;
+    --trauma-study-surface: #121722;
+    --trauma-study-ink: #f4f7fb;
+    --trauma-study-muted: #a8b2c3;
+    --trauma-study-muted-soft: #778195;
+    --trauma-study-border: rgba(166, 181, 209, 0.16);
+    --trauma-study-border-strong: rgba(166, 181, 209, 0.26);
+    --trauma-study-accent: #9b8cff;
+    --trauma-study-accent-bright: #b9adff;
+    --trauma-study-accent-soft: rgba(155, 140, 255, 0.13);
+    --trauma-study-highlight: #75d8c2;
+    /* liquid-glass equivalents (mirrors main.css :root) for this iframe-isolated widget */
+    --glass-line: linear-gradient(160deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.055));
+    --glass-edge: rgba(255, 255, 255, 0.16);
+    --glass-blur: 20px;
+    --glass-sat: saturate(1.45);
+    --glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.10);
+    --glass-shadow: var(--glass-inset), 0 10px 34px rgba(0, 0, 0, 0.34);
+  }
+
+  .trauma-study-compact,
+  .trauma-study-compact * {
+    box-sizing: border-box;
+  }
+
+  .trauma-study-compact {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+    gap: clamp(1.75rem, 5vw, 4.5rem);
+    max-width: 1180px;
+    margin: 2rem auto;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    overflow: hidden;
+    border: 1px solid var(--glass-edge);
+    border-radius: 24px;
+    background:
+      linear-gradient(160deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.045)),
+      radial-gradient(
+        circle at 94% 5%,
+        rgba(155, 140, 255, 0.16),
+        transparent 22rem
+      ),
+      radial-gradient(
+        circle at 7% 97%,
+        rgba(74, 180, 158, 0.11),
+        transparent 20rem
+      );
+    -webkit-backdrop-filter: blur(var(--glass-blur)) var(--glass-sat); backdrop-filter: blur(var(--glass-blur)) var(--glass-sat);
+    box-shadow: var(--glass-inset), 0 10px 34px rgba(0, 0, 0, 0.34);
+    color: var(--trauma-study-ink);
+    font-family:
+      Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
+  }
+
+  .trauma-study-compact__kicker {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin: 0 0 0.8rem;
+    color: var(--trauma-study-accent-bright);
+    font-size: 0.72rem;
+    font-weight: 750;
+    letter-spacing: 0.105em;
+    text-transform: uppercase;
+  }
+
+  .trauma-study-compact__kicker span {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--trauma-study-accent);
+    box-shadow: 0 0 0 4px rgba(155, 140, 255, 0.12);
+  }
+
+  .trauma-study-compact h2 {
+    max-width: 12ch;
+    margin: 0;
+    font-size: clamp(2.2rem, 4.6vw, 4rem);
+    font-weight: 760;
+    letter-spacing: -0.065em;
+    line-height: 0.96;
+  }
+
+  .trauma-study-compact h2 em {
+    color: var(--trauma-study-accent-bright);
+    font-style: normal;
+  }
+
+  .trauma-study-compact__intro {
+    max-width: 55ch;
+    margin: 1.15rem 0 0;
+    color: var(--trauma-study-muted);
+    font-size: 0.97rem;
+    line-height: 1.65;
+  }
+
+  .trauma-study-compact__link {
+    margin: 1.1rem 0 0;
+  }
+
+  .trauma-study-compact__link a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    border-bottom: 1px solid rgba(185, 173, 255, 0.48);
+    color: var(--trauma-study-accent-bright);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .trauma-study-compact__link a:hover {
+    border-color: var(--trauma-study-ink);
+    color: var(--trauma-study-ink);
+  }
+
+  .trauma-study-compact__link a:focus-visible {
+    outline: 3px solid rgba(155, 140, 255, 0.45);
+    outline-offset: 4px;
+    border-radius: 3px;
+  }
+
+  .trauma-study-compact__link svg {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  .trauma-study-compact__guide {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .trauma-study-compact__project,
+  .trauma-study-compact__how {
+    border: 1px solid rgba(255, 255, 255, 0.20);
+    border-radius: 16px;
+    background:
+      linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.10),
+        rgba(255, 255, 255, 0.03)
+      );
+    -webkit-backdrop-filter: blur(10px) saturate(1.3); backdrop-filter: blur(10px) saturate(1.3);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .trauma-study-compact__project {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1rem;
+  }
+
+  .trauma-study-compact__icon {
+    display: grid;
+    flex: 0 0 auto;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    border: 1px solid rgba(155, 140, 255, 0.25);
+    border-radius: 11px;
+    background: var(--trauma-study-accent-soft);
+    color: var(--trauma-study-accent-bright);
+  }
+
+  .trauma-study-compact__icon svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .trauma-study-compact__project p,
+  .trauma-study-compact__label {
+    margin: 0 0 0.2rem;
+    color: var(--trauma-study-muted-soft);
+    font-size: 0.7rem;
+    font-weight: 750;
+    letter-spacing: 0.095em;
+    text-transform: uppercase;
+  }
+
+  .trauma-study-compact__project h3 {
+    margin: 0;
+    font-size: 1.03rem;
+    letter-spacing: -0.02em;
+  }
+
+  .trauma-study-compact__project span {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--trauma-study-muted);
+    font-size: 0.81rem;
+  }
+
+  .trauma-study-compact__how {
+    padding: 1rem;
+  }
+
+  .trauma-study-compact__how ol {
+    display: grid;
+    gap: 0.55rem;
+    margin: 0.65rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .trauma-study-compact__how li {
+    display: grid;
+    grid-template-columns: 1.65rem minmax(0, 1fr);
+    gap: 0.55rem;
+    color: var(--trauma-study-muted);
+    font-size: 0.84rem;
+    line-height: 1.45;
+  }
+
+  .trauma-study-compact__how li span {
+    color: var(--trauma-study-highlight);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
+
+  .trauma-study-compact__note {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.7rem;
+    align-items: start;
+    margin-top: 0.25rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(155, 140, 255, 0.30);
+    border-radius: 14px;
+    background: linear-gradient(160deg, rgba(155, 140, 255, 0.16), rgba(155, 140, 255, 0.05));
+    -webkit-backdrop-filter: blur(10px) saturate(1.25); backdrop-filter: blur(10px) saturate(1.25);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .trauma-study-compact__note > span {
+    display: grid;
+    width: 1.55rem;
+    height: 1.55rem;
+    place-items: center;
+    border-radius: 7px;
+    background: var(--trauma-study-accent);
+    color: #0d0b1a;
+    font-size: 0.78rem;
+  }
+
+  .trauma-study-compact__note p {
+    margin: 0;
+    color: #dcdaf1;
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .trauma-study-compact__note strong {
+    color: var(--trauma-study-ink);
+  }
+
+  @media (max-width: 760px) {
+    .trauma-study-compact {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin: 1rem auto;
+      border-radius: 20px;
+    }
+
+    .trauma-study-compact__note {
+      grid-column: auto;
+    }
+  }
+</style><script>(function(){function wf(){var b=document.body;if(!b)return;var h=Math.max(b.scrollHeight,b.offsetHeight,document.documentElement?document.documentElement.scrollHeight:0);if(h>80&&window.parent!==window){try{parent.postMessage({type:"widget-height",name:"childhood-trauma",h:h},"*");}catch(e){}}}
+window.addEventListener("load",function(){setTimeout(wf,200);setTimeout(wf,900);setTimeout(wf,2200);});
+window.addEventListener("resize",wf);})();</script></body></body></html>

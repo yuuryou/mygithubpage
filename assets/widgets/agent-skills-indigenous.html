@@ -1,0 +1,554 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body><script>window.onmessage = function(event) {event.source.postMessage({iframeId: event.data, scrollHeight: document.body.getBoundingClientRect().height || document.body.scrollHeight}, event.origin);};</script><body style='margin: 0'><section class="indigenous-skill-section" aria-labelledby="indigenous-skill-title">
+  <div class="indigenous-skill-hero">
+    <div class="indigenous-skill-copy">
+      <p class="indigenous-skill-kicker">
+        <span class="indigenous-skill-kicker__dot" aria-hidden="true"></span>
+        Community-centered language work
+      </p>
+
+      <h2 id="indigenous-skill-title">
+        Work with Indigenous-language materials<br />
+        <span>with care, context, and accountability.</span>
+      </h2>
+
+      <p class="indigenous-skill-intro">
+        The <strong>Indigenous Languages Skill</strong> is a guided workflow for
+        AI-assisted work involving Indigenous languages, language-learning
+        materials, linguistic documentation, and community-sensitive research.
+        It helps keep the task grounded in source context, appropriate evidence,
+        and the limits of what an AI system should infer.
+      </p>
+
+      <p class="indigenous-skill-repository">
+        <span class="indigenous-skill-repository__label">Open source</span>
+        <a
+          href="https://github.com/yuuryou/SLT-skill-indigenous-languages"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View the skill on GitHub
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            aria-hidden="true"
+          >
+            <path d="M14 4h6v6"></path>
+            <path d="M20 4 10 14"></path>
+            <path d="M20 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h5"></path>
+          </svg>
+        </a>
+      </p>
+    </div>
+
+    <aside class="indigenous-skill-card" aria-label="Indigenous Languages Skill overview">
+      <div class="indigenous-skill-card__top">
+        <div class="indigenous-skill-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65">
+            <path d="M4.5 5.5A2.5 2.5 0 0 1 7 3h10a2.5 2.5 0 0 1 2.5 2.5v11A2.5 2.5 0 0 1 17 19H9l-4.5 3v-16.5Z"></path>
+            <path d="M8 8.5h8"></path>
+            <path d="M8 12h5.5"></path>
+          </svg>
+        </div>
+
+        <span class="indigenous-skill-card__status">
+          <span aria-hidden="true"></span>
+          Skill guide
+        </span>
+      </div>
+
+      <div class="indigenous-skill-card__body">
+        <p class="indigenous-skill-card__label">Designed for</p>
+        <h3>Responsible language support</h3>
+        <p>
+          Research, teaching materials, translation support, documentation
+          review, and culturally situated language questions.
+        </p>
+      </div>
+
+      <ul class="indigenous-skill-card__principles">
+        <li>
+          <span class="indigenous-skill-card__mark" aria-hidden="true">01</span>
+          Respect community authority
+        </li>
+        <li>
+          <span class="indigenous-skill-card__mark" aria-hidden="true">02</span>
+          Preserve source context
+        </li>
+        <li>
+          <span class="indigenous-skill-card__mark" aria-hidden="true">03</span>
+          State uncertainty clearly
+        </li>
+      </ul>
+    </aside>
+  </div>
+
+  <div class="indigenous-skill-use">
+    <div class="indigenous-skill-use__heading">
+      <p class="indigenous-skill-kicker">A practical workflow</p>
+      <h3>How to use this skill</h3>
+      <p>
+        Give the agent a bounded task, enough context to assess it responsibly,
+        and clear expectations for the final output.
+      </p>
+    </div>
+
+    <ol class="indigenous-skill-steps">
+      <li>
+        <span class="indigenous-skill-step__number">01</span>
+        <div>
+          <h4>Start with a specific task</h4>
+          <p>
+            State what you need: for example, a lesson activity, a source
+            comparison, a morphology explanation, or a review of draft wording.
+          </p>
+        </div>
+      </li>
+
+      <li>
+        <span class="indigenous-skill-step__number">02</span>
+        <div>
+          <h4>Provide the relevant context</h4>
+          <p>
+            Include the language or variety, source materials, intended audience,
+            orthography, community guidance, and any limits on reuse or sharing.
+          </p>
+        </div>
+      </li>
+
+      <li>
+        <span class="indigenous-skill-step__number">03</span>
+        <div>
+          <h4>Set evidence and output standards</h4>
+          <p>
+            Specify whether the answer should cite sources, preserve original
+            wording, distinguish evidence from inference, or use a particular format.
+          </p>
+        </div>
+      </li>
+
+      <li>
+        <span class="indigenous-skill-step__number">04</span>
+        <div>
+          <h4>Review before relying on it</h4>
+          <p>
+            Treat the result as a working draft. Verify language forms,
+            cultural claims, permissions, and community-sensitive interpretations
+            with appropriate sources or knowledge holders.
+          </p>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <aside class="indigenous-skill-prompt" aria-label="Example prompt for the Indigenous Languages Skill">
+    <div class="indigenous-skill-prompt__icon" aria-hidden="true">✦</div>
+
+    <div>
+      <p class="indigenous-skill-prompt__label">Example prompt</p>
+      <p class="indigenous-skill-prompt__text">
+        “Use the Indigenous Languages Skill to help me design a beginner lesson
+        activity for <em>[language]</em>. Base it only on the sources I provide,
+        preserve the supplied orthography, distinguish documented facts from
+        proposed teaching choices, and flag anything that requires review by a
+        fluent speaker or community authority.”
+      </p>
+    </div>
+  </aside>
+</section>
+
+<style>
+  :root {
+    --indigenous-skill-bg: #0b0d12;
+    --indigenous-skill-surface: #121722;
+    --indigenous-skill-surface-raised: #181f2d;
+    --indigenous-skill-ink: #f4f7fb;
+    --indigenous-skill-muted: #a8b2c3;
+    --indigenous-skill-muted-soft: #778195;
+    --indigenous-skill-border: rgba(166, 181, 209, 0.16);
+    --indigenous-skill-border-strong: rgba(166, 181, 209, 0.27);
+    --indigenous-skill-accent: #9b8cff;
+    --indigenous-skill-accent-bright: #b9adff;
+    --indigenous-skill-accent-soft: rgba(155, 140, 255, 0.13);
+    --indigenous-skill-success: #62d7a0;
+    --indigenous-skill-shadow: 0 28px 70px rgba(0, 0, 0, 0.34);
+  }
+
+  .indigenous-skill-section,
+  .indigenous-skill-section * {
+    box-sizing: border-box;
+  }
+
+  .indigenous-skill-section {
+    max-width: 1180px;
+    margin: 3rem auto;
+    padding: clamp(1.4rem, 5vw, 4.5rem);
+    overflow: hidden;
+    border: 1px solid var(--indigenous-skill-border);
+    border-radius: 28px;
+    background:
+      radial-gradient(
+        circle at 92% 6%,
+        rgba(155, 140, 255, 0.18) 0,
+        transparent 27rem
+      ),
+      radial-gradient(
+        circle at 6% 95%,
+        rgba(65, 154, 136, 0.1) 0,
+        transparent 25rem
+      ),
+      var(--indigenous-skill-bg);
+    color: var(--indigenous-skill-ink);
+    font-family:
+      Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
+  }
+
+  .indigenous-skill-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(290px, 0.8fr);
+    gap: clamp(2rem, 8vw, 7rem);
+    align-items: center;
+  }
+
+  .indigenous-skill-kicker {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0 0 1rem;
+    color: var(--indigenous-skill-accent-bright);
+    font-size: 0.76rem;
+    font-weight: 750;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+
+  .indigenous-skill-kicker__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--indigenous-skill-accent);
+    box-shadow: 0 0 0 5px rgba(155, 140, 255, 0.12);
+  }
+
+  .indigenous-skill-copy h2 {
+    max-width: 15ch;
+    margin: 0;
+    font-size: clamp(2.3rem, 5.3vw, 4.65rem);
+    font-weight: 760;
+    letter-spacing: -0.065em;
+    line-height: 0.98;
+  }
+
+  .indigenous-skill-copy h2 span {
+    color: var(--indigenous-skill-accent-bright);
+  }
+
+  .indigenous-skill-intro {
+    max-width: 62ch;
+    margin: 1.6rem 0 0;
+    color: var(--indigenous-skill-muted);
+    font-size: clamp(1rem, 1.4vw, 1.08rem);
+    line-height: 1.8;
+  }
+
+  .indigenous-skill-intro strong {
+    color: var(--indigenous-skill-ink);
+    font-weight: 700;
+  }
+
+  .indigenous-skill-repository {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem;
+    margin: 1.65rem 0 0;
+    color: var(--indigenous-skill-muted);
+    font-size: 0.92rem;
+  }
+
+  .indigenous-skill-repository__label {
+    color: var(--indigenous-skill-muted-soft);
+    font-size: 0.72rem;
+    font-weight: 750;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .indigenous-skill-repository a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    border-bottom: 1px solid rgba(185, 173, 255, 0.45);
+    color: var(--indigenous-skill-accent-bright);
+    font-weight: 650;
+    line-height: 1.45;
+    text-decoration: none;
+    transition:
+      border-color 160ms ease,
+      color 160ms ease;
+  }
+
+  .indigenous-skill-repository a:hover {
+    border-color: var(--indigenous-skill-ink);
+    color: var(--indigenous-skill-ink);
+  }
+
+  .indigenous-skill-repository a:focus-visible {
+    outline: 3px solid rgba(155, 140, 255, 0.45);
+    outline-offset: 4px;
+    border-radius: 3px;
+  }
+
+  .indigenous-skill-repository svg {
+    width: 0.95rem;
+    height: 0.95rem;
+  }
+
+  .indigenous-skill-card {
+    padding: 1.25rem;
+    border: 1px solid var(--indigenous-skill-border-strong);
+    border-radius: 20px;
+    background:
+      linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.07),
+        rgba(255, 255, 255, 0.025)
+      ),
+      var(--indigenous-skill-surface);
+    box-shadow: var(--indigenous-skill-shadow);
+  }
+
+  .indigenous-skill-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .indigenous-skill-card__icon {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border: 1px solid rgba(155, 140, 255, 0.25);
+    border-radius: 12px;
+    background: var(--indigenous-skill-accent-soft);
+    color: var(--indigenous-skill-accent-bright);
+  }
+
+  .indigenous-skill-card__icon svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .indigenous-skill-card__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--indigenous-skill-success);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .indigenous-skill-card__status span {
+    width: 0.48rem;
+    height: 0.48rem;
+    border-radius: 50%;
+    background: var(--indigenous-skill-success);
+    box-shadow: 0 0 0 5px rgba(98, 215, 160, 0.12);
+  }
+
+  .indigenous-skill-card__body {
+    padding: 1.55rem 0 1.25rem;
+  }
+
+  .indigenous-skill-card__label,
+  .indigenous-skill-prompt__label {
+    margin: 0 0 0.45rem;
+    color: var(--indigenous-skill-muted-soft);
+    font-size: 0.74rem;
+    font-weight: 750;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .indigenous-skill-card h3 {
+    margin: 0;
+    color: var(--indigenous-skill-ink);
+    font-size: 1.35rem;
+    letter-spacing: -0.03em;
+  }
+
+  .indigenous-skill-card__body > p:last-child {
+    margin: 0.6rem 0 0;
+    color: var(--indigenous-skill-muted);
+    font-size: 0.93rem;
+    line-height: 1.65;
+  }
+
+  .indigenous-skill-card__principles {
+    display: grid;
+    gap: 0.7rem;
+    margin: 0;
+    padding: 1.15rem 0 0;
+    border-top: 1px solid var(--indigenous-skill-border);
+    list-style: none;
+  }
+
+  .indigenous-skill-card__principles li {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: #dbe2ee;
+    font-size: 0.89rem;
+    font-weight: 600;
+  }
+
+  .indigenous-skill-card__mark {
+    display: grid;
+    width: 1.45rem;
+    height: 1.45rem;
+    place-items: center;
+    border: 1px solid rgba(98, 215, 160, 0.24);
+    border-radius: 50%;
+    background: rgba(98, 215, 160, 0.1);
+    color: var(--indigenous-skill-success);
+    font-size: 0.62rem;
+    font-weight: 850;
+    letter-spacing: 0.03em;
+  }
+
+  .indigenous-skill-use {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.75fr) minmax(0, 1.25fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    margin-top: clamp(3.5rem, 8vw, 7rem);
+    padding-top: clamp(2rem, 5vw, 4.2rem);
+    border-top: 1px solid var(--indigenous-skill-border);
+  }
+
+  .indigenous-skill-use__heading h3 {
+    margin: 0;
+    font-size: clamp(1.7rem, 3.2vw, 2.45rem);
+    letter-spacing: -0.045em;
+    line-height: 1.06;
+  }
+
+  .indigenous-skill-use__heading > p:last-child {
+    max-width: 34ch;
+    margin: 0.95rem 0 0;
+    color: var(--indigenous-skill-muted);
+    line-height: 1.7;
+  }
+
+  .indigenous-skill-steps {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .indigenous-skill-steps li {
+    display: flex;
+    gap: 0.9rem;
+    min-height: 156px;
+    padding: 1.15rem;
+    border: 1px solid var(--indigenous-skill-border);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.025);
+  }
+
+  .indigenous-skill-step__number {
+    flex: 0 0 auto;
+    color: var(--indigenous-skill-accent-bright);
+    font-size: 0.77rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+  }
+
+  .indigenous-skill-steps h4 {
+    margin: 0;
+    color: var(--indigenous-skill-ink);
+    font-size: 0.98rem;
+    letter-spacing: -0.015em;
+  }
+
+  .indigenous-skill-steps p {
+    margin: 0.42rem 0 0;
+    color: var(--indigenous-skill-muted);
+    font-size: 0.87rem;
+    line-height: 1.58;
+  }
+
+  .indigenous-skill-prompt {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 1rem;
+    align-items: start;
+    margin-top: clamp(2rem, 5vw, 4rem);
+    padding: 1.25rem 1.35rem;
+    border: 1px solid rgba(155, 140, 255, 0.22);
+    border-radius: 16px;
+    background:
+      linear-gradient(
+        105deg,
+        rgba(155, 140, 255, 0.14),
+        rgba(155, 140, 255, 0.045)
+      ),
+      var(--indigenous-skill-surface-raised);
+  }
+
+  .indigenous-skill-prompt__icon {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border-radius: 9px;
+    background: var(--indigenous-skill-accent);
+    color: #0d0b1a;
+    font-size: 1rem;
+  }
+
+  .indigenous-skill-prompt__text {
+    margin: 0;
+    color: #dddaf4;
+    line-height: 1.72;
+  }
+
+  .indigenous-skill-prompt em {
+    color: #ffffff;
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  @media (max-width: 760px) {
+    .indigenous-skill-section {
+      margin: 1rem auto;
+      border-radius: 20px;
+    }
+
+    .indigenous-skill-hero,
+    .indigenous-skill-use {
+      grid-template-columns: 1fr;
+    }
+
+    .indigenous-skill-card {
+      max-width: 560px;
+    }
+
+    .indigenous-skill-steps {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .indigenous-skill-repository a {
+      transition: none;
+    }
+  }
+</style><script>(function(){function wf(){var b=document.body;if(!b)return;var h=Math.max(b.scrollHeight,b.offsetHeight,document.documentElement?document.documentElement.scrollHeight:0);if(h>80&&window.parent!==window){try{parent.postMessage({type:"widget-height",name:"agent-skills-indigenous",h:h},"*");}catch(e){}}}
+window.addEventListener("load",function(){setTimeout(wf,200);setTimeout(wf,900);setTimeout(wf,2200);});
+window.addEventListener("resize",wf);})();</script></body></body></html>

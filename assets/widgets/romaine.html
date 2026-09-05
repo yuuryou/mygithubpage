@@ -1,0 +1,261 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body><script>window.onmessage = function(event) {event.source.postMessage({iframeId: event.data, scrollHeight: document.body.getBoundingClientRect().height || document.body.scrollHeight}, event.origin);};</script><body style='margin: 0;'><div style="display: flex; justify-content: center"><!-- Paste this entire snippet into a single GoDaddy Website Builder HTML block. No external libs needed. -->
+<section id="romaine-app" lang="en">
+  <style>
+    /* Namespaced styles to avoid conflicts */
+    #romaine-app { position: relative; color: #fff; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans"; }
+    #romaine-app *, #romaine-app *::before, #romaine-app *::after { box-sizing: border-box; }
+
+    #romaine-app .r-container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+    #romaine-app .r-topbar { position: sticky; top: 0; z-index: 30; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); background: rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.25); }
+    #romaine-app .r-topbar-inner { display: flex; align-items: center; gap: 8px; padding: 10px 0; }
+    #romaine-app .r-title { font-weight: 700; letter-spacing: .3px; text-shadow: 0 1px 4px rgba(0,0,0,.35); }
+    #romaine-app .r-btn { appearance: none; border: 1px solid rgba(255,255,255,0.25); color: #fff; background: rgba(255,255,255,0.12); padding: 8px 12px; border-radius: 999px; cursor: pointer; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+    #romaine-app .r-btn:hover { background: rgba(255,255,255,0.2); }
+    #romaine-app .r-search { width: 100%; padding: 10px 12px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.12); color: #fff; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+    #romaine-app .r-grid { display: grid; gap: 12px; }
+    @media (min-width: 640px) { #romaine-app .r-grid-2 { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 960px) { #romaine-app .r-grid-3 { grid-template-columns: repeat(3, 1fr); } }
+    #romaine-app .r-card { border: 1px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.12); border-radius: 22px; padding: 16px; box-shadow: 0 6px 26px rgba(0,0,0,.25); transition: transform .15s ease, box-shadow .2s ease, background .2s ease; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+    #romaine-app .r-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,.35); background: rgba(255,255,255,0.16); }
+    #romaine-app .r-section { scroll-margin-top: 96px; }
+    #romaine-app .r-h1 { font-size: clamp(24px, 3vw, 40px); font-weight: 800; margin: 8px 0 6px; }
+    #romaine-app .r-h2 { font-size: clamp(20px, 2.2vw, 28px); font-weight: 700; margin: 22px 0 10px; }
+    #romaine-app .r-h3 { font-size: clamp(18px, 2vw, 22px); font-weight: 700; margin: 14px 0 8px; }
+    #romaine-app .r-muted { opacity: .88; }
+    #romaine-app .r-toc { position: sticky; top: 96px; max-height: 60vh; overflow: auto; padding: 10px; border: 1px solid rgba(255,255,255,0.25); border-radius: 16px; background: rgba(255,255,255,0.12); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+    #romaine-app .r-toc a { color: #fff; text-decoration: none; font-size: 14px; display: block; margin: 6px 0; }
+    #romaine-app .r-toc a:hover { text-decoration: underline; }
+    #romaine-app .r-progress { position: sticky; top: 10px; z-index: 40; width: 100%; display: flex; align-items: center; gap: 12px; border: 1px solid rgba(255,255,255,0.25); border-radius: 999px; padding: 8px 12px; background: rgba(255,255,255,0.12); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+    #romaine-app .r-progress-title { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 55%; }
+    #romaine-app .r-bar { flex: 1; height: 10px; border-radius: 999px; background: rgba(255,255,255,0.2); overflow: hidden; }
+    #romaine-app .r-bar > div { height: 100%; background: rgba(255,255,255,0.75); width: 0%; }
+    #romaine-app table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    #romaine-app th, #romaine-app td { text-align: left; padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.18); }
+    #romaine-app thead th { background: rgba(255,255,255,0.18); }
+    #romaine-app .r-quote { border-left: 3px solid rgba(255,255,255,0.45); padding-left: 10px; font-style: italic; }
+    #romaine-app .r-glossary { border: 1px solid rgba(255,255,255,0.25); border-radius: 16px; padding: 12px; background: rgba(255,255,255,0.12); }
+    #romaine-app .r-footer-note { font-size: 13px; opacity: .9; }
+
+    /* Background canvas sits inside the section so it stays within the block */
+    #romaine-app .r-bg-wrap { position: absolute; inset: 0; z-index: 0; overflow: hidden; border-radius: 16px; }
+    #romaine-app canvas.r-bg { position: absolute; inset: 0; filter: blur(24px); opacity: .85; }
+
+    /* Page colors */
+    #romaine-app { background: #0a0a0f; border-radius: 16px; padding-bottom: 24px; }
+  </style>
+
+  <!-- Background -->
+  <div class="r-bg-wrap" aria-hidden="true"><canvas class="r-bg" id="r-bg"></canvas></div>
+
+  <!-- Progress (within block) -->
+  <div class="r-progress r-container" style="margin-top:12px;">
+    <div class="r-progress-title" id="r-progressTitle">Start</div>
+    <div class="r-bar"><div id="r-barInner"></div></div>
+    <div id="r-pct" style="width:40px; text-align:right; font-variant-numeric: tabular-nums; font-size:12px;">0%</div>
+  </div>
+
+  <!-- Topbar with controls -->
+  <div class="r-topbar">
+    <div class="r-container r-topbar-inner">
+      <div class="r-title" id="r-siteTitle"></div>
+      <div style="margin-left:auto; display:flex; gap:8px;">
+        <button class="r-btn" id="r-langBtn">Language: EN</button>
+        <button class="r-btn" id="r-motionBtn">Reduce motion</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="r-container" style="padding-top:22px; padding-bottom:12px; position: relative; z-index: 1;">
+    <div class="r-grid" style="grid-template-columns: 1fr; gap: 16px;">
+      <div>
+        <div class="r-h1" id="r-heroTitle"></div>
+        <div class="r-muted" id="r-heroMeta"></div>
+      </div>
+      <div>
+        <input class="r-search" id="r-search" placeholder="Search terms, concepts, examples…"/>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="r-container" style="position: relative; z-index: 1; padding-bottom: 40px;">
+    <section id="r-themesGrid" class="r-grid r-grid-2 r-grid-3"></section>
+    <div class="r-grid" style="grid-template-columns: 1fr; gap: 16px;" id="r-contentArea">
+      <div id="r-themes"></div>
+      <aside class="r-toc" id="r-miniTOC" style="display:none;"></aside>
+    </div>
+
+    <section id="r-references">
+      <div class="r-h2">References</div>
+      <div id="r-refs"></div>
+    </section>
+  </main>
+
+  <footer class="r-container" style="padding-bottom: 24px; position: relative; z-index: 1;">
+    <div class="r-card r-footer-note">
+      This site is a personal study aid summarizing content from Romaine (2000). It includes original summaries, limited fair-use quotations, and recreated figures. No redistribution.
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      // ---------- Data (same as standalone version, trimmed for brevity) ----------
+      const CONTENT_EN = {"meta":{"title":"Language in Society — An Introduction to Sociolinguistics (Romaine, 2000)","author":"Suzanne Romaine","edition":"2000","source":"Oxford University Press"},"themes":[{"id":"language-identity-community","title":"Language, Identity & Community","sections":[{"id":"speech-communities","title":"Speech Communities & Communicative Competence","summary":"Defines speech communities as networks united by shared norms for language use. Emphasizes competence as knowledge of rules for appropriate speech in contexts, not only grammar.","keyPoints":["Speech communities are defined by shared evaluative norms, not by a single uniform grammar.","Competence includes knowing when/where/how to speak (pragmatics).","Boundaries are porous; communities overlap and shift across domains (home, work, school)."],"examples":["A bilingual neighborhood uses Spanish at home and English at institutions; norms govern switching.","In a workplace, jargon and politeness routines define membership more than birthplace."],"quotes":[{"text":"What unites a community is agreement about norms for language use rather than uniform usage.","cite":"Romaine, 2000, ch.1"}],"glossary":[{"term":"Speech community","def":"A group sharing norms for interpreting and evaluating language use."},{"term":"Communicative competence","def":"Knowledge of how to use language appropriately across contexts."}],"figures":[{"type":"table","title":"Domains of Language Use","caption":"Illustrative mapping of domains to codes in a bilingual community.","headers":["Domain","Typical Code","Notes"],"rows":[["Home","Spanish","Solidarity, intimacy"],["School","English","Institutional norms"],["Market","Both","Choice by interlocutor"],["Religious","Spanish","Group identity"]]}]},{"id":"register-style","title":"Register, Style, Accommodation","summary":"Registers are situational varieties; style is the speaker's selection within constraints. Audience design and accommodation explain how we converge or diverge linguistically.","keyPoints":["Register aligns with activity type (e.g., legalese).","Style shifts with topic, audience, and stance.","Accommodation: speakers adapt toward or away from interlocutors to manage social distance."],"examples":["Shifting from casual to careful speech during a job interview.","Using more technical terms when presenting to specialists."],"quotes":[],"glossary":[{"term":"Register","def":"Variety associated with a situation or activity type."},{"term":"Style","def":"Choice of features indexing formality, stance, or audience."},{"term":"Accommodation","def":"Adjusting speech toward/away from interlocutors."}],"figures":[]}]},{"id":"language-choice","title":"Multilingualism & Language Choice","sections":[{"id":"diglossia","title":"Diglossia & Domains","summary":"Explains complementary distribution of High (H) and Low (L) varieties across domains; stability depends on clear functional separation and institutional support.","keyPoints":["H-varieties linked to literacy, religion, administration; L-varieties to home and intimacy.","Stability erodes when L encroaches into H domains via education/media.","Shift occurs when economic mobility favors one code across more domains."],"examples":["Arabic (Classical/Modern Standard vs. colloquial dialects).","Swiss German (Standard German for writing; Swiss German in everyday speech)."],"quotes":[{"text":"Functional compartmentalization underpins diglossic stability.","cite":"Romaine, 2000, ch.2"}],"glossary":[{"term":"Diglossia","def":"Stable co-existence of H and L varieties with functional separation."},{"term":"Domain","def":"A sphere of activity governing code choice (e.g., home, school)."}],"figures":[{"type":"table","title":"Idealized Diglossic Allocation","headers":["Domain","Preferred Variety","Rationale"],"rows":[["Government","H","Formality, prestige"],["Education","H → L/H","Shifts with policy and pedagogy"],["Home","L","Solidarity"],["Media","H/L","Format, audience"]]}]},{"id":"code-switching","title":"Code-Switching & Code-Mixing","summary":"Distinguishes situational switching (context-driven) from metaphorical switching (meaning-making). Notes structural constraints and discourse functions (quotation, emphasis, identity).","keyPoints":["Switching indexes stance, alignment, topic shift, or addressee change.","Not random: follows grammatical constraints at switch points.","Stereotypes of deficiency obscure its communicative sophistication."],"examples":["Tag-switching in Cantonese–English youth talk for humor/emphasis.","Spanish–English switches to mark quoted speech or topic boundaries."],"quotes":[],"glossary":[{"term":"Code-switching","def":"Alternating languages/varieties across sentences or clauses."},{"term":"Code-mixing","def":"Intra-sentential mixing of elements from multiple codes."}],"figures":[]},{"id":"language-shift","title":"Language Maintenance, Shift & Death","summary":"Examines community-level outcomes when domains contract (shift) or persist (maintenance). Identifies economic incentives, intermarriage, schooling, and policy as drivers.","keyPoints":["Intergenerational transmission is decisive.","Shift is domain-by-domain before competence loss.","Revitalization aligns new functions with valued identities (schools, media, ritual)."],"examples":["Irish across schooling vs. home transmission patterns.","Indigenous languages facing domain squeeze in urban migration."],"quotes":[],"glossary":[{"term":"Maintenance","def":"Sustaining community bilingualism across domains."},{"term":"Shift","def":"Progressive replacement of one language by another."}],"figures":[]}]} ,{"id":"sociolinguistic-patterns","title":"Sociolinguistic Patterns","sections":[{"id":"variation","title":"Variation, Style, and Social Stratification","summary":"Presents quantitative correlations between linguistic variables and social class, style, and networks. Careful vs casual styles show hypercorrection patterns under prestige pressure.","keyPoints":["Variables correlate probabilistically with class and style (not categorical).","Attention to speech increases prestige variants in middle classes (hypercorrection).","Dense multiplex networks stabilize local norms and resist change."],"examples":["/r/-pronunciation across NYC department stores (prestige pattern).","t/d deletion in English conditioned by phonology and style."],"quotes":[],"glossary":[{"term":"Sociolinguistic variable","def":"A feature with socially patterned variants (e.g., -ing)."},{"term":"Hypercorrection","def":"Over-application of prestige form in careful speech."},{"term":"Network density","def":"Extent of interconnected ties among speakers."}],"figures":[{"type":"table","title":"Stylistic Shift and Prestige Variant (schematic)","headers":["Style","% prestige variant (illustrative)","Notes"],"rows":[["Casual","35%","Baseline community norm"],["Careful","55%","Attention to speech"],["Reading list","70%","Overt prestige salience"]]}]},{"id":"age-gender-class","title":"Age, Gender, and Class","summary":"Addresses apparent-time patterns (age-grading vs change in progress), gendered participation in change (often female-led for prestige or innovative norms), and class-indexed style.","keyPoints":["Adolescents often peak in use of local innovations.","Women may lead change from above (prestige) or below (covert prestige), depending on networks.","Class stratification interacts with local ideologies of correctness."],"examples":["Raising of vowels in regional English led by young women.","Covert prestige in working-class male speech for solidarity."],"quotes":[],"glossary":[{"term":"Apparent time","def":"Using generational differences to infer change in progress."},{"term":"Covert prestige","def":"Valuing nonstandard forms for solidarity/identity."}],"figures":[]}]} ,{"id":"language-gender","title":"Language & Gender","sections":[{"id":"gender-difference-dominance","title":"Difference, Dominance, and Discursive Practice","summary":"Surveys models of gendered language: difference (subcultural norms), dominance (power asymmetries), and practice (indexical, context-sensitive). Warns against essentializing women/men.","keyPoints":["Features like tag questions and overlaps are context-dependent, not inherently feminine/masculine.","Power, expertise, and activity type shape interactional patterns.","Language indexes gender alongside class, ethnicity, and setting (intersectional view)."],"examples":["Mixed-gender workplace meetings show floor management linked to role, not sex alone.","Girls' and boys' peer groups organize talk differently due to activity structures."],"quotes":[],"glossary":[{"term":"Indexicality","def":"Features point to (index) social meanings like gender or stance."},{"term":"Interactional sociolinguistics","def":"Analyzes meaning through contextualization cues in discourse."}],"figures":[]}]} ,{"id":"change-variation","title":"Language Change in Social Context","sections":[{"id":"change-mechanisms","title":"Mechanisms: Diffusion, Levelling, and Grammaticalization","summary":"Traces change through social diffusion (from centers of prestige), dialect levelling (reduction of marked variants), and internal processes like grammaticalization.","keyPoints":["Change spreads along social networks and geographic corridors.","Levelling follows mobility and media exposure; koineization in new towns.","S-curve trajectories are common in adoption rates."],"examples":["Northern Cities Shift spreading through urban networks.","Auxiliary innovations diffusing from prestige centers."],"quotes":[],"glossary":[{"term":"Levelling","def":"Reduction of marked differences between dialects."},{"term":"Koineization","def":"Formation of a new mixed dialect from contact."}],"figures":[{"type":"table","title":"S-curve Adoption (schematic)","headers":["Phase","Adoption","Description"],"rows":[["Innovation","<10%","Early adopters"],["Expansion","10–60%","Rapid diffusion"],["Saturation",">60%","Stabilization"]]}]}]} ,{"id":"pidgins-creoles","title":"Pidgins & Creoles","sections":[{"id":"formation","title":"Formation, Substrate/Superstrate, and Decreolization","summary":"Describes pidgin emergence in contact settings and nativization into creoles. Discusses substrate influence, superstrate lexifiers, and post-creole continua under pressure from standards.","keyPoints":["Creoles develop full grammar through nativization.","Continuum: basilect–mesolect–acrolect shaped by access to the standard.","Debates on universals vs. transfer highlight multiple pathways."],"examples":["Jamaican Creole continuum relative to Standard English.","Tok Pisin's expansion and functional range in PNG."],"quotes":[],"glossary":[{"term":"Substrate","def":"Languages of subordinate groups influencing structure."},{"term":"Superstrate/Lexifier","def":"Dominant language providing most vocabulary."},{"term":"Decreolization","def":"Shift of creole varieties toward the standard."}],"figures":[{"type":"table","title":"Post-Creole Continuum (schematic)","headers":["Level","Description"],"rows":[["Basilect","Farthest from the standard"],["Mesolect","Intermediate varieties"],["Acrolect","Closest to the standard"]]}]}]} ,{"id":"standardization-policy","title":"Standardization, Planning & Policy","sections":[{"id":"planning","title":"Status vs Corpus Planning; Literacy & Education","summary":"Separates status planning (roles/functions) from corpus planning (forms/orthography). Reviews how literacy and schooling shape legitimacy and access.","keyPoints":["Policy choices redistribute communicative resources and prestige.","Mother-tongue education supports learning yet requires materials and teacher training.","Standardization codifies norms but may marginalize varieties."],"examples":["Orthography reforms balancing etymology vs phonemic transparency.","Bilingual education models and outcomes across contexts."],"quotes":[],"glossary":[{"term":"Status planning","def":"Assigning functions to languages/varieties."},{"term":"Corpus planning","def":"Developing forms: spelling, lexicon, grammar."}],"figures":[]}]} ,{"id":"education-literacy","title":"Education & Literacy","sections":[{"id":"vernacular-education","title":"Vernaculars in Education & Assessment","summary":"Explores gains from valuing vernacular repertoires in classrooms; warns against deficit framing and mismatched assessment norms.","keyPoints":["Bridging from home varieties to standard literacy improves outcomes.","Assessment must reflect communicative competence, not just standard norms."],"examples":["Contrastive analysis pedagogy for AAVE–Standard English literacy."],"quotes":[],"glossary":[{"term":"AAVE","def":"African American Vernacular English; a systematic variety of English."}],"figures":[]}]} ,{"id":"conclusion","title":"Conclusions","sections":[{"id":"wrap-up","title":"Integrating Structure, Use, and Ideology","summary":"Sociolinguistics links linguistic structure with social practice and ideology. Understanding patterned variability improves policy, pedagogy, and equity.","keyPoints":["Language variation is structured and meaningful.","Choices index identities and negotiate power.","Applied insights matter: education, law, health, and governance."],"examples":[],"quotes":[],"glossary":[],"figures":[]}]}],"references":[{"id":"romaine2000","apa":"Romaine, S. (2000). *Language in society: An introduction to sociolinguistics*. Oxford: Oxford University Press."}]};
+
+      const I18N = { en: { searchPlaceholder: "Search terms, concepts, examples…", onThisPage: "On this page", language: "Language", reduceMotion: "Reduce motion", references: "References", sections: "sections" }, zhHant: { searchPlaceholder: "搜尋術語、概念、範例…", onThisPage: "本頁導覽", language: "語言", reduceMotion: "降低動態", references: "參考文獻", sections: "節" }, zhHans: { searchPlaceholder: "搜索术语、概念、示例…", onThisPage: "本页导览", language: "语言", reduceMotion: "减少动态", references: "参考文献", sections: "节" } };
+
+      const MAP_THEME = { zhHant: {"Language, Identity & Community":"語言、認同與社群","Multilingualism & Language Choice":"多語現象與語碼選擇","Sociolinguistic Patterns":"社會語言學的規律","Language & Gender":"語言與性別","Language Change in Social Context":"社會情境中的語言變化","Pidgins & Creoles":"皮欽語與克里奧語","Standardization, Planning & Policy":"標準化、語言規劃與政策","Education & Literacy":"教育與識字","Conclusions":"結論"}, zhHans: {"Language, Identity & Community":"语言、认同与社群","Multilingualism & Language Choice":"多语现象与语码选择","Sociolinguistic Patterns":"社会语言学的规律","Language & Gender":"语言与性别","Language Change in Social Context":"社会情境中的语言变化","Pidgins & Creoles":"皮钦语与克里奥尔语","Standardization, Planning & Policy":"标准化、语言规划与政策","Education & Literacy":"教育与识字","Conclusions":"结论"} };
+      const MAP_SECTION = { zhHant: {"Speech Communities & Communicative Competence":"言談社群與溝通能力","Register, Style, Accommodation":"語域、文體與遷就理論","Diglossia & Domains":"雙言現象與領域","Code-Switching & Code-Mixing":"語碼轉換與語碼混用","Language Maintenance, Shift & Death":"語言維持、轉移與消亡","Variation, Style, and Social Stratification":"變異、文體與社會階層","Age, Gender, and Class":"年齡、性別與階層","Difference, Dominance, and Discursive Practice":"差異、支配與論述實踐","Mechanisms: Diffusion, Levelling, and Grammaticalization":"機制：擴散、平整化與語法化","Formation, Substrate/Superstrate, and Decreolization":"形成、基層/上層語與去克里奧化","Status vs Corpus Planning; Literacy & Education":"地位與本體規劃；識字與教育","Vernaculars in Education & Assessment":"教育中的本土語與評量","Integrating Structure, Use, and Ideology":"結合結構、使用與意識形態"}, zhHans: {"Speech Communities & Communicative Competence":"言谈社群与沟通能力","Register, Style, Accommodation":"语域、文体与迁就理论","Diglossia & Domains":"双言现象与领域","Code-Switching & Code-Mixing":"语码转换与语码混用","Language Maintenance, Shift & Death":"语言维持、转移与消亡","Variation, Style, and Social Stratification":"变异、文体与社会阶层","Age, Gender, and Class":"年龄、性别与阶层","Difference, Dominance, and Discursive Practice":"差异、支配与论述实践","Mechanisms: Diffusion, Levelling, and Grammaticalization":"机制：扩散、平整化与语法化","Formation, Substrate/Superstrate, and Decreolization":"形成、基层/上层语与去克里奥化","Status vs Corpus Planning; Literacy & Education":"地位与本体规划；识字与教育","Vernaculars in Education & Assessment":"教育中的本土语与评量","Integrating Structure, Use, and Ideology":"结合结构、使用与意识形态"} };
+
+      // ---------- DOM helpers (scoped to romaine-app) ----------
+      const root = document.getElementById('romaine-app');
+      const q = (sel) => root.querySelector(sel);
+      const qa = (sel) => Array.from(root.querySelectorAll(sel));
+
+      let LANG = 'en';
+      let REDUCE = false;
+      let CONTENT = CONTENT_EN;
+
+      const siteTitle = q('#r-siteTitle');
+      const heroTitle = q('#r-heroTitle');
+      const heroMeta = q('#r-heroMeta');
+      const themesGrid = q('#r-themesGrid');
+      const themesDiv = q('#r-themes');
+      const refsDiv = q('#r-refs');
+      const miniTOC = q('#r-miniTOC');
+      const search = q('#r-search');
+      const langBtn = q('#r-langBtn');
+      const motionBtn = q('#r-motionBtn');
+      const progressTitle = q('#r-progressTitle');
+      const barInner = q('#r-barInner');
+      const pct = q('#r-pct');
+
+      function applyHeader() {
+        siteTitle.textContent = CONTENT.meta.title;
+        heroTitle.textContent = CONTENT.meta.title;
+        heroMeta.textContent = `${CONTENT.meta.author} — ${CONTENT.meta.source} (${CONTENT.meta.edition}). Organized by themes with deep-dive summaries, recreated figures, glossary, and citations.`;
+        search.placeholder = I18N[LANG].searchPlaceholder;
+        root.querySelector('#r-references .r-h2').textContent = I18N[LANG].references;
+      }
+
+      function tTheme(title) { if (LANG === 'en') return title; const map = MAP_THEME[LANG] || {}; return map[title] || title; }
+      function tSection(title) { if (LANG === 'en') return title; const map = MAP_SECTION[LANG] || {}; return map[title] || title; }
+
+      function renderThemesGrid() {
+        themesGrid.innerHTML = '';
+        CONTENT.themes.forEach(th => {
+          const a = document.createElement('a');
+          a.href = `#theme-${th.id}`; a.className = 'r-card';
+          const h = document.createElement('div'); h.style.fontWeight = '700'; h.style.marginBottom = '6px'; h.textContent = tTheme(th.title);
+          const s = document.createElement('div'); s.style.opacity = '.9'; s.style.fontSize = '14px'; s.textContent = `${th.sections.length} ${I18N[LANG].sections}`;
+          a.appendChild(h); a.appendChild(s); themesGrid.appendChild(a);
+        });
+      }
+
+      function renderSections(filtered=null) {
+        themesDiv.innerHTML = '';
+        const list = filtered || CONTENT.themes;
+        list.forEach(th => {
+          const secWrap = document.createElement('section');
+          secWrap.id = `theme-${th.id}`; secWrap.className = 'r-section';
+          const h2 = document.createElement('div'); h2.className = 'r-h2'; h2.textContent = tTheme(th.title); h2.setAttribute('data-section-title','1'); secWrap.appendChild(h2);
+
+          th.sections.forEach(s => {
+            const sdiv = document.createElement('div'); sdiv.className = 'r-section'; sdiv.id = `section-${s.id}`;
+            const h3 = document.createElement('div'); h3.className = 'r-h3'; h3.textContent = tSection(s.title); h3.setAttribute('data-section-title','1'); sdiv.appendChild(h3);
+            const p = document.createElement('p'); p.className = 'r-muted'; p.textContent = s.summary; sdiv.appendChild(p);
+
+            if (s.keyPoints && s.keyPoints.length) {
+              const kpH = document.createElement('div'); kpH.className = 'r-h3'; kpH.style.fontSize = '16px'; kpH.textContent = 'Key Points'; sdiv.appendChild(kpH);
+              const ul = document.createElement('ul'); s.keyPoints.forEach(k => { const li = document.createElement('li'); li.textContent = k; ul.appendChild(li); }); sdiv.appendChild(ul);
+            }
+            if (s.examples && s.examples.length) {
+              const exH = document.createElement('div'); exH.className = 'r-h3'; exH.style.fontSize = '16px'; exH.textContent = 'Examples'; sdiv.appendChild(exH);
+              const ul = document.createElement('ul'); s.examples.forEach(k => { const li = document.createElement('li'); li.textContent = k; ul.appendChild(li); }); sdiv.appendChild(ul);
+            }
+            if (s.figures && s.figures.length) {
+              s.figures.forEach(f => {
+                if (f.type === 'table') {
+                  const ft = document.createElement('div'); ft.className = 'r-h3'; ft.style.fontSize = '16px'; ft.textContent = f.title; sdiv.appendChild(ft);
+                  const wrapper = document.createElement('div'); wrapper.className = 'r-card'; wrapper.style.padding = '0';
+                  const table = document.createElement('table');
+                  const thead = document.createElement('thead'); const trh = document.createElement('tr');
+                  f.headers.forEach(h => { const th = document.createElement('th'); th.textContent = h; trh.appendChild(th); }); thead.appendChild(trh);
+                  const tbody = document.createElement('tbody');
+                  f.rows.forEach(r => { const tr = document.createElement('tr'); r.forEach(c => { const td = document.createElement('td'); td.textContent = c; tr.appendChild(td); }); tbody.appendChild(tr); });
+                  table.appendChild(thead); table.appendChild(tbody); wrapper.appendChild(table); sdiv.appendChild(wrapper);
+                  if (f.caption) { const cap = document.createElement('div'); cap.style.fontSize = '12px'; cap.style.opacity = '.85'; cap.style.marginTop = '6px'; cap.textContent = f.caption; sdiv.appendChild(cap); }
+                }
+              });
+            }
+            if (s.quotes && s.quotes.length) {
+              const qH = document.createElement('div'); qH.className = 'r-h3'; qH.style.fontSize = '16px'; qH.textContent = 'Key Quotes'; sdiv.appendChild(qH);
+              const ul = document.createElement('ul');
+              s.quotes.forEach(qt => { const li = document.createElement('li'); const span = document.createElement('span'); span.className = 'r-quote'; span.textContent = '“' + qt.text + '” '; const btn = document.createElement('button'); btn.className = 'r-btn'; btn.textContent = 'APA'; btn.onclick = () => alert('Romaine, S. (2000). Italic: Language in society: An introduction to sociolinguistics. Oxford: Oxford University Press.\n\n(' + qt.cite + ')'); li.appendChild(span); li.appendChild(btn); ul.appendChild(li); });
+              sdiv.appendChild(ul);
+            }
+
+            secWrap.appendChild(sdiv);
+          });
+          themesDiv.appendChild(secWrap);
+        });
+        buildTOC();
+      }
+
+      function buildTOC() {
+        const heads = qa('[data-section-title]');
+        if (!heads.length) { miniTOC.style.display = 'none'; return; }
+        miniTOC.style.display = 'block';
+        miniTOC.innerHTML = `<div class="r-h3" style="margin-top:0;">${I18N[LANG].onThisPage}</div>`;
+        heads.forEach(h => { const id = h.id || (h.id = 'h-' + Math.random().toString(36).slice(2)); const a = document.createElement('a'); a.href = '#' + id; a.textContent = h.textContent; miniTOC.appendChild(a); });
+      }
+
+      function renderRefs() { refsDiv.innerHTML = ''; CONTENT.references.forEach(r => { const div = document.createElement('div'); div.textContent = r.apa; refsDiv.appendChild(div); }); }
+
+      function filterContent(qstr) {
+        if (!qstr.trim()) return CONTENT.themes;
+        qstr = qstr.toLowerCase(); const out = [];
+        CONTENT.themes.forEach(th => { const sections = th.sections.filter(s => { const hay = [s.title, s.summary, ...(s.keyPoints||[]), ...(s.examples||[]), ...((s.glossary||[]).map(g=>g.term + ' ' + g.def))].join(' \n ').toLowerCase(); return hay.includes(qstr); }); if (sections.length) out.push(Object.assign({}, th, {sections})); });
+        return out;
+      }
+
+      function switchLang() { LANG = LANG === 'en' ? 'zhHant' : LANG === 'zhHant' ? 'zhHans' : 'en'; langBtn.textContent = I18N[LANG].language + ': ' + (LANG==='en'?'EN':LANG==='zhHant'?'繁':'简'); applyHeader(); renderThemesGrid(); renderSections(); }
+      function toggleMotion() { REDUCE = !REDUCE; motionBtn.textContent = I18N[LANG].reduceMotion + (REDUCE ? ' ✓' : ''); }
+
+      function onScroll() {
+        const st = root.scrollTop; const dh = root.scrollHeight - root.clientHeight; const pctNum = dh > 0 ? (st / dh) * 100 : 0;
+        barInner.style.width = pctNum.toFixed(0) + '%'; pct.textContent = pctNum.toFixed(0) + '%';
+        const heads = qa('[data-section-title]'); let cur = 'Start'; for (const h of heads) { const r = h.getBoundingClientRect(); const hostTop = root.getBoundingClientRect().top; if ((r.top - hostTop) <= 120) cur = h.textContent; } progressTitle.textContent = cur;
+      }
+
+      // Attach scroll listener to the section to avoid page-level conflicts
+      root.addEventListener('scroll', onScroll, { passive: true });
+
+      // Fluid background (slow 0.05 speed equivalent)
+      (function fluidBG(){
+        const canvas = q('#r-bg'); const ctx = canvas.getContext('2d');
+        const DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const balls = new Array(12).fill(0).map(_ => ({ x: Math.random(), y: Math.random(), r: 80 + Math.random()*140, vx: (Math.random()*0.3 + 0.05) * (Math.random()<0.5?-1:1), vy: (Math.random()*0.3 + 0.05) * (Math.random()<0.5?-1:1), hue: Math.floor(Math.random()*360) }));
+        function resize(){ const rect = root.getBoundingClientRect(); canvas.width = Math.floor(rect.width * DPR); canvas.height = Math.floor(rect.height * DPR); }
+        function step(){ const W = canvas.width, H = canvas.height; ctx.clearRect(0,0,W,H); ctx.globalCompositeOperation = 'lighter'; const speed = 0.05 * (REDUCE ? 0.5 : 1) * 0.01; balls.forEach(b=>{ b.x += b.vx * speed; b.y += b.vy * speed; if (b.x < 0 || b.x > 1) b.vx *= -1; if (b.y < 0 || b.y > 1) b.vy *= -1; const cx = b.x * W, cy = b.y * H; const g = ctx.createRadialGradient(cx, cy, b.r*0.1, cx, cy, b.r); g.addColorStop(0, `hsla(${b.hue}, 90%, 60%, .9)`); g.addColorStop(1, `hsla(${(b.hue+40)%360}, 80%, 50%, 0)`); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, cy, b.r, 0, Math.PI*2); ctx.fill(); }); requestAnimationFrame(step); }
+        function init(){ resize(); step(); }
+        window.addEventListener('resize', resize); init();
+      })();
+
+      // Init render
+      function fullRender(){ applyHeader(); renderThemesGrid(); renderSections(); renderRefs(); }
+      fullRender();
+      langBtn.onclick = switchLang; motionBtn.onclick = toggleMotion;
+      search.addEventListener('input', (e)=>{ const filtered = filterContent(e.target.value); CONTENT = { ...CONTENT, themes: CONTENT_EN.themes }; // ensure reset
+        if (!e.target.value.trim()) { CONTENT = CONTENT_EN; renderSections(); return; } const tmp = { ...CONTENT_EN, themes: filterContent(e.target.value) }; CONTENT = tmp; renderSections(CONTENT.themes); });
+
+      // If the builder changes block height, keep canvas in sync
+      const ro = new ResizeObserver(()=>{ const canvas = q('#r-bg'); const rect = root.getBoundingClientRect(); const DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1)); canvas.width = Math.floor(rect.width * DPR); canvas.height = Math.floor(rect.height * DPR); });
+      ro.observe(root);
+    })();
+  </script>
+</section>
+</div><script>(function(){function wf(){var b=document.body;if(!b)return;var h=Math.max(b.scrollHeight,b.offsetHeight,document.documentElement?document.documentElement.scrollHeight:0);if(h>80&&window.parent!==window){try{parent.postMessage({type:"widget-height",name:"romaine",h:h},"*");}catch(e){}}}
+window.addEventListener("load",function(){setTimeout(wf,200);setTimeout(wf,900);setTimeout(wf,2200);});
+window.addEventListener("resize",wf);})();</script></body></body></html>

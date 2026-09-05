@@ -1,0 +1,365 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body><script>window.onmessage = function(event) {event.source.postMessage({iframeId: event.data, scrollHeight: document.body.getBoundingClientRect().height || document.body.scrollHeight}, event.origin);};</script><body style='margin: 0'><section class="pactspire-compact" aria-labelledby="pactspire-title">
+  <div class="pactspire-compact__copy">
+    <p class="pactspire-compact__kicker">
+      <span aria-hidden="true"></span>
+      A digital reading project
+    </p>
+
+    <h2 id="pactspire-title">
+      Pactspire<br />
+      <em>Read, reflect, return.</em>
+    </h2>
+
+    <p class="pactspire-compact__intro">
+      Pactspire is a chapter-based digital publication designed for focused,
+      continuous reading. Its structure brings together a cover, sequential
+      chapters, and a web-based reading experience in one compact project.
+    </p>
+
+    <p class="pactspire-compact__link">
+      <a
+        href="https://github.com/yuuryou/pactspire"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Explore Pactspire on GitHub
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          aria-hidden="true"
+        >
+          <path d="M14 4h6v6"></path>
+          <path d="M20 4 10 14"></path>
+          <path d="M20 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1 1-1h5"></path>
+        </svg>
+      </a>
+    </p>
+  </div>
+
+  <div class="pactspire-compact__guide">
+    <div class="pactspire-compact__project">
+      <div class="pactspire-compact__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65">
+          <path d="M5 4.5A2.5 2.5 0 0 1 7.5 2h9A2.5 2.5 0 0 1 19 4.5v15A2.5 2.5 0 0 1 16.5 22h-9A2.5 2.5 0 0 1 5 19.5v-15Z"></path>
+          <path d="M8.5 7h7"></path>
+          <path d="M8.5 10.5h7"></path>
+          <path d="M8.5 14h4.5"></path>
+        </svg>
+      </div>
+
+      <div>
+        <p>Project format</p>
+        <h3>A web-native publication</h3>
+        <span>Cover · chapters · reading interface</span>
+      </div>
+    </div>
+
+    <div class="pactspire-compact__how">
+      <p class="pactspire-compact__label">How to explore it</p>
+
+      <ol>
+        <li>
+          <span>01</span>
+          Open the project and begin from the cover or first chapter.
+        </li>
+        <li>
+          <span>02</span>
+          Move through the chapters in sequence for the intended reading flow.
+        </li>
+        <li>
+          <span>03</span>
+          Return to earlier passages as themes, details, and connections develop.
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <aside class="pactspire-compact__note" aria-label="Reading note">
+    <span aria-hidden="true">✦</span>
+    <p>
+      <strong>Reading note:</strong>
+      Pactspire is best approached as a continuous digital text rather than a
+      collection of isolated pages: follow the chapter sequence, then revisit
+      passages that gain new significance in later sections.
+    </p>
+  </aside>
+</section>
+
+<style>
+  :root {
+    --pactspire-bg: #0b0d12;
+    --pactspire-surface: #121722;
+    --pactspire-ink: #f4f7fb;
+    --pactspire-muted: #a8b2c3;
+    --pactspire-muted-soft: #778195;
+    --pactspire-border: rgba(166, 181, 209, 0.16);
+    --pactspire-border-strong: rgba(166, 181, 209, 0.26);
+    --pactspire-accent: #9b8cff;
+    --pactspire-accent-bright: #b9adff;
+    --pactspire-accent-soft: rgba(155, 140, 255, 0.13);
+    --pactspire-highlight: #62d7a0;
+    /* liquid-glass equivalents (mirrors main.css :root) for this iframe-isolated widget */
+    --glass-line: linear-gradient(160deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.055));
+    --glass-edge: rgba(255, 255, 255, 0.16);
+    --glass-blur: 20px;
+    --glass-sat: saturate(1.45);
+    --glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.10);
+    --glass-shadow: var(--glass-inset), 0 10px 34px rgba(0, 0, 0, 0.34);
+  }
+
+  .pactspire-compact,
+  .pactspire-compact * {
+    box-sizing: border-box;
+  }
+
+  .pactspire-compact {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+    gap: clamp(1.75rem, 5vw, 4.5rem);
+    max-width: 1180px;
+    margin: 2rem auto;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    overflow: hidden;
+    border: 1px solid var(--glass-edge);
+    border-radius: 24px;
+    background:
+      linear-gradient(160deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.045)),
+      radial-gradient(
+        circle at 94% 5%,
+        rgba(155, 140, 255, 0.16),
+        transparent 22rem
+      ),
+      radial-gradient(
+        circle at 7% 97%,
+        rgba(89, 159, 145, 0.10),
+        transparent 20rem
+      );
+    -webkit-backdrop-filter: blur(var(--glass-blur)) var(--glass-sat); backdrop-filter: blur(var(--glass-blur)) var(--glass-sat);
+    box-shadow: var(--glass-inset), 0 10px 34px rgba(0, 0, 0, 0.34);
+    color: var(--pactspire-ink);
+    font-family:
+      Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
+  }
+
+  .pactspire-compact__kicker {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin: 0 0 0.8rem;
+    color: var(--pactspire-accent-bright);
+    font-size: 0.72rem;
+    font-weight: 750;
+    letter-spacing: 0.105em;
+    text-transform: uppercase;
+  }
+
+  .pactspire-compact__kicker span {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--pactspire-accent);
+    box-shadow: 0 0 0 4px rgba(155, 140, 255, 0.12);
+  }
+
+  .pactspire-compact h2 {
+    max-width: 12ch;
+    margin: 0;
+    font-size: clamp(2.2rem, 4.6vw, 4rem);
+    font-weight: 760;
+    letter-spacing: -0.065em;
+    line-height: 0.96;
+  }
+
+  .pactspire-compact h2 em {
+    color: var(--pactspire-accent-bright);
+    font-style: normal;
+  }
+
+  .pactspire-compact__intro {
+    max-width: 55ch;
+    margin: 1.15rem 0 0;
+    color: var(--pactspire-muted);
+    font-size: 0.97rem;
+    line-height: 1.65;
+  }
+
+  .pactspire-compact__link {
+    margin: 1.1rem 0 0;
+  }
+
+  .pactspire-compact__link a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    border-bottom: 1px solid rgba(185, 173, 255, 0.48);
+    color: var(--pactspire-accent-bright);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .pactspire-compact__link a:hover {
+    border-color: var(--pactspire-ink);
+    color: var(--pactspire-ink);
+  }
+
+  .pactspire-compact__link a:focus-visible {
+    outline: 3px solid rgba(155, 140, 255, 0.45);
+    outline-offset: 4px;
+    border-radius: 3px;
+  }
+
+  .pactspire-compact__link svg {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  .pactspire-compact__guide {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .pactspire-compact__project,
+  .pactspire-compact__how {
+    border: 1px solid rgba(255, 255, 255, 0.20);
+    border-radius: 16px;
+    background:
+      linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.10),
+        rgba(255, 255, 255, 0.03)
+      );
+    -webkit-backdrop-filter: blur(10px) saturate(1.3); backdrop-filter: blur(10px) saturate(1.3);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .pactspire-compact__project {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1rem;
+  }
+
+  .pactspire-compact__icon {
+    display: grid;
+    flex: 0 0 auto;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    border: 1px solid rgba(155, 140, 255, 0.25);
+    border-radius: 11px;
+    background: var(--pactspire-accent-soft);
+    color: var(--pactspire-accent-bright);
+  }
+
+  .pactspire-compact__icon svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .pactspire-compact__project p,
+  .pactspire-compact__label {
+    margin: 0 0 0.2rem;
+    color: var(--pactspire-muted-soft);
+    font-size: 0.7rem;
+    font-weight: 750;
+    letter-spacing: 0.095em;
+    text-transform: uppercase;
+  }
+
+  .pactspire-compact__project h3 {
+    margin: 0;
+    font-size: 1.03rem;
+    letter-spacing: -0.02em;
+  }
+
+  .pactspire-compact__project span {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--pactspire-muted);
+    font-size: 0.81rem;
+  }
+
+  .pactspire-compact__how {
+    padding: 1rem;
+  }
+
+  .pactspire-compact__how ol {
+    display: grid;
+    gap: 0.55rem;
+    margin: 0.65rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pactspire-compact__how li {
+    display: grid;
+    grid-template-columns: 1.65rem minmax(0, 1fr);
+    gap: 0.55rem;
+    color: var(--pactspire-muted);
+    font-size: 0.84rem;
+    line-height: 1.45;
+  }
+
+  .pactspire-compact__how li span {
+    color: var(--pactspire-highlight);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
+
+  .pactspire-compact__note {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.7rem;
+    align-items: start;
+    margin-top: 0.25rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(155, 140, 255, 0.30);
+    border-radius: 14px;
+    background: linear-gradient(160deg, rgba(155, 140, 255, 0.16), rgba(155, 140, 255, 0.05));
+    -webkit-backdrop-filter: blur(10px) saturate(1.25); backdrop-filter: blur(10px) saturate(1.25);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .pactspire-compact__note > span {
+    display: grid;
+    width: 1.55rem;
+    height: 1.55rem;
+    place-items: center;
+    border-radius: 7px;
+    background: var(--pactspire-accent);
+    color: #0d0b1a;
+    font-size: 0.78rem;
+  }
+
+  .pactspire-compact__note p {
+    margin: 0;
+    color: #dcdaf1;
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .pactspire-compact__note strong {
+    color: var(--pactspire-ink);
+  }
+
+  @media (max-width: 760px) {
+    .pactspire-compact {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin: 1rem auto;
+      border-radius: 20px;
+    }
+
+    .pactspire-compact__note {
+      grid-column: auto;
+    }
+  }
+</style><script>(function(){function wf(){var b=document.body;if(!b)return;var h=Math.max(b.scrollHeight,b.offsetHeight,document.documentElement?document.documentElement.scrollHeight:0);if(h>80&&window.parent!==window){try{parent.postMessage({type:"widget-height",name:"pactspire",h:h},"*");}catch(e){}}}
+window.addEventListener("load",function(){setTimeout(wf,200);setTimeout(wf,900);setTimeout(wf,2200);});
+window.addEventListener("resize",wf);})();</script></body></body></html>
