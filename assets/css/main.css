@@ -155,6 +155,12 @@ a:hover { text-decoration: none; }
   overflow: hidden; pointer-events: none;
   background-color: #101014;
   background-size: cover; background-position: center;
+  /* Samsung Internet (Chromium fork) loses track of a fixed backdrop
+     while backdrop-filter elements above it are composited, so the
+     background scrolls with content then snaps back. Promoting this
+     layer with translateZ(0) keeps it pinned on its own compositor
+     layer. */
+  transform: translateZ(0);
 }
 .home-bg-video {
   position: absolute; inset: 0;
@@ -617,11 +623,12 @@ a:hover { text-decoration: none; }
 
 /* Touch devices: no hover → keep captions visible, let taps flip cards */
 @media (hover: none) and (pointer: coarse) {
-  /* Home fixed backdrop: swap looping video for its static poster frame.
-     Mobile GPUs re-sample backdrop-filter against the video on every
-     frame, which made the background scroll laggy / reveal black space
-     and made card blur pop in only after scrolling stopped. */
-  .home-bg { background-image: url("../photos/meadow/20260627_114930(1).gif"); }
+  /* Home fixed backdrop: swap looping video for a truly STATIC image.
+     (An animated GIF behaves like video: mobile GPUs re-sample
+     backdrop-filter on every frame, which made the background lag /
+     reveal black space and made card blur pop in only after scrolling
+     stopped. Samsung Internet still exhibits this with GIFs.) */
+  .home-bg { background-image: url("../photos/meadow/20260627_091609.jpg"); }
   .home-bg-video { display: none; }
   .gallery-item figcaption { transform: none; padding: 22px 12px 10px; }
   .gallery-item:hover img { transform: none; }
