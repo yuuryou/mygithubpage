@@ -48,6 +48,16 @@
         setNav(false);
       });
     });
+    // Tap anywhere outside the open sheet (or the toggle) closes it with
+    // the same reverse drop animation. Esc is a keyboard equivalent.
+    document.addEventListener("click", function (e) {
+      if (!links.classList.contains("open")) return;
+      if (links.contains(e.target) || toggle.contains(e.target)) return;
+      setNav(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") setNav(false);
+    });
   }
 
   /* ---------- scroll progress ---------- */
