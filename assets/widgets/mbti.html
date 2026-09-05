@@ -1,0 +1,315 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body><script>window.onmessage = function(event) {event.source.postMessage({iframeId: event.data, scrollHeight: document.body.getBoundingClientRect().height || document.body.scrollHeight}, event.origin);};</script><body style='margin: 0'><!-- ==== MBTI + Cognitive Functions Radar (Fancy Glass UI) ==== -->
+<div id="mbti-radar-wrap" data-theme="light">
+  <style>
+    :root {
+      --bg1: radial-gradient(1200px 800px at 10% 10%,
+                rgba(255,255,255,0.9), rgba(240,245,255,0.6), rgba(230,235,245,0.5));
+      --bg2: radial-gradient(1200px 800px at 90% 90%,
+                rgba(220,240,255,0.35), rgba(210,220,235,0.25), transparent 70%);
+      --card-bg: rgba(255,255,255,0.55);
+      --card-stroke: rgba(255,255,255,0.8);
+      --text: #0f172a;
+      --muted: #475569;
+      --accent: #2563eb;
+      --accent-2: #14b8a6;
+      --grid: rgba(15, 23, 42, 0.08);
+    }
+    #mbti-radar-wrap[data-theme="dark"] {
+      --bg1: radial-gradient(1200px 800px at 10% 10%,
+                rgba(30,35,45,0.9), rgba(20,25,35,0.7), rgba(10,12,18,0.65));
+      --bg2: radial-gradient(1200px 800px at 90% 90%,
+                rgba(56,189,248,0.18), rgba(59,130,246,0.12), transparent 70%);
+      --card-bg: rgba(17, 24, 39, 0.55);
+      --card-stroke: rgba(203, 213, 225, 0.2);
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #60a5fa;
+      --accent-2: #2dd4bf;
+      --grid: rgba(226, 232, 240, 0.16);
+    }
+
+    #mbti-radar-wrap {
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      color: var(--text);
+      position: relative;
+      padding: clamp(18px, 3vw, 28px);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.2)),
+        var(--bg1), var(--bg2);
+      backdrop-filter: saturate(140%) blur(3px);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow:
+        0 10px 30px rgba(2, 6, 23, 0.15),
+        inset 0 0 0 1px var(--card-stroke);
+    }
+
+    .header {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; margin-bottom: clamp(14px,2vw,18px);
+    }
+    .title {
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 800; letter-spacing: 0.2px;
+      line-height: 1.1;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .title .badge {
+      font-size: 12px; font-weight: 700; color: white; padding: 6px 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border-radius: 999px; box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+    }
+    .controls { display: flex; align-items: center; gap: 10px; }
+    .toggle {
+      appearance: none; border: none; cursor: pointer; border-radius: 999px;
+      padding: 8px 12px; font-weight: 700; color: white;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 6px 16px rgba(20, 184, 166, 0.35);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(280px, 1fr));
+      gap: clamp(16px, 2vw, 24px);
+    }
+    @media (max-width: 920px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      position: relative;
+      border-radius: 20px;
+      background: var(--card-bg);
+      box-shadow:
+        0 8px 28px rgba(2, 6, 23, 0.18),
+        inset 0 0 0 1px var(--card-stroke);
+      overflow: hidden;
+    }
+    .card::after {
+      content: "";
+      position: absolute; inset: -2px;
+      background: conic-gradient(from 180deg at 50% 50%,
+                  transparent 0 40%,
+                  rgba(99,102,241,0.28) 42%,
+                  rgba(34,197,94,0.22) 55%,
+                  transparent 65% 100%);
+      filter: blur(22px); opacity: 0.55; pointer-events: none;
+    }
+    .card-head {
+      padding: 14px 16px 8px 16px; display: flex; align-items: baseline; gap: 10px;
+    }
+    .card-title {
+      font-weight: 800; letter-spacing: 0.2px; font-size: 18px;
+    }
+    .subtle {
+      color: var(--muted); font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .pair-legend {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 8px; padding: 0 16px 8px 16px;
+    }
+    .pill {
+      border-radius: 999px; padding: 6px 10px; font-size: 12px; font-weight: 700;
+      color: var(--text); background: rgba(255,255,255,0.45);
+      border: 1px solid var(--card-stroke);
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .pill .vs { opacity: 0.55; font-weight: 900; }
+
+    .canvas-wrap { padding: 8px 12px 16px 12px; height: 420px; }
+    @media (max-width: 420px) { .canvas-wrap { height: 360px; } }
+
+    .footer-note {
+      margin-top: 10px; font-size: 12px; color: var(--muted);
+      display: flex; gap: 16px; flex-wrap: wrap;
+    }
+    .kbd {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      background: rgba(255,255,255,0.6);
+      padding: 2px 6px; border-radius: 6px; border: 1px solid var(--card-stroke);
+    }
+  </style>
+
+  <div class="header">
+    <div class="title">
+      MBTI Profile 
+    </div>
+    <div class="controls">
+      <button id="themeToggle" class="toggle" aria-label="Toggle theme">Toggle Theme</button>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- === Card 1: Dichotomies (8-corner) === -->
+    <section class="card">
+      <div class="card-head">
+        <div class="card-title">Dichotomies (8-corner)</div>
+        <div class="subtle">Opposites across</div>
+      </div>
+      <div class="pair-legend">
+        <div class="pill">I <span class="vs">↔</span> E</div>
+        <div class="pill">N <span class="vs">↔</span> S</div>
+        <div class="pill">T <span class="vs">↔</span> F</div>
+        <div class="pill">J <span class="vs">↔</span> P</div>
+      </div>
+      <div class="canvas-wrap"><canvas id="mbtiDichotomy"></canvas></div>
+    </section>
+
+    <!-- === Card 2: Cognitive Functions === -->
+    <section class="card">
+      <div class="card-head">
+        <div class="card-title">Cognitive Functions</div>
+        <div class="subtle">Opposites across</div>
+      </div>
+      <div class="pair-legend">
+        <div class="pill">Ti <span class="vs">↔</span> Fe</div>
+        <div class="pill">Ne <span class="vs">↔</span> Si</div>
+        <div class="pill">Ni <span class="vs">↔</span> Se</div>
+        <div class="pill">Te <span class="vs">↔</span> Fi</div>
+      </div>
+      <div class="canvas-wrap"><canvas id="mbtiFunctions"></canvas></div>
+    </section>
+  </div>
+  </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script>
+  // ======= THEME TOGGLE =======
+  const wrap = document.getElementById('mbti-radar-wrap');
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    wrap.dataset.theme = wrap.dataset.theme === 'dark' ? 'light' : 'dark';
+  });
+
+  // ======= Shared helpers =======
+  function makeGradient(ctx, area, c1, c2) {
+    const r = Math.min(area.right - area.left, area.bottom - area.top) / 2;
+    const g = ctx.createRadialGradient(area.left + r, area.top + r, r*0.05, area.left + r, area.top + r, r);
+    g.addColorStop(0, c1);
+    g.addColorStop(1, c2);
+    return g;
+  }
+  const gridColor = getComputedStyle(wrap).getPropertyValue('--grid').trim();
+
+  // ======= Chart 1: Dichotomies (I/N/T/J/E/S/F/P with opposites across) =======
+  const mbtiLabels = ["I","N","T","J","E","S","F","P"];
+  const mbtiData   = [90, 95, 90, 55, 10,  5, 10, 45]; // <-- edit here if needed
+
+  const ctx1 = document.getElementById('mbtiDichotomy').getContext('2d');
+  const dichotomyChart = new Chart(ctx1, {
+    type: 'radar',
+    data: {
+      labels: mbtiLabels,
+      datasets: [{
+        label: 'Dichotomies',
+        data: mbtiData,
+        borderWidth: 2,
+        pointRadius: 3,
+        pointHoverRadius: 5,
+        borderColor: '#2563eb',
+        backgroundColor: (ctx) => {
+          const {ctx: c, chartArea: a} = ctx.chart;
+          if (!a) return 'rgba(37, 99, 235, 0.18)';
+          return makeGradient(c, a, 'rgba(37,99,235,0.24)', 'rgba(20,184,166,0.16)');
+        },
+        fill: true,
+        tension: 0.2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        r: {
+          beginAtZero: true, min: 0, max: 100,
+          angleLines: { color: gridColor },
+          grid: { color: gridColor },
+          pointLabels: {
+            color: getComputedStyle(wrap).getPropertyValue('--text').trim(),
+            font: { weight: '700', size: 12 }
+          },
+          ticks: {
+            stepSize: 20, showLabelBackdrop: false, color: getComputedStyle(wrap).getPropertyValue('--muted').trim()
+          }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: 'rgba(2,6,23,0.9)',
+          borderColor: 'rgba(255,255,255,0.18)',
+          borderWidth: 1,
+          titleFont: { weight: '800' }
+        }
+      },
+      animation: {
+        duration: 900,
+        easing: 'easeOutQuart'
+      }
+    }
+  });
+
+  // ======= Chart 2: Cognitive Functions (Ti/Ne/Ni/Te/Fe/Si/Se/Fi with opposites across) =======
+  const funcLabels = ["Ti","Ne","Ni","Te","Fe","Si","Se","Fi"];
+  const funcData   = [ 90,  85,  75,  70,  35,  55,  25,  40 ]; // <-- edit here
+
+  const ctx2 = document.getElementById('mbtiFunctions').getContext('2d');
+  const functionChart = new Chart(ctx2, {
+    type: 'radar',
+    data: {
+      labels: funcLabels,
+      datasets: [{
+        label: 'Cognitive Functions',
+        data: funcData,
+        borderWidth: 2,
+        pointRadius: 3,
+        pointHoverRadius: 5,
+        borderColor: '#14b8a6',
+        backgroundColor: (ctx) => {
+          const {ctx: c, chartArea: a} = ctx.chart;
+          if (!a) return 'rgba(20,184,166,0.18)';
+          return makeGradient(c, a, 'rgba(20,184,166,0.26)', 'rgba(37,99,235,0.14)');
+        },
+        fill: true,
+        tension: 0.2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        r: {
+          beginAtZero: true, min: 0, max: 100,
+          angleLines: { color: gridColor },
+          grid: { color: gridColor },
+          pointLabels: {
+            color: getComputedStyle(wrap).getPropertyValue('--text').trim(),
+            font: { weight: '700', size: 12 }
+          },
+          ticks: {
+            stepSize: 20, showLabelBackdrop: false, color: getComputedStyle(wrap).getPropertyValue('--muted').trim()
+          }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: 'rgba(2,6,23,0.9)',
+          borderColor: 'rgba(255,255,255,0.18)',
+          borderWidth: 1,
+          titleFont: { weight: '800' }
+        }
+      },
+      animation: {
+        duration: 900,
+        easing: 'easeOutQuart'
+      }
+    }
+  });
+</script>
+<script>(function(){function wf(){var b=document.body;if(!b)return;var h=Math.max(b.scrollHeight,b.offsetHeight,document.documentElement?document.documentElement.scrollHeight:0);if(h>80&&window.parent!==window){try{parent.postMessage({type:"widget-height",name:"mbti",h:h},"*");}catch(e){}}}
+window.addEventListener("load",function(){setTimeout(wf,200);setTimeout(wf,900);setTimeout(wf,2200);});
+window.addEventListener("resize",wf);})();</script></body></body></html>
