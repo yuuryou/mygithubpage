@@ -101,8 +101,11 @@ a:hover { text-decoration: none; }
 .nav-link:hover { color: var(--text); background: rgba(255, 255, 255, 0.05); }
 .nav-link.active { color: var(--accent); background: var(--accent-soft); }
 
-.nav-toggle { display: none; background: none; border: 0; width: 42px; height: 42px; cursor: pointer; position: relative; }
-.nav-toggle span { display: block; width: 22px; height: 2px; background: var(--text); margin: 5px auto; transition: transform 0.3s var(--ease), opacity 0.2s; border-radius: 2px; }
+.nav-toggle {
+  display: none; background: rgba(8, 8, 12, 0.42); border: 0; width: 42px; height: 42px; cursor: pointer;
+  position: relative; border-radius: 13px;
+}
+.nav-toggle span { display: block; width: 22px; height: 2px; background: #ffffff; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6); margin: 5px auto; transition: transform 0.3s var(--ease), opacity 0.2s; border-radius: 2px; }
 .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
 .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
@@ -160,7 +163,9 @@ a:hover { text-decoration: none; }
   animation: none;
 }
 .home-scrim {
-  position: fixed; inset: 0; z-index: 1;
+  /* 2026-09-05: hero-only scrim (was fixed inset:0, dimmed all scrolled content) */
+  position: absolute; top: 0; left: 0; right: 0; height: 100vh; height: 100svh;
+  z-index: 1;
   pointer-events: none;
   background:
     radial-gradient(ellipse at center, rgba(11, 11, 14, 0.0) 0%, rgba(11, 11, 14, 0.16) 55%, rgba(11, 11, 14, 0.38) 100%),
@@ -559,7 +564,7 @@ a:hover { text-decoration: none; }
   .section--photos { padding-bottom: 88px; }
   .nav-links--bar { display: none; }
   .nav-links--sheet {
-    position: fixed; top: var(--nav-h); left: 0; right: 0;
+    position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 1000;
     flex-direction: column; align-items: stretch; gap: 0; padding: 12px 20px 20px;
     /* 2026-09-04 bright liquid-glass pass: match .site-nav exactly
        (180deg gradient with rgba(255,255,255,0.15) highlight, blur 24px,
