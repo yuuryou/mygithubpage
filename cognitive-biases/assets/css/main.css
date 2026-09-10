@@ -1,0 +1,910 @@
+/* ==========================================================================
+   Cognitive Bias Atlas — main.css
+   Navigation, hero, cards, category pages, research, references, footer
+   ========================================================================== */
+
+/* ---------- Background video ------------------------------------------ */
+/* Decorative full-screen video mounted by assets/js/background.js. Lives at
+   the very back of the stacking order; the dark scrim, blobs and grid all sit
+   above it (see tokens.css .backdrop / .blob / .noise-layer). */
+.bg-video {
+  position: fixed;
+  inset: 0;
+  z-index: -5;
+  overflow: hidden;
+  background: var(--bg-0);
+  pointer-events: none;
+}
+.bg-video video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.bg-video.is-blocked { background: var(--bg-0); }
+
+/* ---------- Navigation ------------------------------------------------ */
+
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  transition: background var(--dur-n) var(--ease), border-color var(--dur-n) var(--ease), box-shadow var(--dur-n) var(--ease);
+  border-bottom: 1px solid transparent;
+}
+.nav.is-scrolled {
+  background: rgba(8, 8, 18, 0.55);
+  -webkit-backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate));
+  backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate));
+  border-bottom-color: var(--glass-border);
+  box-shadow: var(--sh-sm);
+}
+
+.nav-inner {
+  width: min(1240px, 94vw);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.06rem;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.brand-dot {
+  width: 26px; height: 26px;
+  border-radius: 9px;
+  background: conic-gradient(from 210deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c1));
+  box-shadow: 0 0 18px rgba(120, 180, 255, 0.5);
+}
+.brand em { font-style: normal; color: var(--ink-dim); font-weight: 500; }
+
+.nav-links {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.28rem;
+  margin-left: auto;
+  list-style: none;
+}
+.nav-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  min-height: 34px;
+  padding: 0.42em 0.95em;
+  font-size: 0.95rem;
+  font-weight: 560;
+  line-height: 1.1;
+  color: var(--ink-dim);
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  transition: color var(--dur-f) var(--ease), background var(--dur-f) var(--ease), border-color var(--dur-f) var(--ease);
+}
+.nav-links a:hover { color: var(--ink); background: var(--glass-bg-soft); border-color: var(--glass-border); }
+.nav-links a.is-active { color: var(--ink); background: var(--glass-bg-strong); border-color: var(--glass-border-bright); box-shadow: var(--glass-hl); }
+
+/* Wide screens: let every English title button sit wider and breathe.
+   The inline nav only exists ≥1900px — the full English row (brand + 8
+   buttons + lang switch) measures ≈1890px wide, so below 1900px the
+   hamburger takes over instead of clipping the lang switch / last links. */
+@media (min-width: 1900px) {
+  .nav-inner { width: min(1900px, 100vw); gap: 1.5rem; }
+  .nav-links { gap: 0.5rem; }
+  .nav-links a { padding: 0.52em 1.3em; font-size: 1rem; min-height: 38px; }
+}
+
+/* ---------- mobile nav toggle (hamburger) ------------------------------ */
+.nav-toggle {
+  display: none;               /* hidden on desktop — shown below 1900px */
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;                /* comfortable touch target */
+  padding: 0;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg-soft);
+  color: var(--ink-dim);
+  cursor: pointer;
+  transition: color var(--dur-f) var(--ease), background var(--dur-f) var(--ease), border-color var(--dur-f) var(--ease);
+}
+.nav-toggle:hover { color: var(--ink); background: var(--glass-bg-strong); }
+.nav-toggle:focus-visible {
+  outline: 2px solid var(--c1);
+  outline-offset: 2px;
+}
+
+.nav-toggle-icon { position: relative; width: 20px; height: 14px; display: inline-block; }
+.nav-toggle-icon span {
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform var(--dur-f) var(--ease), opacity var(--dur-f) var(--ease), top var(--dur-f) var(--ease);
+}
+.nav-toggle-icon span:nth-child(1) { top: 0; }
+.nav-toggle-icon span:nth-child(2) { top: 6px; }
+.nav-toggle-icon span:nth-child(3) { top: 12px; }
+
+/* open state → animated "X" */
+.nav-toggle[aria-expanded="true"] .nav-toggle-icon span:nth-child(1) { top: 6px; transform: rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle-icon span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-icon span:nth-child(3) { top: 6px; transform: rotate(-45deg); }
+
+/* ---------- Hero ------------------------------------------------------ */
+
+.hero {
+  position: relative;
+  min-height: 92vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: calc(var(--nav-h) + 4rem) 0 4rem;
+  overflow: hidden;
+}
+
+.hero-title {
+  width: 100%;
+  justify-self: stretch;
+  font-size: clamp(2.6rem, 7vw, 5.4rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+  margin: 0.35em 0 0.4em;
+  background: linear-gradient(115deg, #ffffff 20%, #bfd9ff 52%, #d6c6ff 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-sub {
+  max-width: 680px;
+  margin-inline: auto;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--ink-dim);
+}
+
+.hero-cta {
+  display: flex;
+  justify-content: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  margin-top: 2.4rem;
+}
+
+.hero-stats {
+  margin-top: 3.6rem;
+  display: flex;
+  justify-content: center;
+  gap: clamp(1.4rem, 5vw, 4rem);
+  flex-wrap: wrap;
+}
+.stat b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.stat span { font-size: 0.82rem; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.12em; }
+
+.hero-scroll {
+  position: absolute;
+  bottom: 26px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px; height: 46px;
+  border: 1.5px solid var(--glass-border-bright);
+  border-radius: var(--r-pill);
+  display: grid;
+  place-items: start center;
+  padding-top: 8px;
+}
+.hero-scroll::after {
+  content: "";
+  width: 4px; height: 10px;
+  border-radius: 4px;
+  background: var(--ink-dim);
+  animation: wheel 1.8s var(--ease) infinite;
+}
+@keyframes wheel { 0% { opacity: 1; transform: translateY(0); } 70% { opacity: 0; transform: translateY(14px); } 100% { opacity: 0; } }
+
+/* ---------- Category cards (index) ------------------------------------ */
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.6rem;
+}
+
+.cat-card {
+  --accent: var(--c1);
+  padding: 2rem 1.9rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+}
+.cat-card .num {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+}
+.cat-card h3 {
+  font-size: 1.65rem;
+  margin: 0.5em 0 0.3em;
+}
+.cat-card .cat-zh {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.9em;
+}
+.cat-card p { color: var(--ink-dim); flex: 1; margin-bottom: 1.1em; }
+.cat-card .count {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.cat-card .go {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  font-weight: 700;
+  font-size: 0.92rem;
+  transition: transform var(--dur-f) var(--ease);
+}
+.cat-card:hover .go { transform: translateX(4px); }
+
+.cat-accent-1 { --accent: var(--c1); }
+.cat-accent-2 { --accent: var(--c2); }
+.cat-accent-3 { --accent: var(--c3); }
+.cat-accent-4 { --accent: var(--c4); }
+.cat-accent-5 { --accent: var(--c5); }
+
+/* ---------- Page header ------------------------------------------------ */
+
+.page-head {
+  padding: calc(var(--nav-h) + 5rem) 0 1.4rem;
+  text-align: center;
+}
+.page-head h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); margin-bottom: 0.25em; }
+.page-head .eyebrow { margin-bottom: 1rem; }
+
+/* ---------- Subcategory tabs (category page) ---------------------------- */
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 2rem 0 2.6rem;
+}
+.tab {
+  --accent: var(--c1);
+  padding: 0.55em 1.2em;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg-soft);
+  -webkit-backdrop-filter: blur(var(--blur-sm)) saturate(var(--saturate));
+  backdrop-filter: blur(var(--blur-sm)) saturate(var(--saturate));
+  color: var(--ink-dim);
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: all var(--dur-n) var(--ease);
+}
+.tab:hover { color: var(--ink); border-color: var(--glass-border-bright); transform: translateY(-2px); }
+.tab[aria-selected="true"] {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  box-shadow: 0 0 22px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.tabpanel { display: none; animation: fadeUp 0.45s var(--ease); }
+.tabpanel.is-active { display: block; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+/* ==========================================================================
+   Subcategory sticky floating nav (narrow viewports)
+
+   When the horizontal .tabs cannot hold every subcategory button on one
+   line, the category page switches into a vertical "stacked sections"
+   layout (each .tabpanel becomes a full section) and the tab row turns into
+   a floating bar that sticks under the top nav once the visitor scrolls:
+
+     .subnav is-scrolled + body.subnav-collapsed  -> slim single-line pill
+     first click on the pill                       -> expands to full buttons
+     later clicks on a button                      -> smooth-scroll to section
+     click outside                                 -> collapses back to pill
+
+   The wide (>=~1900px) hamburger + the desktop tab strip are untouched.
+   ========================================================================== */
+body.subnav-narrow .tabs {
+  position: sticky;
+  top: calc(var(--nav-h) + 10px);
+  z-index: 60;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: none;
+  margin: 0 0 1.2rem;
+  padding: 0.45rem;
+  box-sizing: border-box;
+  border-radius: var(--r-md);
+  border: 1px solid var(--glass-border);
+  background:
+    radial-gradient(140% 120% at 12% 0%, rgba(255, 255, 255, 0.08), transparent 46%),
+    rgba(14, 14, 28, 0.88);
+  -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate));
+  backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate));
+  box-shadow: var(--sh-md), var(--glass-hl);
+  overflow: hidden;
+  transition: padding var(--dur-n) var(--ease), box-shadow var(--dur-n) var(--ease), border-radius var(--dur-n) var(--ease);
+}
+body.subnav-narrow .tabs .tab {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  padding: 0.5em 0.95em;
+  font-size: 0.86rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all var(--dur-n) var(--ease);
+}
+body.subnav-narrow .tabs .tab.is-current {
+  color: var(--accent, var(--ink));
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  background: color-mix(in srgb, var(--accent) 14%, var(--glass-bg-strong));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+/* Expanded: give every button enough room to read its full label */
+body.subnav-narrow.subnav-expanded .tabs {
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 0.5rem;
+  padding: 0.7rem;
+}
+body.subnav-narrow.subnav-expanded .tabs .tab {
+  flex: 1 1 auto;
+  max-width: none;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  line-height: 1.25;
+}
+
+/* Collapsed (scroll down, before first interaction) */
+body.subnav-narrow.subnav-collapsed .tabs {
+  cursor: pointer;
+  justify-content: flex-start;
+}
+body.subnav-narrow.subnav-collapsed .tabs .tab {
+  flex: 1 1 0;
+}
+body.subnav-narrow.subnav-collapsed .tabs .tab:not(.is-current) {
+  display: none;
+}
+body.subnav-narrow.subnav-collapsed .tabs .tab.is-current {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  width: 100%;
+  flex: 1 1 auto;
+}
+body.subnav-narrow.subnav-collapsed .tabs .tab.is-current::after {
+  content: "⌄";
+  font-size: 0.9em;
+  line-height: 1;
+  opacity: 0.75;
+  margin-left: auto;
+}
+
+/* Vertical stacked sections in narrow mode */
+body.subnav-narrow .tabpanel {
+  display: block !important;
+  animation: none;
+  margin: 0 0 3.4rem;
+  padding-top: 0.4rem;
+  scroll-margin-top: calc(var(--nav-h) + 84px);
+}
+body.subnav-narrow .tabpanel:last-child { margin-bottom: 0; }
+body.subnav-narrow .tabpanel .sub-head {
+  border-top: 1px solid var(--glass-border);
+  padding-top: 1rem;
+  margin-bottom: 1.3rem;
+}
+body.subnav-narrow .tabpanel .sub-head h3 {
+  color: var(--accent, var(--ink));
+  font-size: 1.3rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.subnav-narrow .tabs { transition: none; }
+}
+
+/* ---------- Bias cards ------------------------------------------------- */
+
+.bias-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.4rem;
+}
+
+.bias-card {
+  padding: 1.7rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.bias-card .top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.bias-card h4 { font-size: 1.14rem; margin: 0; letter-spacing: -0.01em; }
+.bias-card .definition { font-size: 0.95rem; color: var(--ink-dim); }
+
+.examples-mini { display: grid; gap: 0.4rem; }
+.examples-mini .example {
+  font-size: 0.86rem;
+  margin: 0;
+  opacity: 0.85;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.example {
+  border-left: 2px solid var(--glass-border);
+  padding: 0.25em 0 0.25em 0.85em;
+  margin-bottom: 0.5em;
+  font-size: 0.9rem;
+  color: var(--ink);
+  opacity: 0.92;
+}
+.example::before { content: "例"; font-size: 0.7rem; font-weight: 700; color: var(--accent); margin-right: 0.5em; letter-spacing: 0.05em; }
+
+.tag-row { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: auto; }
+.mini-tag {
+  font-size: 0.74rem;
+  font-weight: 650;
+  padding: 0.25em 0.75em;
+  border-radius: var(--r-pill);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  cursor: pointer;
+  transition: background var(--dur-f) var(--ease), transform var(--dur-f) var(--ease);
+}
+.mini-tag:hover { background: color-mix(in srgb, var(--accent) 22%, transparent); transform: translateY(-1px); }
+
+/* subcategory section headings (used when not using tabs) */
+.sub-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  margin: 3.2rem 0 1.4rem;
+}
+.sub-head h3 { font-size: 1.45rem; margin: 0; }
+
+/* ---------- Modal ------------------------------------------------------- */
+
+.dialog {
+  border: none;
+  padding: 0;
+  width: min(720px, 92vw);
+  max-height: 86vh;
+  border-radius: var(--r-lg);
+  background: transparent;
+  color: var(--ink);
+  overflow: visible;
+}
+.dialog::backdrop {
+  background: rgba(4, 4, 12, 0.62);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.dialog[open] { animation: modalIn 0.32s var(--ease-spring); }
+@keyframes modalIn { from { opacity: 0; transform: translateY(22px) scale(0.96); } to { opacity: 1; transform: none; } }
+
+.modal-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: 86vh;
+  /* the panel clips, .modal-scroll does the scrolling: that keeps the ✕ button
+     pinned in view no matter how long the entry is */
+  overflow: hidden;
+  padding: 2.1rem 2.2rem 2.2rem;
+  background:
+    radial-gradient(130% 90% at 12% 0%, rgba(255,255,255,0.09), transparent 50%),
+    rgba(16, 16, 30, 0.72);
+  -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate));
+  backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate));
+  border: 1px solid var(--glass-border-bright);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-lg), var(--glass-hl);
+}
+.modal-scroll {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 0.2rem;
+}
+.modal-close {
+  position: absolute;
+  z-index: 2;
+  top: 16px; right: 16px;
+  width: 36px; height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--ink);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform var(--dur-f) var(--ease), background var(--dur-f) var(--ease);
+}
+.modal-close:hover { transform: rotate(90deg) scale(1.06); background: var(--glass-bg-strong); }
+
+.modal-title { font-size: 1.7rem; margin-bottom: 0.15em; padding-right: 2rem; }
+.modal-body h5 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink-faint);
+  margin: 1.5em 0 0.4em;
+}
+.modal-body .definition { font-size: 1.02rem; color: var(--ink); }
+.modal-refs li { margin-bottom: 0.45em; }
+
+/* ---------- Research / references pages -------------------------------- */
+
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.2rem;
+}
+.method-card { padding: 1.5rem 1.5rem; }
+.method-card .step {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--accent, var(--c1));
+  font-size: 0.95rem;
+}
+.method-card h4 { margin: 0.4em 0 0.6em; font-size: 1.1rem; }
+.method-card p { font-size: 0.95rem; color: var(--ink-dim); margin: 0; }
+/* citation line — source language, monospace, visually subordinate */
+.method-card .ref {
+  margin-top: 0.6rem;
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  font-family: ui-monospace, "SF Mono", Consolas, monospace;
+}
+
+.frontier-list { display: grid; gap: 1.1rem; }
+.frontier-item { padding: 1.4rem 1.6rem; display: grid; gap: 0.3rem; }
+.frontier-item h4 { margin: 0; font-size: 1.08rem; }
+.frontier-item p { margin: 0; color: var(--ink-dim); font-size: 0.96rem; }
+.frontier-item .ref {
+  margin-top: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  font-family: ui-monospace, "SF Mono", Consolas, monospace;
+}
+
+.refs-wrap { max-width: 880px; margin-inline: auto; }
+.refs-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+.refs-list li {
+  padding: 1rem 1.25rem;
+  border-radius: var(--r-sm);
+  background: var(--glass-bg-soft);
+  border: 1px solid rgba(255,255,255,0.07);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  transition: border-color var(--dur-f) var(--ease), background var(--dur-f) var(--ease);
+}
+.refs-list li:hover {
+  border-color: var(--glass-border);
+  background: var(--glass-bg);
+}
+.refs-list i { color: #cfd6ff; }
+
+/* ---------- Footer ------------------------------------------------------ */
+
+.footer {
+  margin-top: 5rem;
+  padding: 2.6rem 0 2.2rem;
+  border-top: 1px solid var(--glass-border);
+  background: rgba(6, 6, 15, 0.5);
+  -webkit-backdrop-filter: blur(var(--blur-sm));
+  backdrop-filter: blur(var(--blur-sm));
+}
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--ink-faint);
+  font-size: 0.86rem;
+}
+.footer-inner a { color: var(--ink-dim); transition: color var(--dur-f); }
+.footer-inner a:hover { color: var(--ink); }
+
+/* ---------- no-flash guard ---------------------------------------------- */
+/* lang-detect.js adds .i18n-pending when the markup language differs from the
+   target language. Translatable text stays invisible until i18n.js has
+   swapped it. The pure-CSS animation is a safety net: if the locale scripts
+   fail for any reason, content still appears after 900ms. */
+html.i18n-pending [data-i18n],
+html.i18n-pending [data-i18n-html],
+html.i18n-pending [data-render] {
+  opacity: 0;
+  animation: i18n-reveal 0s 900ms forwards;
+}
+@keyframes i18n-reveal { to { opacity: 1; } }
+
+/* ---------- language switcher ------------------------------------------- */
+
+.lang-switch { position: relative; flex: 0 0 auto; }
+
+.lang-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.42em 0.75em;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg-soft);
+  color: var(--ink-dim);
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color var(--dur-f), background var(--dur-f), border-color var(--dur-f);
+}
+.lang-btn:hover { color: var(--ink); background: var(--glass-bg-strong); }
+.lang-ico { display: inline-flex; }
+.lang-caret { font-size: 0.66rem; opacity: 0.7; }
+
+.lang-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 11rem;
+  margin: 0;
+  padding: 0.35rem;
+  list-style: none;
+  border-radius: var(--r-md);
+  border: 1px solid var(--glass-border);
+  background: rgba(14, 14, 28, 0.94);
+  -webkit-backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate));
+  backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate));
+  box-shadow: var(--sh-md, 0 18px 40px rgba(0, 0, 0, 0.45));
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity var(--dur-f) var(--ease), transform var(--dur-f) var(--ease), visibility var(--dur-f);
+  z-index: 120;
+}
+.lang-switch.is-open .lang-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.lang-opt {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5em 0.8em;
+  border: 0;
+  border-radius: var(--r-sm, 10px);
+  background: transparent;
+  color: var(--ink-dim);
+  font: inherit;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: color var(--dur-f), background var(--dur-f);
+}
+.lang-opt:hover { color: var(--ink); background: var(--glass-bg-soft); }
+.lang-opt.is-active { color: var(--ink); background: var(--glass-bg-strong); font-weight: 700; }
+.lang-opt.is-active::after { content: " ✓"; }
+
+/* ---------- misc --------------------------------------------------------- */
+
+.chip-strip { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 0; }
+.chip {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.3em 0.95em;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--glass-border);
+  color: var(--ink-dim);
+  background: var(--glass-bg-soft);
+}
+.chip b { color: var(--ink); font-weight: 700; }
+
+.axis-banner {
+  margin-top: 3rem;
+  padding: 1.6rem 2rem;
+  border-radius: var(--r-lg);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2.4rem;
+  justify-content: space-around;
+  text-align: center;
+}
+.axis-banner .item b { display: block; font-size: 1.05rem; margin-bottom: 0.1rem; }
+.axis-banner .item span { font-size: 0.82rem; color: var(--ink-faint); }
+
+/* ==========================================================================
+   Mobile / tablet navigation
+   Below 1900px the inline link row collapses into a hamburger-toggled glass
+   popout menu (liquid-glass card: translucent fill + backdrop blur + bright
+   hairline + inner highlight). At ≥1900px the desktop top bar takes over.
+   ========================================================================== */
+@media (max-width: 1900px) {
+  .nav-toggle { display: inline-flex; }
+
+  /* push the switcher + toggle to the right; .nav-links leaves the flow */
+  .nav-inner [data-lang-switch] { margin-left: auto; }
+
+  /* keep the brand from squeezing the right-hand cluster on smaller screens */
+  .brand { font-size: 1rem; }
+  .brand em { display: none; }
+
+  /* glass popout panel — card-like, right-aligned below the nav bar */
+  .nav-links {
+    position: fixed;
+    top: calc(var(--nav-h) + 10px);
+    right: clamp(12px, 3vw, 28px);
+    left: auto;
+    margin: 0;
+    min-width: min(320px, 86vw);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0.65rem;
+    list-style: none;
+    max-height: calc(100vh - var(--nav-h) - 44px);
+    overflow-y: auto;
+    border-radius: var(--r-md);
+    background:
+      radial-gradient(140% 120% at 12% 0%, rgba(255, 255, 255, 0.1), transparent 46%),
+      rgba(14, 14, 28, 0.86);
+    -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate));
+    backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate));
+    border: 1px solid var(--glass-border-bright);
+    box-shadow: var(--sh-lg), var(--glass-hl);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px) scale(0.985);
+    transform-origin: top right;
+    transition: opacity var(--dur-n) var(--ease), transform var(--dur-n) var(--ease), visibility var(--dur-n);
+    z-index: 101;
+  }
+  .nav.is-open .nav-links {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+
+  .nav-links li + li { border-top: 1px solid rgba(255, 255, 255, 0.07); }
+  .nav-links li:first-child { border-top: 0; }
+
+  .nav-links a {
+    display: flex;
+    align-items: center;
+    min-height: 46px;
+    padding: 0.5em 0.95em;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: var(--r-sm);
+    border: 0;
+    box-shadow: none;
+  }
+  .nav-links a:hover { border-color: transparent; }
+  .nav-links a.is-active {
+    color: var(--ink);
+    background: color-mix(in srgb, var(--c1, #6ee7ff) 16%, var(--glass-bg-strong));
+    border-left: 3px solid var(--c1, #6ee7ff);
+    border-radius: var(--r-sm);
+    box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.03);
+  }
+
+  /* dim the page behind the glass panel while it is open */
+  .nav.is-open {
+    background: rgba(8, 8, 18, 0.72);
+    -webkit-backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate));
+    backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate));
+    border-bottom-color: var(--glass-border);
+  }
+  body.nav-open { overflow: hidden; }
+  body.nav-open::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 90;               /* below .nav (100) and the popout (101) */
+    background: rgba(0, 0, 0, 0.42);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+  }
+
+  .lang-btn { min-height: 44px; }
+}
+
+@media (max-width: 760px) {
+  .cat-grid { grid-template-columns: 1fr; }
+  .brand em { display: none; }
+  .section { padding: 3.6rem 0; }
+  .bias-grid { grid-template-columns: 1fr; }
+  .lang-current { display: none; }
+  .lang-btn { padding: 0.42em 0.6em; }
+  .lang-menu { min-width: 9.5rem; }
+}
+
+/* --------------------------------------------------------------------------
+   Small screens: the hamburger popout expands to the full viewport width
+   (still a glass surface, but edge-to-edge below the top bar instead of a
+   right-aligned card).
+   -------------------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .nav-links {
+    left: clamp(8px, 2vw, 18px);
+    right: clamp(8px, 2vw, 18px);
+    min-width: 0;
+    width: auto;
+  }
+}
+@media (max-width: 760px) {
+  .nav-links {
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-height: calc(100vh - var(--nav-h));
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom-color: var(--glass-border-bright);
+    padding: 0.6rem clamp(1rem, 4vw, 2rem) 1rem;
+  }
+  body.subnav-narrow .tabs { top: var(--nav-h); }
+}

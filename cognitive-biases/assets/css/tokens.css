@@ -1,0 +1,339 @@
+/* ==========================================================================
+   Cognitive Bias Atlas — Liquid Glass Design Tokens
+   Based on the liquid-glass skill tokens & Apple Liquid Glass principles
+   ========================================================================== */
+
+:root {
+  /* -- color system ------------------------------------------------------ */
+  --bg-0: #06060f;
+  --bg-1: #0b0b1a;
+  --bg-2: #101024;
+  --ink: #f2f2f8;
+  --ink-dim: rgba(242, 242, 248, 0.68);
+  --ink-faint: rgba(242, 242, 248, 0.44);
+
+  /* category accents (Cognitive Bias Codex-ish quadrant hues) */
+  --c1: #6ee7ff;   /* Too Much Information   — cyan  */
+  --c2: #a78bfa;   /* Not Enough Meaning     — violet*/
+  --c3: #34d399;   /* Need to Act Fast       — green */
+  --c4: #f9a8d4;   /* What Should We Remember— pink  */
+  --c5: #fcd34d;   /* extension / research   — amber */
+  --c1-soft: rgba(110, 231, 255, 0.14);
+  --c2-soft: rgba(167, 139, 250, 0.14);
+  --c3-soft: rgba(52, 211, 153, 0.14);
+  --c4-soft: rgba(249, 168, 212, 0.14);
+  --c5-soft: rgba(252, 211, 77, 0.14);
+
+  /* -- glass ------------------------------------------------------------- */
+  --glass-bg: rgba(255, 255, 255, 0.07);
+  --glass-bg-strong: rgba(255, 255, 255, 0.12);
+  --glass-bg-soft: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-border-bright: rgba(255, 255, 255, 0.22);
+  --glass-hl: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  --blur-sm: 8px;
+  --blur-md: 16px;
+  --blur-lg: 28px;
+  --saturate: 170%;
+
+  /* -- shadow ------------------------------------------------------------ */
+  --sh-sm: 0 4px 16px rgba(0, 0, 0, 0.28);
+  --sh-md: 0 12px 40px rgba(0, 0, 0, 0.35);
+  --sh-lg: 0 24px 72px rgba(0, 0, 0, 0.45);
+  --sh-glow: 0 8px 44px rgba(120, 160, 255, 0.16);
+
+  /* -- radius ------------------------------------------------------------ */
+  --r-sm: 14px;
+  --r-md: 22px;
+  --r-lg: 30px;
+  --r-pill: 999px;
+
+  /* -- type -------------------------------------------------------------- */
+  --font-latin: "Inter", "SF Pro Text", -apple-system, "Segoe UI", sans-serif;
+  --font-cjk-tc: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei";
+  --font-cjk-sc: "Noto Sans SC", "PingFang SC", "Microsoft YaHei";
+  --font-cjk-jp: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Meiryo";
+
+  --font-ui: var(--font-latin), var(--font-cjk-tc), sans-serif;
+  --font-display: "Sora", var(--font-latin), var(--font-cjk-tc), sans-serif;
+
+  /* -- motion ------------------------------------------------------------ */
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-f: 160ms;
+  --dur-n: 320ms;
+  --dur-s: 640ms;
+
+  --nav-h: 64px;
+}
+
+/* Per-locale CJK font stack. i18n.js sets <html data-lang="...">. */
+html[data-lang="cn-zh"] {
+  --font-ui: var(--font-latin), var(--font-cjk-sc), sans-serif;
+  --font-display: "Sora", var(--font-latin), var(--font-cjk-sc), sans-serif;
+}
+html[data-lang="cn-tw"] {
+  --font-ui: var(--font-latin), var(--font-cjk-tc), sans-serif;
+  --font-display: "Sora", var(--font-latin), var(--font-cjk-tc), sans-serif;
+}
+html[data-lang="jp"] {
+  --font-ui: var(--font-latin), var(--font-cjk-jp), sans-serif;
+  --font-display: "Sora", var(--font-latin), var(--font-cjk-jp), sans-serif;
+}
+
+/* ==========================================================================
+   Reset & base
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 18px);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink);
+  background: var(--bg-0);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* ambient animated backdrop */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  /* The base gradient is translucent so the background video (z-index -5,
+     mounted by assets/js/background.js) stays visible behind a dark scrim
+     that keeps text legible. */
+  background:
+    radial-gradient(1200px 800px at 12% -10%, rgba(56, 120, 255, 0.22), transparent 60%),
+    radial-gradient(1000px 700px at 105% 8%, rgba(140, 90, 255, 0.18), transparent 60%),
+    radial-gradient(1100px 900px at 50% 118%, rgba(20, 200, 190, 0.14), transparent 60%),
+    linear-gradient(180deg, rgba(11, 11, 26, 0.76) 0%, rgba(6, 6, 15, 0.84) 55%, rgba(5, 5, 16, 0.92) 100%);
+}
+
+.blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.5;
+  z-index: -2;
+  pointer-events: none;
+  will-change: transform;
+}
+.blob-a {
+  width: 560px; height: 560px;
+  left: -160px; top: -120px;
+  background: radial-gradient(circle at 30% 30%, rgba(110, 231, 255, 0.5), transparent 70%);
+  animation: drift-a 26s var(--ease) infinite alternate;
+}
+.blob-b {
+  width: 640px; height: 640px;
+  right: -220px; top: 22%;
+  background: radial-gradient(circle at 60% 40%, rgba(167, 139, 250, 0.5), transparent 72%);
+  animation: drift-b 32s var(--ease) infinite alternate;
+}
+.blob-c {
+  width: 520px; height: 520px;
+  left: 34%; bottom: -240px;
+  background: radial-gradient(circle at 50% 50%, rgba(52, 211, 153, 0.32), transparent 70%);
+  animation: drift-c 30s var(--ease) infinite alternate;
+}
+@keyframes drift-a { to { transform: translate(90px, 70px) scale(1.12); } }
+@keyframes drift-b { to { transform: translate(-110px, -60px) scale(1.08); } }
+@keyframes drift-c { to { transform: translate(-70px, -90px) scale(1.15); } }
+
+/* faint grid texture */
+.noise-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 78%);
+  pointer-events: none;
+}
+
+::selection { background: rgba(110, 231, 255, 0.3); color: #fff; }
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.5em;
+  /* No `text-wrap: balance` here — it collapses headings that shrink-wrap
+     (grid/flex items with justify-items:center) into a narrow vertical stack,
+     which is most visible on the longer English titles. Headings stay
+     full-width and wrap naturally. */
+  max-width: 100%;
+}
+
+p { margin: 0 0 1em; }
+
+.container {
+  width: min(1180px, 92vw);
+  margin-inline: auto;
+}
+
+/* ==========================================================================
+   Glass primitives
+   ========================================================================== */
+
+.glass {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate));
+  backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-md), var(--glass-hl);
+}
+
+/* frosted light-block (used behind panels so blur has something to catch) */
+.glass-foil {
+  background:
+    radial-gradient(140% 120% at 15% 0%, rgba(255,255,255,0.10), transparent 46%),
+    radial-gradient(120% 100% at 95% 15%, rgba(120,160,255,0.10), transparent 52%);
+  background-color: var(--glass-bg-soft);
+}
+
+.glass-strong {
+  background: var(--glass-bg-strong);
+  -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate));
+  backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate));
+}
+
+/* interactive glass card */
+.glass-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate));
+  backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-sm), var(--glass-hl);
+  transition:
+    transform var(--dur-n) var(--ease),
+    border-color var(--dur-n) var(--ease),
+    box-shadow var(--dur-n) var(--ease),
+    background var(--dur-n) var(--ease);
+}
+
+.glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(600px 300px at var(--mx, 20%) var(--my, 0%), rgba(255,255,255,0.12), transparent 60%);
+  opacity: 0;
+  transition: opacity var(--dur-n) var(--ease);
+  pointer-events: none;
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--glass-border-bright);
+  box-shadow: var(--sh-md), var(--glass-hl), var(--sh-glow);
+}
+.glass-card:hover::before { opacity: 1; }
+
+.interactive { cursor: pointer; }
+
+/* glass button */
+.glass-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  padding: 0.62em 1.35em;
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--blur-sm)) saturate(var(--saturate));
+  backdrop-filter: blur(var(--blur-sm)) saturate(var(--saturate));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  transition:
+    transform var(--dur-f) var(--ease),
+    background var(--dur-f) var(--ease),
+    border-color var(--dur-f) var(--ease),
+    box-shadow var(--dur-n) var(--ease);
+}
+.glass-btn:hover { transform: translateY(-2px); border-color: var(--glass-border-bright); box-shadow: var(--sh-sm); }
+.glass-btn:active { transform: scale(0.97); }
+
+.btn-accent {
+  background: linear-gradient(135deg, var(--accent, #6ee7ff), color-mix(in srgb, var(--accent, #6ee7ff) 55%, #a78bfa));
+  color: #06121a;
+  border-color: transparent;
+  box-shadow: 0 8px 30px color-mix(in srgb, var(--accent, #6ee7ff) 35%, transparent);
+}
+.btn-accent:hover { box-shadow: 0 12px 40px color-mix(in srgb, var(--accent, #6ee7ff) 50%, transparent); }
+
+/* ==========================================================================
+   Typographic helpers
+   ========================================================================== */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent, var(--ink));
+}
+
+.lead { font-size: 1.14rem; color: var(--ink-dim); line-height: 1.8; }
+
+.muted { color: var(--ink-dim); }
+.faint { color: var(--ink-faint); }
+
+.mono {
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+  font-size: 0.85em;
+}
+
+/* section spacing */
+.section { padding: 5.5rem 0; }
+.section-head { margin-bottom: 2.6rem; }
+.section-head h2 { font-size: clamp(1.7rem, 3.4vw, 2.5rem); margin-bottom: 0.4em; }
+
+/* ==========================================================================
+   Reveal-on-scroll
+   ========================================================================== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.7s var(--ease),
+    transform 0.7s var(--ease);
+  will-change: opacity, transform;
+}
+.reveal.is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.001s !important; transition-duration: 0.001s !important; }
+  .reveal { opacity: 1; transform: none; }
+  .blob { display: none; }
+  .bg-video { display: none; } /* a moving background is exactly what this opt-out disables */
+}

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!--
+  Cognitive Bias Atlas — home
+  Text lives in assets/i18n/ui.<lang>.js and assets/i18n/biases.<lang>.js.
+  Markup is authored in en-us (the default locale) and carries data-i18n keys.
+  Citations are never translated; they come from assets/data/references.js.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="meta.home.title">Cognitive Bias Atlas</title>
+  <meta name="description" data-i18n-attr="content:meta.desc" content="Cognitive Bias Atlas: a research-grounded taxonomy of cognitive biases, with examples, real-world applications, debiasing methods and APA references." />
+  <!-- Favicon: rounded-square brand mark (.brand-dot) — see assets/css/main.css -->
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/media/favicon-16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/media/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/media/favicon-48.png" />
+  <link rel="icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/tokens.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <script src="assets/js/lang-detect.js"></script>
+  <script src="assets/js/background.js" defer></script>
+</head>
+<body data-page="home">
+  <div class="backdrop"></div>
+  <div class="blob blob-a"></div>
+  <div class="blob blob-b"></div>
+  <div class="blob blob-c"></div>
+  <div class="noise-layer"></div>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html"><span class="brand-dot"></span><span data-i18n="nav.brand">Cognitive Bias Atlas</span> <em>· <span data-i18n="nav.brandTag">Research Edition</span></em></a>
+      <ul class="nav-links" id="site-nav">
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="category-I.html" data-i18n="nav.catI">I · Too Much Information</a></li>
+        <li><a href="category-II.html" data-i18n="nav.catII">II · Not Enough Meaning</a></li>
+        <li><a href="category-III.html" data-i18n="nav.catIII">III · Need to Act Fast</a></li>
+        <li><a href="category-IV.html" data-i18n="nav.catIV">IV · Memory</a></li>
+        <li><a href="extension.html" data-i18n="nav.extension">Extension</a></li>
+        <li><a href="research.html" data-i18n="nav.research">Research</a></li>
+        <li><a href="references.html" data-i18n="nav.references">References</a></li>
+      </ul>
+      <div data-lang-switch></div>
+      <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+      </button>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <div class="eyebrow reveal" style="justify-content:center" data-i18n="home.eyebrow">Cognitive Bias Codex · Academic Edition</div>
+      <h1 class="hero-title reveal" data-i18n-html="home.title">How your brain<br/>tricks you</h1>
+      <p class="hero-sub reveal" data-i18n="home.sub">Built on the decision science that runs from Tversky and Kahneman onward, this atlas documents 60 cognitive biases — each with a definition, everyday examples, real-world applications, debiasing tactics and the scholarly sources behind it.</p>
+      <div class="hero-cta reveal">
+        <a class="glass-btn btn-accent" href="#categories" style="--accent:#6ee7ff" data-i18n="home.ctaExplore">Start exploring ↓</a>
+        <a class="glass-btn" href="references.html" data-i18n="home.ctaReferences">References (APA)</a>
+      </div>
+      <div class="hero-stats reveal" data-render="home-stats"></div>
+    </div>
+    <div class="hero-scroll" aria-hidden="true"></div>
+  </header>
+
+  <section class="section" id="categories">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 data-i18n="home.catTitle">Four families of mental shortcuts</h2>
+        <p class="lead" data-i18n="home.catLead">Grouping the Cognitive Bias Codex by why the brain fails, Buster Benson sorts the biases into four mechanisms: too much information, not enough meaning, the need to act fast, and the limits of memory. Every category page can be expanded entry by entry.</p>
+      </div>
+      <div class="cat-grid" data-render="home-categories"></div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="glass axis-banner reveal" style="--accent:#fcd34d" data-render="home-axis"></div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0.5rem">
+    <div class="container">
+      <div class="glass-card reveal" style="--accent:#34d399;padding:2rem 2.2rem">
+        <h3 style="font-size:1.4rem" data-i18n="home.debiasTitle">From knowing to doing: debiasing is not a slogan</h3>
+        <p class="muted" style="margin-bottom:.8rem" data-i18n="home.debiasLead">Research shows that simply learning about a bias produces only short-lived alertness. Repeated training, structured decision procedures and techniques such as the premortem are what deliver measurable, lasting effects.</p>
+        <div class="chip-strip" data-render="home-chips"></div>
+        <p style="margin:1.2rem 0 0"><a class="glass-btn" href="research.html" style="--accent:#34d399" data-i18n="home.ctaResearch">Read the research →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div data-i18n="footer.copy">© 2026 Cognitive Bias Atlas</div>
+      <div style="display:flex;gap:1.2rem">
+        <a href="research.html" data-i18n="footer.research">Research methods</a>
+        <a href="references.html" data-i18n="footer.references">References (APA)</a>
+      </div>
+    </div>
+  </footer>
+
+  <dialog class="dialog" data-modal="bias" data-i18n-attr="aria-label:modal.aria" aria-label="Bias details"></dialog>
+
+  <script src="assets/data/atlas.js"></script>
+  <script src="assets/data/references.js"></script>
+  <script src="assets/js/render.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/i18n.js"></script>
+</body>
+</html>
