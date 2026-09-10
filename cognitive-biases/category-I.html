@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- Cognitive Bias Atlas — Category I. See index.html for the i18n contract. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="meta.cat-I.title">Too Much Information · Category I — Cognitive Bias Atlas</title>
+  <meta name="description" data-i18n-attr="content:meta.desc" content="Cognitive Bias Atlas: a research-grounded taxonomy of cognitive biases, with examples, real-world applications, debiasing methods and APA references." />
+  <!-- Favicon: rounded-square brand mark (.brand-dot) — see assets/css/main.css -->
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/media/favicon-16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/media/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/media/favicon-48.png" />
+  <link rel="icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/tokens.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <script src="assets/js/lang-detect.js"></script>
+  <script src="assets/js/background.js" defer></script>
+</head>
+<body data-page="category" data-cat="I" data-needs="biases">
+  <div class="backdrop"></div>
+  <div class="blob blob-a"></div>
+  <div class="blob blob-b"></div>
+  <div class="blob blob-c"></div>
+  <div class="noise-layer"></div>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html"><span class="brand-dot"></span><span data-i18n="nav.brand">Cognitive Bias Atlas</span> <em>· <span data-i18n="nav.brandTag">Research Edition</span></em></a>
+      <ul class="nav-links" id="site-nav">
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="category-I.html" data-i18n="nav.catI">I · Too Much Information</a></li>
+        <li><a href="category-II.html" data-i18n="nav.catII">II · Not Enough Meaning</a></li>
+        <li><a href="category-III.html" data-i18n="nav.catIII">III · Need to Act Fast</a></li>
+        <li><a href="category-IV.html" data-i18n="nav.catIV">IV · Memory</a></li>
+        <li><a href="extension.html" data-i18n="nav.extension">Extension</a></li>
+        <li><a href="research.html" data-i18n="nav.research">Research</a></li>
+        <li><a href="references.html" data-i18n="nav.references">References</a></li>
+      </ul>
+      <div data-lang-switch></div>
+      <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+      </button>
+    </div>
+  </nav>
+
+  <header class="page-head container reveal">
+    <div class="eyebrow" data-i18n="category.eyebrow" data-i18n-vars="code:I,title:cat.I.short">CATEGORY I · Information overload</div>
+    <h1 data-i18n="category.heading" data-i18n-vars="code:I,title:cat.I.title">Category I — Too Much Information</h1>
+    <p class="lead" style="max-width:720px;margin-inline:auto" data-i18n="cat.I.desc">Too much information, so we notice only what is vivid and repeated.</p>
+  </header>
+
+  <section class="container" style="padding-bottom:4rem">
+    <div class="tabs" role="tablist" data-i18n-attr="aria-label:tabs.aria" aria-label="Subcategories" data-render="category-tabs"></div>
+    <div data-render="category-panels"></div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div data-i18n="footer.copy">© 2026 Cognitive Bias Atlas</div>
+      <div style="display:flex;gap:1.2rem">
+        <a href="research.html" data-i18n="footer.research">Research methods</a>
+        <a href="references.html" data-i18n="footer.references">References (APA)</a>
+      </div>
+    </div>
+  </footer>
+
+  <dialog class="dialog" data-modal="bias" data-i18n-attr="aria-label:modal.aria" aria-label="Bias details"></dialog>
+
+  <script src="assets/data/atlas.js"></script>
+  <script src="assets/data/references.js"></script>
+  <script src="assets/js/render.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/i18n.js"></script>
+</body>
+</html>
