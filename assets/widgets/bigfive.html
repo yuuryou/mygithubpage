@@ -1,0 +1,555 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0">
+<script>window.onmessage = function(event) {event.source.postMessage({iframeId: event.data, scrollHeight: document.body.getBoundingClientRect().height || document.body.scrollHeight}, event.origin);};</script>
+<!-- ==== Big Five Profile + 30 Facets (Interactive Spiderweb, Glass UI) ==== -->
+<div id="bigfive-wrap" data-theme="light">
+  <style>
+    :root {
+      --bg1: radial-gradient(1200px 800px at 10% 10%,
+                rgba(255,255,255,0.9), rgba(240,245,255,0.6), rgba(230,235,245,0.5));
+      --bg2: radial-gradient(1200px 800px at 90% 90%,
+                rgba(220,240,255,0.35), rgba(210,220,235,0.25), transparent 70%);
+      --card-bg: rgba(255,255,255,0.55);
+      --card-stroke: rgba(255,255,255,0.8);
+      --text: #0f172a;
+      --muted: #475569;
+      --accent: #2563eb;
+      --accent-2: #14b8a6;
+      --grid: rgba(15, 23, 42, 0.08);
+      --track: rgba(15, 23, 42, 0.09);
+      --chip: rgba(255,255,255,0.45);
+    }
+    #bigfive-wrap[data-theme="dark"] {
+      --bg1: radial-gradient(1200px 800px at 10% 10%,
+                rgba(30,35,45,0.9), rgba(20,25,35,0.7), rgba(10,12,18,0.65));
+      --bg2: radial-gradient(1200px 800px at 90% 90%,
+                rgba(56,189,248,0.18), rgba(59,130,246,0.12), transparent 70%);
+      --card-bg: rgba(17, 24, 39, 0.55);
+      --card-stroke: rgba(203, 213, 225, 0.2);
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #60a5fa;
+      --accent-2: #2dd4bf;
+      --grid: rgba(226, 232, 240, 0.16);
+      --track: rgba(226, 232, 240, 0.16);
+      --chip: rgba(255,255,255,0.08);
+    }
+
+    #bigfive-wrap {
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      color: var(--text);
+      position: relative;
+      padding: clamp(18px, 3vw, 28px);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.2)),
+        var(--bg1), var(--bg2);
+      backdrop-filter: saturate(140%) blur(3px);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow:
+        0 10px 30px rgba(2, 6, 23, 0.15),
+        inset 0 0 0 1px var(--card-stroke);
+    }
+    #bigfive-wrap[data-theme="dark"] {
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01)),
+        var(--bg1), var(--bg2);
+    }
+
+    .header {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; margin-bottom: clamp(14px,2vw,18px);
+    }
+    .title {
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 800; letter-spacing: 0.2px;
+      line-height: 1.1;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .controls { display: flex; align-items: center; gap: 10px; }
+    .toggle {
+      appearance: none; border: none; cursor: pointer; border-radius: 999px;
+      padding: 8px 12px; font-weight: 700; color: white;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 6px 16px rgba(20, 184, 166, 0.35);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(300px, 1fr));
+      gap: clamp(16px, 2vw, 24px);
+      align-items: stretch;
+    }
+    @media (max-width: 920px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      position: relative;
+      border-radius: 20px;
+      background: var(--card-bg);
+      box-shadow:
+        0 8px 28px rgba(2, 6, 23, 0.18),
+        inset 0 0 0 1px var(--card-stroke);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .card::after {
+      content: "";
+      position: absolute; inset: -2px;
+      background: conic-gradient(from 180deg at 50% 50%,
+                  transparent 0 40%,
+                  rgba(99,102,241,0.28) 42%,
+                  rgba(34,197,94,0.22) 55%,
+                  transparent 65% 100%);
+      filter: blur(22px); opacity: 0.55; pointer-events: none;
+    }
+    .card > * { position: relative; z-index: 1; }
+    .card-head {
+      padding: 14px 16px 8px 16px; display: flex; align-items: baseline; gap: 10px;
+    }
+    .card-title {
+      font-weight: 800; letter-spacing: 0.2px; font-size: 18px;
+    }
+    .subtle {
+      color: var(--muted); font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ---- clickable domain tiles (acts as the legend) ---- */
+    .domain-tiles {
+      display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px; padding: 0 16px 10px 16px;
+    }
+    @media (max-width: 720px) { .domain-tiles { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    .tile {
+      appearance: none; font: inherit; text-align: left; cursor: pointer;
+      color: var(--text);
+      background: var(--chip);
+      border: 1px solid var(--card-stroke);
+      border-radius: 14px;
+      padding: 9px 11px;
+      display: flex; flex-direction: column; gap: 3px;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .tile:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(2,6,23,0.14); }
+    .tile:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .tile[aria-pressed="true"] {
+      box-shadow: 0 0 0 2px var(--dot) inset, 0 10px 24px rgba(2,6,23,0.16);
+      background: var(--card-bg);
+    }
+    .tile .t-top { display: flex; align-items: center; gap: 6px; }
+    .tile .t-dot {
+      width: 9px; height: 9px; border-radius: 50%; background: var(--dot); flex: 0 0 auto;
+    }
+    .tile .t-name { font-size: 11.5px; font-weight: 700; line-height: 1.2; }
+    .tile .t-score { font-size: 19px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+    .tile .t-score small { font-size: 10px; font-weight: 700; color: var(--muted); }
+
+    .canvas-wrap { padding: 6px 12px 16px 12px; height: 430px; }
+    @media (max-width: 420px) { .canvas-wrap { height: 370px; } }
+
+    /* ---- detail (facet spiderweb) panel ---- */
+    .detail-title { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .badge {
+      font-size: 12px; font-weight: 800; color: #fff; padding: 5px 10px;
+      background: linear-gradient(135deg, var(--dot), var(--accent-2));
+      border-radius: 999px;
+    }
+    .detail-canvas { padding: 0 12px 4px 12px; height: 300px; }
+    .facet-list {
+      padding: 4px 16px 16px 16px; display: grid; gap: 9px;
+      transition: opacity .25s ease, transform .25s ease;
+    }
+    .facet-list.swap { opacity: 0; transform: translateY(6px); }
+    .facet-row { display: grid; grid-template-columns: 1fr auto; gap: 5px 10px; }
+    .facet-row .f-name { font-size: 12.5px; font-weight: 600; }
+    .facet-row .f-val { font-size: 12.5px; font-weight: 800; font-variant-numeric: tabular-nums; }
+    .facet-track {
+      grid-column: 1 / -1; height: 6px; border-radius: 999px;
+      background: var(--track); overflow: hidden;
+    }
+    .facet-fill {
+      height: 100%; width: 0; border-radius: 999px;
+      transition: width .8s cubic-bezier(.2,.7,.2,1);
+    }
+    .detail-note {
+      margin: 0 16px 16px 16px; padding: 10px 12px;
+      border-left: 3px solid var(--dot); border-radius: 0 12px 12px 0;
+      background: var(--chip);
+      font-size: 12.5px; color: var(--muted); line-height: 1.45;
+    }
+    .hint { font-size: 12px; color: var(--muted); }
+
+    /* ---- notes card ---- */
+    .notes { margin-top: clamp(16px, 2vw, 24px); }
+    .notes ul { margin: 4px 0 0 0; padding: 0 16px 8px 34px; }
+    .notes li { font-size: 13px; line-height: 1.6; color: var(--text); }
+    .footer-note {
+      margin-top: 10px; padding: 0 16px 16px 16px;
+      font-size: 12px; color: var(--muted);
+      display: flex; gap: 16px; flex-wrap: wrap;
+    }
+  </style>
+
+  <div class="header">
+    <div class="title">Big Five Profile</div>
+    <div class="controls">
+      <button id="bfThemeToggle" class="toggle" aria-label="Toggle theme">Toggle Theme</button>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- === Card 1: Big Five overview, clickable === -->
+    <section class="card">
+      <div class="card-head">
+        <div class="card-title">Big Five Overview</div>
+        <div class="subtle">Click a axis or tile</div>
+      </div>
+      <div class="domain-tiles" id="bfTiles" role="group" aria-label="Select a domain"></div>
+      <div class="canvas-wrap"><canvas id="bfOverview"></canvas></div>
+    </section>
+
+    <!-- === Card 2: Facet detail for the selected domain === -->
+    <section class="card">
+      <div class="card-head">
+        <div class="detail-title">
+          <div class="card-title" id="bfDetailTitle">Facet Detail</div>
+          <span class="badge" id="bfDetailBadge">—</span>
+        </div>
+      </div>
+      <div class="detail-canvas"><canvas id="bfDetail"></canvas></div>
+      <div class="facet-list" id="bfFacetList"></div>
+      <div class="detail-note" id="bfDetailNote"></div>
+    </section>
+  </div>
+
+  <!-- === Notes (from the source profile) === -->
+  <section class="card notes">
+    <div class="card-head">
+      <div class="card-title">Key contrasts</div>
+      <div class="subtle">Read from the profile</div>
+    </div>
+    <ul>
+      <li>Very high conscientiousness, but only moderate orderliness.</li>
+      <li>Lower overall extraversion, but high assertiveness and activity.</li>
+      <li>Moderate-low negative emotionality, but elevated anticipatory concern.</li>
+      <li>Openness is broadly very high, especially intellect / ideas.</li>
+    </ul>
+    <div class="footer-note">
+      <span>Scores are 0–100 behavioral estimates, not population percentiles.</span>
+      <span class="hint">Tip: click any spiderweb axis, point, or tile to open that domain's facet spiderweb.</span>
+    </div>
+  </section>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" integrity="sha384-JUh163oCRItcbPme8pYnROHQMC6fNKTBWtRG3I3I0erJkzNgL7uxKlNwcrcFKeqF" crossorigin="anonymous"></script>
+<script>
+(function () {
+  // ======= DATA (from big five.md) =======
+  const DOMAINS = [
+    {
+      name: "Openness",
+      short: ["Openness"],
+      narrow: "O",
+      score: 91,
+      color: "#2563eb",
+      note: "Broadly very high, especially intellect / ideas (99).",
+      facets: [
+        ["Imagination", 88], ["Aesthetic interests", 95], ["Emotional openness", 72],
+        ["Adventurousness", 92], ["Intellect / ideas", 99], ["Openness to values", 93]
+      ]
+    },
+    {
+      name: "Conscientiousness",
+      short: ["Conscientiousness"],
+      narrow: "C",
+      score: 88,
+      color: "#14b8a6",
+      note: "Very high overall, but only moderate orderliness (57).",
+      facets: [
+        ["Self-efficacy", 94], ["Orderliness", 57], ["Dutifulness", 98],
+        ["Achievement striving", 94], ["Self-discipline", 92], ["Deliberation", 94]
+      ]
+    },
+    {
+      name: "Extraversion",
+      short: ["Extraversion"],
+      narrow: "E",
+      score: 39,
+      color: "#f59e0b",
+      note: "Lower overall, but high assertiveness (76) and activity level (72).",
+      facets: [
+        ["Friendliness / approach", 53], ["Gregariousness", 22], ["Assertiveness", 76],
+        ["Activity level", 72], ["Excitement seeking", 48], ["Positive affect", 45]
+      ]
+    },
+    {
+      name: "Agreeableness",
+      short: ["Agreeableness"],
+      narrow: "A",
+      score: 76,
+      color: "#ec4899",
+      note: "Even and above-mid; modesty (55) and trust (62) are the lowest facets.",
+      facets: [
+        ["Trust", 62], ["Straightforwardness", 91], ["Altruism / helpfulness", 91],
+        ["Cooperation", 82], ["Modesty", 55], ["Sympathy / compassion", 75]
+      ]
+    },
+    {
+      name: "Negative Emotionality",
+      short: ["Negative", "Emotionality"],
+      narrow: "N",
+      score: 44,
+      color: "#8b5cf6",
+      note: "Moderate-low overall, but elevated anticipatory concern (74).",
+      facets: [
+        ["Anxiety / anticipation", 74], ["Anger / hostility", 38], ["Depressive affect", 35],
+        ["Self-consciousness", 30], ["Immoderation", 38], ["Stress vulnerability", 47]
+      ]
+    }
+  ];
+
+  const wrap = document.getElementById("bigfive-wrap");
+  const css = (v) => getComputedStyle(wrap).getPropertyValue(v).trim();
+
+  // ======= Shared helpers (same visual language as the MBTI widget) =======
+  function makeGradient(ctx, area, c1, c2) {
+    const r = Math.min(area.right - area.left, area.bottom - area.top) / 2;
+    const g = ctx.createRadialGradient(area.left + r, area.top + r, r * 0.05, area.left + r, area.top + r, r);
+    g.addColorStop(0, c1);
+    g.addColorStop(1, c2);
+    return g;
+  }
+  function hexToRgba(hex, a) {
+    const h = hex.replace("#", "");
+    const n = parseInt(h.length === 3 ? h.split("").map(c => c + c).join("") : h, 16);
+    return "rgba(" + ((n >> 16) & 255) + "," + ((n >> 8) & 255) + "," + (n & 255) + "," + a + ")";
+  }
+  // wrap a label into <=2 lines so long facet names never clip
+  function wrapLabel(text, maxChars) {
+    maxChars = maxChars || 13;
+    if (text.length <= maxChars) return text;
+    const words = text.split(" ");
+    const lines = []; let line = "";
+    words.forEach((w) => {
+      if (!line) { line = w; return; }
+      if ((line + " " + w).length <= maxChars) { line += " " + w; }
+      else { lines.push(line); line = w; }
+    });
+    if (line) lines.push(line);
+    return lines.length > 2 ? [lines[0], lines.slice(1).join(" ")] : lines;
+  }
+  const baseScales = () => ({
+    r: {
+      beginAtZero: true, min: 0, max: 100,
+      angleLines: { color: css("--grid") },
+      grid: { color: css("--grid") },
+      pointLabels: { color: css("--text"), font: { weight: "700", size: 12 } },
+      ticks: { stepSize: 20, showLabelBackdrop: false, color: css("--muted") }
+    }
+  });
+  const basePlugins = () => ({
+    legend: { display: false },
+    tooltip: {
+      backgroundColor: "rgba(2,6,23,0.9)",
+      borderColor: "rgba(255,255,255,0.18)",
+      borderWidth: 1,
+      titleFont: { weight: "800" },
+      callbacks: { label: (c) => " " + c.formattedValue + " / 100" }
+    }
+  });
+
+  // ======= Chart 1: overview spiderweb (5 domains) =======
+  const overviewCtx = document.getElementById("bfOverview").getContext("2d");
+  let selected = 0;
+
+  const overviewChart = new Chart(overviewCtx, {
+    type: "radar",
+    data: {
+      labels: DOMAINS.map((d) => d.short),
+      datasets: [{
+        label: "Domains",
+        data: DOMAINS.map((d) => d.score),
+        borderWidth: 2.5,
+        pointRadius: 5,
+        pointHoverRadius: 8,
+        pointBackgroundColor: DOMAINS.map((d) => d.color),
+        pointBorderColor: "#ffffff",
+        pointBorderWidth: 2,
+        borderColor: "#2563eb",
+        backgroundColor: (c) => {
+          const { ctx: cc, chartArea: a } = c.chart;
+          if (!a) return "rgba(37, 99, 235, 0.18)";
+          return makeGradient(cc, a, "rgba(37,99,235,0.24)", "rgba(20,184,166,0.16)");
+        },
+        fill: true,
+        tension: 0.2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: baseScales(),
+      plugins: basePlugins(),
+      animation: { duration: 900, easing: "easeOutQuart" },
+      onHover: (e, els, chart) => {
+        const hit = (els && els.length) || hitTestAxis(e, chart) >= 0;
+        chart.canvas.style.cursor = hit ? "pointer" : "default";
+      },
+      onClick: (e, els, chart) => {
+        if (els && els.length) { selectDomain(els[0].index); return; }
+        const idx = hitTestAxis(e, chart);
+        if (idx >= 0) selectDomain(idx);
+      }
+    }
+  });
+
+  // click anywhere in a sector just outside the outer ring = that domain's axis
+  function hitTestAxis(evt, chart) {
+    const native = evt && evt.native;
+    if (!native || typeof native.offsetX !== "number") return -1;
+    const s = chart.scales.r;
+    const dx = native.offsetX - s.xCenter;
+    const dy = native.offsetY - s.yCenter;
+    const dist = Math.hypot(dx, dy);
+    if (dist < s.drawingArea * 0.95 || dist > s.drawingArea + 95) return -1;
+    const n = DOMAINS.length;
+    let a = Math.atan2(dy, dx) + Math.PI / 2;      // chart starts at top, clockwise
+    if (a < 0) a += Math.PI * 2;
+    const step = (Math.PI * 2) / n;
+    return Math.floor(((a + step / 2) % (Math.PI * 2)) / step);
+  }
+
+  // ======= Chart 2: facet spiderweb of the selected domain =======
+  const detailCtx = document.getElementById("bfDetail").getContext("2d");
+  const detailChart = new Chart(detailCtx, {
+    type: "radar",
+    data: { labels: [], datasets: [{
+      label: "Facets",
+      data: [],
+      borderWidth: 2,
+      pointRadius: 4,
+      pointHoverRadius: 6,
+      borderColor: "#14b8a6",
+      backgroundColor: "rgba(20,184,166,0.18)",
+      fill: true,
+      tension: 0.2
+    }] },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: baseScales(),
+      plugins: basePlugins(),
+      animation: { duration: 700, easing: "easeOutQuart" }
+    }
+  });
+
+  // ======= domain tiles =======
+  const tilesEl = document.getElementById("bfTiles");
+  DOMAINS.forEach((d, i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "tile";
+    b.style.setProperty("--dot", d.color);
+    b.setAttribute("aria-pressed", String(i === 0));
+    b.innerHTML =
+      '<span class="t-top"><span class="t-dot"></span><span class="t-name">' + d.name + "</span></span>" +
+      '<span class="t-score">' + d.score + "<small>/100</small></span>";
+    b.addEventListener("click", () => selectDomain(i));
+    tilesEl.appendChild(b);
+  });
+
+  const titleEl = document.getElementById("bfDetailTitle");
+  const badgeEl = document.getElementById("bfDetailBadge");
+  const listEl = document.getElementById("bfFacetList");
+  const noteEl = document.getElementById("bfDetailNote");
+
+  // ======= select + render =======
+  function selectDomain(i) {
+    selected = i;
+    const d = DOMAINS[i];
+    Array.from(tilesEl.children).forEach((b, k) => b.setAttribute("aria-pressed", String(k === i)));
+
+    // animate the swap of the facet list
+    listEl.classList.add("swap");
+    setTimeout(() => {
+      titleEl.textContent = d.name;
+      badgeEl.textContent = d.score + " / 100";
+      badgeEl.style.setProperty("--dot", d.color);
+      noteEl.textContent = d.note;
+      noteEl.style.setProperty("--dot", d.color);
+
+      listEl.innerHTML = d.facets.map(([name, val]) =>
+        '<div class="facet-row">' +
+          '<span class="f-name">' + name + "</span>" +
+          '<span class="f-val">' + val + "</span>" +
+          '<span class="facet-track"><span class="facet-fill" style="background:' + d.color + '"></span></span>' +
+        "</div>").join("");
+
+      // paint bars on the next frame so the width transition runs
+      requestAnimationFrame(() => {
+        listEl.querySelectorAll(".facet-fill").forEach((el, k) => { el.style.width = d.facets[k][1] + "%"; });
+        listEl.classList.remove("swap");
+      });
+
+      detailChart.data.labels = d.facets.map(([n]) => wrapLabel(n, 13));
+      detailChart.data.datasets[0].data = d.facets.map(([, v]) => v);
+      detailChart.data.datasets[0].borderColor = d.color;
+      detailChart.data.datasets[0].backgroundColor = (c) => {
+        const { ctx: cc, chartArea: a } = c.chart;
+        if (!a) return hexToRgba(d.color, 0.18);
+        return makeGradient(cc, a, hexToRgba(d.color, 0.28), "rgba(20,184,166,0.14)");
+      };
+      detailChart.update();
+      postHeight();
+    }, 180);
+  }
+
+  // ======= theme toggle (charts follow the palette) =======
+  document.getElementById("bfThemeToggle").addEventListener("click", () => {
+    wrap.dataset.theme = wrap.dataset.theme === "dark" ? "light" : "dark";
+    [overviewChart, detailChart].forEach((ch) => {
+      const s = ch.options.scales.r;
+      s.angleLines.color = css("--grid");
+      s.grid.color = css("--grid");
+      s.pointLabels.color = css("--text");
+      s.ticks.color = css("--muted");
+      ch.update();
+    });
+  });
+
+  // ======= responsive: keep overview axis labels inside the canvas =======
+  function applyResponsive() {
+    const cvs = document.getElementById("bfOverview");
+    const narrow = cvs.clientWidth > 0 && cvs.clientWidth < 560;
+    overviewChart.data.labels = DOMAINS.map((d) => (narrow ? d.narrow : d.short));
+    const s = overviewChart.options.scales.r;
+    s.pointLabels.font.size = narrow ? 11 : 12;
+    s.pointLabels.padding = narrow ? 6 : 10;
+    overviewChart.update("none");
+  }
+
+  selectDomain(0);
+  applyResponsive();
+
+  // ======= report height to the parent page =======
+  function postHeight() {
+    const b = document.body;
+    if (!b) return;
+    const h = Math.max(b.scrollHeight, b.offsetHeight,
+      document.documentElement ? document.documentElement.scrollHeight : 0);
+    if (h > 80 && window.parent !== window) {
+      try { parent.postMessage({ type: "widget-height", name: "bigfive", h: h }, "*"); } catch (e) {}
+    }
+  }
+  let rafId = 0;
+  window.addEventListener("load", () => { setTimeout(postHeight, 200); setTimeout(postHeight, 900); setTimeout(postHeight, 2200); });
+  window.addEventListener("resize", () => {
+    postHeight();
+    cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(applyResponsive);
+  });
+})();
+</script>
+</body></html>
