@@ -341,7 +341,7 @@ a:hover { text-decoration: none; }
 .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; padding: 8px 24px; }
 .gallery-item { overflow: hidden; border-radius: var(--radius); border: 1px solid var(--glass-edge); background: var(--glass-line); cursor: zoom-in; -webkit-backdrop-filter: blur(var(--glass-blur)) var(--glass-sat); backdrop-filter: blur(var(--glass-blur)) var(--glass-sat); box-shadow: var(--glass-inset); transition: border-color 0.3s, transform 0.35s var(--ease), box-shadow 0.35s; }
 .gallery-item:hover { border-color: var(--border-strong); transform: translateY(-4px); box-shadow: var(--glass-shadow); }
-.gallery-item img { width: 100%; aspect-ratio: 4/3; object-fit: cover; transition: transform 0.6s var(--ease); }
+.gallery-item img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; transition: transform 0.6s var(--ease); }
 .gallery-item:hover img { transform: scale(1.05); }
 .gallery-item figcaption { padding: 10px 14px; font-size: 12px; color: var(--text-mute); letter-spacing: 0.05em; }
 
