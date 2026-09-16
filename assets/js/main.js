@@ -80,7 +80,9 @@
 
   function openLightbox(img) {
     if (!lightbox) return;
-    lightboxImg.src = img.src;
+    /* grid <img> now points at a web-sized thumbnail; open the full-resolution
+       original when one is declared, otherwise keep the old behaviour */
+    lightboxImg.src = img.getAttribute("data-full") || img.currentSrc || img.src;
     lightboxImg.alt = img.alt || "";
     if (lightboxCaption) {
       var fig = img.closest("figure");
