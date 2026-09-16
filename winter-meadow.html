@@ -16,6 +16,17 @@
 <link rel="icon" type="image/png" href="./assets/icon.png">
 <link rel="apple-touch-icon" href="./assets/icon-192.png">
 <link rel="stylesheet" href="./assets/css/main.css?v=20260905e">
+  <style>
+  /* Photo album pagination: 20 photos per batch, loaded on demand */
+  .gallery-item.is-deferred { display: none; }
+  .gallery-item.reveal-lazy { opacity: 0; transition: opacity 0.55s ease; }
+  .gallery-item.reveal-lazy.is-in { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { .gallery-item.reveal-lazy { transition: none; } }
+  .gallery-loader { display: flex; flex-direction: column; align-items: center;
+    gap: 12px; padding: 28px 24px 8px; text-align: center; }
+  .gallery-loader.is-done { display: none; }
+  .gallery-status { margin: 0; font-size: 13px; letter-spacing: 0.02em; color: var(--text-mute); }
+  </style>
 </head>
 <body class="wm-page" data-page="winter">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -196,106 +207,111 @@
 <figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20240817_110713.jpg" alt="Meadow photo" loading="lazy"></figure>
 <figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20250330_172446.jpg" alt="Meadow photo" loading="lazy"></figure>
 <figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20250426_183505.jpg" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20250906_182143.jpg" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20251020_200627.jpg" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20260512_111545.jpg" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20260515_175956.jpg" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20260605_221417.jpg" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20260607_172414(0).jpg" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20260619_101533.jpg" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20260627_091609.jpg" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20260627_114930(1).gif" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20260628_113436.jpg" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20260705_115042.jpg" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20260705_115146.jpg" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20260705_160712.jpg" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20260712_162922.jpg" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20260719_143739.jpg" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20260720_145908.jpg" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20260731_191645.jpg" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20260807_071143.jpg" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/20260831_201217.jpg" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/ContactPhotoRetouching-IMG_20240605_213607.jpg" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/meadow/IMG_9377.jpg" alt="Meadow photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20240120_220507.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20240127_095557.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20240316_093000.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20240317_204037.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20240317_211004.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20240402_190659.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20240407_132859.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20240408_180728.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20240512_230141.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20240616_124823.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20240721_142224.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20240817_110807.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20240902_184001.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20240912_160508.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20241101_191221.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20241111_180225.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20241206_214916.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20241214_204234.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20241223_200736_remastered.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20241228_164323.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20241229_194357.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20241231_231707.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250214_161607.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250411_214519.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250419_151305.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250503_150203.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250504_193528.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250505_223119.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250516_185550.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250518_184107.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250521_175829.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250531_164233.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250619_113436.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250619_161437.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250624_172648.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250627_193206.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250627_193333.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250705_161552.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250707_174952.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250724_191337.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250823_201118.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250831_144226.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250906_182709.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20250919_182412.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20251005_215101.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20251130_193434.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20251130_200710.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20251130_201145.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260101_101807.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260101_150816.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260103_200927.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260104_103756.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260104_114526_001.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260110_162841.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260111_195613.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260515_174832.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260515_180004.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260518_194600.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260522_190433.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260531_114614.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260608_201707.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260611_201459.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260611_202559.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260611_213324.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260612_174144.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260618_180209.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260628_223516.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260701_201152.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260704_203016.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260705_115205.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260707_181207.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260717_220129.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260719_143352.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260720_145823.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260731_173354.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260819_064030.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260829_132317.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/20260831_201245.jpg" alt="Winter photo" loading="lazy"></figure>
-<figure class="gallery-item reveal"><img src="assets/photos-keep/winter/IMG_9475.jpg" alt="Winter photo" loading="lazy"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/meadow/20250906_182143.jpg" alt="Meadow photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/meadow/20251020_200627.jpg" alt="Meadow photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/meadow/20260512_111545.jpg" alt="Meadow photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/meadow/20260515_175956.jpg" alt="Meadow photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/meadow/20260605_221417.jpg" alt="Meadow photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/meadow/20260607_172414(0).jpg" alt="Meadow photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/meadow/20260619_101533.jpg" alt="Meadow photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/meadow/20260627_091609.jpg" alt="Meadow photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/meadow/20260627_114930(1).gif" alt="Meadow photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/meadow/20260628_113436.jpg" alt="Meadow photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/meadow/20260705_115042.jpg" alt="Meadow photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/meadow/20260705_115146.jpg" alt="Meadow photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/meadow/20260705_160712.jpg" alt="Meadow photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/meadow/20260712_162922.jpg" alt="Meadow photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/meadow/20260719_143739.jpg" alt="Meadow photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/meadow/20260720_145908.jpg" alt="Meadow photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/meadow/20260731_191645.jpg" alt="Meadow photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/meadow/20260807_071143.jpg" alt="Meadow photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/meadow/20260831_201217.jpg" alt="Meadow photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/meadow/ContactPhotoRetouching-IMG_20240605_213607.jpg" alt="Meadow photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/meadow/IMG_9377.jpg" alt="Meadow photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20240120_220507.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20240127_095557.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20240316_093000.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20240317_204037.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20240317_211004.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20240402_190659.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20240407_132859.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20240408_180728.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20240512_230141.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20240616_124823.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20240721_142224.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20240817_110807.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20240902_184001.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20240912_160508.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20241101_191221.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20241111_180225.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20241206_214916.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20241214_204234.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20241223_200736_remastered.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20241228_164323.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20241229_194357.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20241231_231707.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250214_161607.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250411_214519.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250419_151305.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250503_150203.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250504_193528.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250505_223119.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250516_185550.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250518_184107.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250521_175829.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250531_164233.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250619_113436.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250619_161437.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250624_172648.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250627_193206.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250627_193333.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250705_161552.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250707_174952.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250724_191337.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250823_201118.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250831_144226.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250906_182709.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20250919_182412.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20251005_215101.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20251130_193434.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20251130_200710.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20251130_201145.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260101_101807.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260101_150816.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260103_200927.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260104_103756.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260104_114526_001.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260110_162841.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260111_195613.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260515_174832.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260515_180004.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260518_194600.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260522_190433.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260531_114614.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260608_201707.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260611_201459.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260611_202559.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260611_213324.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260612_174144.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260618_180209.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260628_223516.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260701_201152.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260704_203016.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260705_115205.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260707_181207.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260717_220129.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260719_143352.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260720_145823.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260731_173354.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260819_064030.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260829_132317.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/20260831_201245.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+<figure class="gallery-item reveal-lazy is-deferred"><img data-src="assets/photos-keep/winter/IMG_9475.jpg" alt="Winter photo" loading="lazy" decoding="async"></figure>
+  </div>
+
+  <div class="gallery-loader" id="galleryLoader">
+    <button class="btn btn--ghost" id="galleryMore" type="button">Load 20 more photos</button>
+    <p class="gallery-status" id="galleryStatus" aria-live="polite">Showing 20 of 120 photos</p>
   </div>
 </section></main>
 <section class="findme" aria-label="Find me @">
@@ -319,6 +335,102 @@
   <img id="lightboxImg" src="" alt="">
   <p class="lightbox-caption" id="lightboxCaption"></p>
 </div>
+<script>
+/* Gallery pagination: photos load 20 at a time and more arrive as the visitor
+   scrolls to the end, so the album never downloads in one go. */
+(function () {
+  "use strict";
+  var grid = document.getElementById("gallery");
+  var loader = document.getElementById("galleryLoader");
+  var btn = document.getElementById("galleryMore");
+  var status = document.getElementById("galleryStatus");
+  if (!grid || !loader || !btn) return;
+
+  var BATCH = 20;
+  var ZONE = 700;                 /* px past the fold that arms the next batch */
+  var items = Array.prototype.slice.call(grid.querySelectorAll(".gallery-item"));
+  var queue = items.filter(function (el) { return el.classList.contains("is-deferred"); });
+  var total = items.length;
+  var shown = total - queue.length;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var armed = false, revealing = false, ticking = false, lastLoadAt = 0, deepest = 0;
+
+  function activate(el) {
+    var img = el.querySelector("img");
+    if (img && !img.getAttribute("src")) {
+      var src = img.getAttribute("data-src");
+      if (src) img.setAttribute("src", src);
+    }
+    el.classList.remove("is-deferred");
+    if (reduce) { el.classList.add("is-in"); return; }
+    void el.offsetWidth;              /* settle layout before the fade-in */
+    el.classList.add("is-in");
+  }
+
+  function updateUI() {
+    if (status) status.textContent = "Showing " + shown + " of " + total + " photos";
+    if (!queue.length) {
+      loader.classList.add("is-done");
+      btn.setAttribute("disabled", "disabled");
+    } else {
+      btn.textContent = "Load " + Math.min(BATCH, queue.length) + " more photos";
+    }
+  }
+
+  function refreshTriggers() {
+    if (window.ScrollTrigger && typeof window.ScrollTrigger.refresh === "function") {
+      try { window.ScrollTrigger.refresh(); } catch (e) {}
+    }
+  }
+
+  function revealNext() {
+    if (revealing || !queue.length) return;
+    revealing = true;
+    lastLoadAt = Date.now();
+    var batch = queue.splice(0, BATCH);
+    batch.forEach(function (el, i) {
+      if (!reduce && i) el.style.transitionDelay = (i * 45) + "ms";
+      activate(el);
+    });
+    shown += batch.length;
+    updateUI();
+    window.setTimeout(function () {
+      batch.forEach(function (el) { el.style.transitionDelay = ""; });
+      revealing = false;
+      refreshTriggers();
+      window.requestAnimationFrame(check);
+    }, reduce ? 0 : 900);
+  }
+
+  function atBottom() {
+    var doc = document.documentElement;
+    return window.scrollY >= doc.scrollHeight - window.innerHeight - 4;
+  }
+
+  function check() {
+    ticking = false;
+    if (revealing || !queue.length || !armed) return;
+    if (Date.now() - lastLoadAt < 350) return;
+    if (loader.getBoundingClientRect().top > window.innerHeight + ZONE) return;
+    if (!atBottom() && window.scrollY < deepest + 120) return;
+    revealNext();
+  }
+
+  function onScroll() {
+    var y = window.scrollY || document.documentElement.scrollTop || 0;
+    if (y > deepest) deepest = y;
+    armed = true;
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(check);
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  btn.addEventListener("click", revealNext);
+  updateUI();
+})();
+</script>
 <script src="./assets/js/gsap.min.js?v=20260905c"></script>
 <script src="./assets/js/ScrollTrigger.min.js?v=20260905c"></script>
 <script src="./assets/js/SplitText.min.js?v=20260905c"></script>
