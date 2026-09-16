@@ -523,9 +523,10 @@
   });
 
   function targetLegIndex(stopIdx) {
+    // leg n connects stop n -> stop n+1, so reaching stop i needs legs < i
     var t = -1;
     legIndex.forEach(function (entry) {
-      if (entry.leg <= stopIdx && entry.leg > t) t = entry.leg;
+      if (entry.leg < stopIdx && entry.leg > t) t = entry.leg;
     });
     return t;
   }
