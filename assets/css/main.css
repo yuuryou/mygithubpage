@@ -1023,11 +1023,13 @@ body { text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 8px rgba(0, 0, 0, 0.18)
     linear-gradient(180deg, rgba(10, 10, 14, 0.72) 0%, rgba(10, 10, 14, 0.40) 30%, rgba(10, 10, 14, 0.48) 62%, rgba(10, 10, 14, 0.82) 100%);
 }
 .about-page .page-bg-img,
-.interests-page .page-bg-img {
+.interests-page .page-bg-img,
+.tiny-page .page-bg-img {
   filter: saturate(1.05) brightness(1.35);
 }
 .about-page .page-bg-scrim,
-.interests-page .page-bg-scrim {
+.interests-page .page-bg-scrim,
+.tiny-page .page-bg-scrim {
   background:
     radial-gradient(ellipse at 50% 30%, rgba(10, 10, 14, 0.14) 0%, rgba(10, 10, 14, 0.30) 60%, rgba(10, 10, 14, 0.56) 100%),
     linear-gradient(180deg, rgba(10, 10, 14, 0.50) 0%, rgba(10, 10, 14, 0.20) 30%, rgba(10, 10, 14, 0.28) 62%, rgba(10, 10, 14, 0.58) 100%);
@@ -1042,13 +1044,17 @@ body { text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 8px rgba(0, 0, 0, 0.18)
 }
 /* Dark Reader hardening (20260916a): #main gets its own stacking context so
    .page-bg (z-index:-1) can never sink under a forced body background;
-   .findme/.site-footer sit above #main the same way home/wm/publications do. */
+   .findme/.site-footer sit above #main the same way home/wm/publications do.
+   20260916b: tiny-page joined the same hardening (now carries a backdrop). */
 .about-page #main,
-.interests-page #main { position: relative; z-index: 2; }
+.interests-page #main,
+.tiny-page #main { position: relative; z-index: 2; }
 .about-page .findme,
 .about-page .site-footer,
 .interests-page .findme,
-.interests-page .site-footer { position: relative; z-index: 3; }
+.interests-page .site-footer,
+.tiny-page .findme,
+.tiny-page .site-footer { position: relative; z-index: 3; }
 
 /* ============================================================
    Motion preferences — everything off under reduced motion.
