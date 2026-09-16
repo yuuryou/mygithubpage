@@ -145,7 +145,12 @@
       if (nextEl === active) return;
       var prevEl = active;
       var img = new Image();
+      /* The backdrop is full-bleed (background-size: cover) and is scaled up
+         further by the ken-burns drift, so a 720px thumbnail looks soft on a
+         display. On wide viewports use the 1400px hero variant; on phones the
+         thumbnail is already >= 2x the viewport and saves a lot of bytes. */
       var src = nextEl.getAttribute("data-src");
+      if (window.innerWidth >= 900) src = nextEl.getAttribute("data-src-lg") || src;
       if (!src) return;
       img.src = src;
       function apply() {
