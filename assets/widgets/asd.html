@@ -200,7 +200,7 @@
 </div>
 
 <!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" integrity="sha384-JUh163oCRItcbPme8pYnROHQMC6fNKTBWtRG3I3I0erJkzNgL7uxKlNwcrcFKeqF" crossorigin="anonymous"></script>
 <script>
   // Data source: structured developmental interview summary (E:\Downloads\ASD.txt)
   const asdCriteria = [
@@ -238,8 +238,14 @@
   function fmtVal(v){ return Number.isInteger(v) ? v.toFixed(1) : String(v); }
 
   // Chart
+  // NOTE: asdChart MUST be declared with let/var *before* new Chart() runs --
+  // Chart.js fires options.onResize during construction, which calls
+  // syncAsdLabels(); with `const` that hits the temporal dead zone and throws
+  // "Cannot access 'asdChart' before initialization", aborting the whole script
+  // and leaving the canvas blank.
   const asdCtx = document.getElementById('asdRadar').getContext('2d');
-  const asdChart = new Chart(asdCtx, {
+  let asdChart = null;
+  asdChart = new Chart(asdCtx, {
     type: 'radar',
     data: {
       labels: asdShortLabels,
@@ -297,6 +303,7 @@
   });
 
   function syncAsdLabels(){
+    if (!asdChart) return;   // onResize can fire before the chart exists
     const want = ((asdChart.width || 0) < 620) ? asdCodeLabels : asdShortLabels;
     const cur = asdChart.data.labels;
     if (cur.length !== want.length || cur.some((v, i) => v !== want[i])) {
