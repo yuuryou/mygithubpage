@@ -70,7 +70,7 @@
 
   function openLightbox(img) {
     if (!lightbox) return;
-    lightboxImg.src = img.src;
+    lightboxImg.src = img.getAttribute("data-full") || img.src;
     lightboxImg.alt = img.alt || "";
     if (lightboxCaption) {
       var fig = img.closest("figure");
