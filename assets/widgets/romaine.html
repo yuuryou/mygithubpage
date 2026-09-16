@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset="utf-8"></head><body><script>window.onmessage = function(event) {event.source.postMessage({iframeId: event.data, scrollHeight: document.body.getBoundingClientRect().height || document.body.scrollHeight}, event.origin);};</script><body style='margin: 0;'><div style="display: flex; justify-content: center"><!-- Paste this entire snippet into a single GoDaddy Website Builder HTML block. No external libs needed. -->
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin: 0"><script>window.onmessage = function(event) {event.source.postMessage({iframeId: event.data, scrollHeight: document.body.getBoundingClientRect().height || document.body.scrollHeight}, event.origin);};</script><div style="display: flex; justify-content: center"><!-- Paste this entire snippet into a single GoDaddy Website Builder HTML block. No external libs needed. -->
 <section id="romaine-app" lang="en">
   <style>
     /* Namespaced styles to avoid conflicts */
@@ -258,4 +258,4 @@
 </section>
 </div><script>(function(){function wf(){var b=document.body;if(!b)return;var h=Math.max(b.scrollHeight,b.offsetHeight,document.documentElement?document.documentElement.scrollHeight:0);if(h>80&&window.parent!==window){try{parent.postMessage({type:"widget-height",name:"romaine",h:h},"*");}catch(e){}}}
 window.addEventListener("load",function(){setTimeout(wf,200);setTimeout(wf,900);setTimeout(wf,2200);});
-window.addEventListener("resize",wf);})();</script></body></body></html>
+window.addEventListener("resize",wf);})();</script></body></html>
