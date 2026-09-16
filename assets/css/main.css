@@ -155,12 +155,6 @@ a:hover { text-decoration: none; }
   overflow: hidden; pointer-events: none;
   background-color: #101014;
   background-size: cover; background-position: center;
-  /* Samsung Internet (Chromium fork) loses track of a fixed backdrop
-     while backdrop-filter elements above it are composited, so the
-     background scrolls with content then snaps back. Promoting this
-     layer with translateZ(0) keeps it pinned on its own compositor
-     layer. */
-  transform: translateZ(0);
 }
 .home-bg-video {
   position: absolute; inset: 0;
@@ -341,7 +335,7 @@ a:hover { text-decoration: none; }
 .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; padding: 8px 24px; }
 .gallery-item { overflow: hidden; border-radius: var(--radius); border: 1px solid var(--glass-edge); background: var(--glass-line); cursor: zoom-in; -webkit-backdrop-filter: blur(var(--glass-blur)) var(--glass-sat); backdrop-filter: blur(var(--glass-blur)) var(--glass-sat); box-shadow: var(--glass-inset); transition: border-color 0.3s, transform 0.35s var(--ease), box-shadow 0.35s; }
 .gallery-item:hover { border-color: var(--border-strong); transform: translateY(-4px); box-shadow: var(--glass-shadow); }
-.gallery-item img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; transition: transform 0.6s var(--ease); }
+.gallery-item img { width: 100%; aspect-ratio: 4/3; object-fit: cover; transition: transform 0.6s var(--ease); }
 .gallery-item:hover img { transform: scale(1.05); }
 .gallery-item figcaption { padding: 10px 14px; font-size: 12px; color: var(--text-mute); letter-spacing: 0.05em; }
 
@@ -572,23 +566,10 @@ a:hover { text-decoration: none; }
     backdrop-filter: blur(24px) var(--glass-sat);
     border-bottom: 1px solid rgba(255, 255, 255, 0.17);
     box-shadow: var(--glass-inset), inset 0 -1px 0 rgba(255, 255, 255, 0.06), 0 8px 28px rgba(0, 0, 0, 0.22);
-    display: flex;
-    /* Drop-down animation: sheet stays flex but invisible/inert until
-       .open. transform+opacity animate (display cannot); visibility's
-       delayed hide removes it from hit-test/tab order AFTER the closing
-       fade finishes, and becomes immediate again when .open returns. */
-    visibility: hidden; opacity: 0;
-    transform: translateY(-16px);
-    pointer-events: none;
-    transition: transform 0.34s var(--ease), opacity 0.30s ease, visibility 0s linear 0.34s;
+    display: none;
     max-height: calc(100dvh - var(--nav-h)); overflow-y: auto; overscroll-behavior: contain;
   }
-  .nav-links--sheet.open {
-    visibility: visible; opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-    transition: transform 0.38s var(--ease), opacity 0.30s ease;
-  }
+  .nav-links--sheet.open { display: flex; }
   .nav-toggle { display: block; }
   .nav-link { padding: 14px 16px; border-radius: 12px; font-size: 16px; }
   .nav-link:hover { background: rgba(255, 255, 255, 0.18); color: var(--text); }
@@ -636,12 +617,11 @@ a:hover { text-decoration: none; }
 
 /* Touch devices: no hover → keep captions visible, let taps flip cards */
 @media (hover: none) and (pointer: coarse) {
-  /* Home fixed backdrop: swap looping video for a truly STATIC image.
-     (An animated GIF behaves like video: mobile GPUs re-sample
-     backdrop-filter on every frame, which made the background lag /
-     reveal black space and made card blur pop in only after scrolling
-     stopped. Samsung Internet still exhibits this with GIFs.) */
-  .home-bg { background-image: url("../photos-keep/meadow/20260627_091609.jpg"); }
+  /* Home fixed backdrop: swap looping video for its static poster frame.
+     Mobile GPUs re-sample backdrop-filter against the video on every
+     frame, which made the background scroll laggy / reveal black space
+     and made card blur pop in only after scrolling stopped. */
+  .home-bg { background-image: url("../photos/meadow/20260627_114930(1).gif"); }
   .home-bg-video { display: none; }
   .gallery-item figcaption { transform: none; padding: 22px 12px 10px; }
   .gallery-item:hover img { transform: none; }
@@ -715,6 +695,8 @@ a:hover { text-decoration: none; }
   border-color: rgba(255, 255, 255, 0.14);
 }
 .wm-page .page-hero { padding-top: calc(var(--nav-h) + 118px); }
+/* 2026-09-16: cat flip cards now occupy the wm hero slot (page title removed) */
+.wm-page .wm-cats { padding-top: calc(var(--nav-h) + 92px); padding-bottom: 8px; }
 .wm-page .page-hero .hero-title { color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.9), 0 2px 6px rgba(0,0,0,0.8), 0 6px 22px rgba(0,0,0,0.6), 0 0 26px rgba(0,0,0,0.55); }
 .wm-page .page-hero .hero-sub,
 .wm-page .page-hero .kicker { color: #efeae1; text-shadow: 0 1px 3px rgba(0,0,0,0.95), 0 2px 8px rgba(0,0,0,0.75), 0 4px 18px rgba(0,0,0,0.5); }
@@ -1023,13 +1005,11 @@ body { text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 8px rgba(0, 0, 0, 0.18)
     linear-gradient(180deg, rgba(10, 10, 14, 0.72) 0%, rgba(10, 10, 14, 0.40) 30%, rgba(10, 10, 14, 0.48) 62%, rgba(10, 10, 14, 0.82) 100%);
 }
 .about-page .page-bg-img,
-.interests-page .page-bg-img,
-.tiny-page .page-bg-img {
+.interests-page .page-bg-img {
   filter: saturate(1.05) brightness(1.35);
 }
 .about-page .page-bg-scrim,
-.interests-page .page-bg-scrim,
-.tiny-page .page-bg-scrim {
+.interests-page .page-bg-scrim {
   background:
     radial-gradient(ellipse at 50% 30%, rgba(10, 10, 14, 0.14) 0%, rgba(10, 10, 14, 0.30) 60%, rgba(10, 10, 14, 0.56) 100%),
     linear-gradient(180deg, rgba(10, 10, 14, 0.50) 0%, rgba(10, 10, 14, 0.20) 30%, rgba(10, 10, 14, 0.28) 62%, rgba(10, 10, 14, 0.58) 100%);
@@ -1044,17 +1024,13 @@ body { text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 8px rgba(0, 0, 0, 0.18)
 }
 /* Dark Reader hardening (20260916a): #main gets its own stacking context so
    .page-bg (z-index:-1) can never sink under a forced body background;
-   .findme/.site-footer sit above #main the same way home/wm/publications do.
-   20260916b: tiny-page joined the same hardening (now carries a backdrop). */
+   .findme/.site-footer sit above #main the same way home/wm/publications do. */
 .about-page #main,
-.interests-page #main,
-.tiny-page #main { position: relative; z-index: 2; }
+.interests-page #main { position: relative; z-index: 2; }
 .about-page .findme,
 .about-page .site-footer,
 .interests-page .findme,
-.interests-page .site-footer,
-.tiny-page .findme,
-.tiny-page .site-footer { position: relative; z-index: 3; }
+.interests-page .site-footer { position: relative; z-index: 3; }
 
 /* ============================================================
    Motion preferences — everything off under reduced motion.
@@ -1259,490 +1235,9 @@ body { text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 8px rgba(0, 0, 0, 0.18)
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.90), 0 3px 12px rgba(0, 0, 0, 0.62), 0 9px 30px rgba(0, 0, 0, 0.35) !important;
 }
 
-/* ============================================================
-   Places I've Called Home — journey map + timeline
-   New liquid-glass module: dot-matrix world map, animated route
-   ribbon, rail timeline. Pointer sheen + drag-scrub on desktop
-   (cursor) and touch (drag / tap) devices. Added 2026-09-15.
-   ============================================================ */
-.journey { position: relative; }
-.journey .journey-sub {
-  color: #ffffff;
-  font-size: clamp(15px, 1.6vw, 17px);
-  line-height: 1.62;
-  max-width: 720px;
-  margin: -28px 0 36px;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.92), 0 2px 12px rgba(0, 0, 0, 0.72);
-}
-
-/* ---- grid: map + rail ---- */
-.journey-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.42fr) minmax(300px, 1fr);
-  gap: 26px;
-  align-items: start;
-}
-
-/* ============ map card (liquid glass) ============ */
-.journey-map {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  border-radius: 22px;
-  background: linear-gradient(165deg, var(--glass-2), var(--glass-1) 46%, rgba(255, 255, 255, 0.035));
-  -webkit-backdrop-filter: blur(var(--glass-blur)) var(--glass-sat);
-  backdrop-filter: blur(var(--glass-blur)) var(--glass-sat);
-  border: 1px solid var(--glass-edge);
-  box-shadow: var(--glass-shadow);
-  touch-action: pan-y;
-}
-/* dark scrim so the dot map stays legible over any photo */
-.journey-map::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background:
-    radial-gradient(ellipse at 50% 34%, rgba(10, 10, 14, 0.28) 0%, rgba(10, 10, 14, 0.44) 62%, rgba(10, 10, 14, 0.62) 100%),
-    linear-gradient(180deg, rgba(10, 10, 14, 0.10) 0%, rgba(10, 10, 14, 0.34) 100%);
-  pointer-events: none;
-}
-/* cursor / finger sheen */
-.journey-map::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  background:
-    radial-gradient(340px circle at var(--mx, 50%) var(--my, 40%),
-      rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0) 62%),
-    linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0) 46%);
-  opacity: 0;
-  transition: opacity 0.45s ease;
-  pointer-events: none;
-  mix-blend-mode: screen;
-}
-.journey-map.is-sheen::after { opacity: 1; }
-.journey-map.is-dragging { cursor: grabbing; }
-.journey-map.is-dragging .journey-svg { cursor: grabbing; }
-
-.journey-map-inner {
-  position: relative;
-  z-index: 1;
-  padding: clamp(10px, 1.5vw, 18px) clamp(8px, 1.3vw, 16px) 36px;
-}
-.journey-svg { display: block; width: 100%; height: auto; }
-
-/* parallax layers */
-.journey-layer--dots {
-  transform: translate3d(calc(var(--px, 0) * 5px), calc(var(--py, 0) * 4px), 0);
-  transition: transform 0.5s var(--ease);
-}
-.journey-layer--grid {
-  transform: translate3d(calc(var(--px, 0) * -4px), calc(var(--py, 0) * -3px), 0);
-  transition: transform 0.5s var(--ease);
-}
-.journey-dots { fill: rgba(236, 229, 216, 0.42); }
-.journey-grat {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.075);
-  stroke-width: 1;
-  stroke-dasharray: 2 7;
-}
-
-/* ---- route ribbons ---- */
-.journey-leg-dim {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.20);
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  stroke-dasharray: 3.5 7;
-}
-.journey-leg-lit {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 2.6;
-  stroke-linecap: round;
-  opacity: 0;
-  stroke-dasharray: var(--len, 0);
-  stroke-dashoffset: var(--len, 0);
-  transition: opacity 0.45s ease, stroke-dashoffset 1.4s var(--ease);
-  filter: drop-shadow(0 0 5px rgba(232, 168, 124, 0.55));
-}
-.journey-leg-lit.leg-lit--fadeR { stroke: url(#jFadeR); }
-.journey-leg-lit.leg-lit--fadeL { stroke: url(#jFadeL); }
-.journey-leg-lit.is-reached { opacity: 0.95; stroke-dashoffset: 0; }
-
-/* ---- pins ---- */
-.journey-pin { cursor: pointer; }
-.journey-pin .pin-pulse,
-.journey-pin .pin-halo,
-.journey-pin .pin-ring,
-.journey-pin .pin-core { transform-box: fill-box; transform-origin: center; }
-.journey-pin .pin-pulse {
-  fill: none;
-  stroke: rgba(232, 168, 124, 0.55);
-  stroke-width: 1.6;
-  opacity: 0;
-}
-.journey-pin .pin-halo { fill: rgba(232, 168, 124, 0.14); transition: transform 0.5s var(--ease), opacity 0.5s ease; }
-.journey-pin .pin-ring { fill: none; stroke: rgba(255, 255, 255, 0.55); stroke-width: 1.2; transition: transform 0.5s var(--ease); }
-.journey-pin .pin-core { fill: #f6d9bc; transition: transform 0.4s var(--ease); filter: drop-shadow(0 0 4px rgba(232, 168, 124, 0.85)); }
-.journey-pin .pin-tie { stroke: rgba(255, 255, 255, 0.5); stroke-width: 1; stroke-dasharray: 2 2; }
-.journey-pin .pin-core--sub { fill: #e8a87c; filter: drop-shadow(0 0 3px rgba(232, 168, 124, 0.7)); }
-
-.journey-pin:hover .pin-halo { transform: scale(1.35); }
-.journey-pin:hover .pin-core { transform: scale(1.18); }
-.journey-pin.is-active .pin-halo { transform: scale(2.1); opacity: 0.55; }
-.journey-pin.is-active .pin-ring { transform: scale(1.55); stroke: var(--accent); }
-.journey-pin.is-active .pin-core { transform: scale(1.3); }
-.journey-pin.is-active .pin-pulse { animation: journey-pulse 2.4s var(--ease) infinite; }
-
-@keyframes journey-pulse {
-  0%   { transform: scale(1);   opacity: 0.9; }
-  70%  { transform: scale(3.2); opacity: 0; }
-  100% { transform: scale(3.2); opacity: 0; }
-}
-
-/* pin labels (SVG text, desktop only) */
-.pin-label {
-  font: 600 19px var(--sans);
-  fill: #ffffff;
-  letter-spacing: 0.015em;
-  paint-order: stroke;
-  stroke: rgba(6, 9, 12, 0.78);
-  stroke-width: 3.6;
-  stroke-linejoin: round;
-  opacity: 0.88;
-  transition: opacity 0.35s ease;
-  pointer-events: none;
-}
-.pin-label.is-active { opacity: 1; }
-
-/* flying traveler dot */
-.journey-traveler { opacity: 0; transition: opacity 0.4s ease; }
-.journey-traveler.is-on { opacity: 1; }
-.journey-traveler .traveler-ring {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.55);
-  stroke-width: 1.4;
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: journey-pulse 2.2s var(--ease) infinite;
-}
-.journey-traveler .traveler-core {
-  fill: #ffffff;
-  filter: drop-shadow(0 0 6px rgba(232, 168, 124, 0.95));
-}
-
-/* ============ readout chip (top-left) ============ */
-.journey-readout {
-  position: absolute;
-  left: clamp(10px, 1.4vw, 16px);
-  top: clamp(10px, 1.4vw, 16px);
-  z-index: 4;
-  max-width: 58%;
-  padding: 12px 15px 11px;
-  border-radius: 16px;
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.05));
-  -webkit-backdrop-filter: blur(18px) var(--glass-sat);
-  backdrop-filter: blur(18px) var(--glass-sat);
-  border: 1px solid rgba(255, 255, 255, 0.20);
-  box-shadow: var(--glass-inset), 0 12px 30px rgba(0, 0, 0, 0.35);
-  display: grid;
-  gap: 2px;
-  pointer-events: none;
-  transition: transform 0.5s var(--ease), opacity 0.4s ease;
-}
-.journey-readout .journey-readout-idx {
-  font: 600 10.5px/1 var(--sans);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--accent);
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
-}
-.journey-readout .journey-readout-place {
-  font-family: var(--serif);
-  font-size: clamp(16px, 1.9vw, 20px);
-  line-height: 1.15;
-  color: #ffffff;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
-}
-.journey-readout .journey-readout-era,
-.journey-readout .journey-readout-coord {
-  font: 500 11px/1.35 var(--sans);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.78);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
-}
-
-/* ============ inset (Columbia Basin close-up) ============ */
-.journey-inset {
-  position: absolute;
-  left: clamp(10px, 1.4vw, 16px);
-  bottom: clamp(34px, 4.2vw, 46px);
-  z-index: 4;
-  width: clamp(148px, 30%, 236px);
-  padding: 9px 9px 7px;
-  border-radius: 14px;
-  background: linear-gradient(160deg, rgba(20, 22, 27, 0.52), rgba(20, 22, 27, 0.34));
-  -webkit-backdrop-filter: blur(14px) var(--glass-sat);
-  backdrop-filter: blur(14px) var(--glass-sat);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: var(--glass-inset), 0 10px 26px rgba(0, 0, 0, 0.3);
-  transition: transform 0.5s var(--ease), opacity 0.4s ease;
-}
-.journey-inset-svg { display: block; width: 100%; height: auto; }
-.journey-inset-dots { fill: rgba(236, 229, 216, 0.5); }
-.journey-inset-link {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 1.8;
-  stroke-dasharray: 4 5;
-  stroke-linecap: round;
-  opacity: 0.85;
-}
-.journey-inset-pin .inset-pin-core {
-  fill: #f6d9bc;
-  filter: drop-shadow(0 0 3px rgba(232, 168, 124, 0.9));
-}
-.journey-inset-pin .inset-pin-label {
-  font: 600 11.5px var(--sans);
-  fill: #ffffff;
-  paint-order: stroke;
-  stroke: rgba(6, 9, 12, 0.8);
-  stroke-width: 2.6;
-  stroke-linejoin: round;
-}
-.journey-inset-cap {
-  display: block;
-  margin-top: 3px;
-  font: 600 10px/1.4 var(--sans);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.72);
-}
-.journey.is-cluster .journey-inset {
-  transform: scale(1.04);
-  border-color: rgba(232, 168, 124, 0.5);
-}
-
-/* ============ map hint ============ */
-.journey-hint {
-  position: absolute;
-  right: clamp(10px, 1.4vw, 16px);
-  bottom: 12px;
-  z-index: 4;
-  margin: 0;
-  font: 600 10.5px/1 var(--sans);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.62);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
-  pointer-events: none;
-}
-.journey-hint .journey-hint-touch { display: none; }
-
-/* ============ rail timeline ============ */
-.journey-rail {
-  list-style: none;
-  margin: 0;
-  padding: 0 0 4px;
-  position: relative;
-  display: grid;
-  gap: 10px;
-}
-.journey-rail::before {
-  content: "";
-  position: absolute;
-  left: 15px;
-  top: 12px;
-  bottom: 12px;
-  width: 1px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.30), rgba(255, 255, 255, 0.08));
-}
-.journey-stop { position: relative; }
-.journey-node {
-  position: absolute;
-  left: 7px;
-  top: 18px;
-  width: 17px;
-  height: 17px;
-  border-radius: 50%;
-  background: rgba(20, 22, 27, 0.65);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  display: grid;
-  place-items: center;
-  z-index: 1;
-  transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s var(--ease);
-}
-.journey-node .journey-node-core {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.62);
-  transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.35s var(--ease);
-}
-.journey-stop.is-active .journey-node {
-  border-color: var(--accent);
-  transform: scale(1.18);
-  box-shadow: 0 0 0 4px rgba(232, 168, 124, 0.16), 0 0 14px rgba(232, 168, 124, 0.5);
-}
-.journey-stop.is-active .journey-node .journey-node-core {
-  background: var(--accent);
-  transform: scale(1.3);
-  box-shadow: 0 0 8px rgba(232, 168, 124, 0.9);
-}
-
-.journey-stop-btn {
-  appearance: none;
-  -webkit-appearance: none;
-  border: 1px solid transparent;
-  border-radius: 18px;
-  background: transparent;
-  width: 100%;
-  margin: 0;
-  padding: 13px 15px 13px 40px;
-  font: inherit;
-  color: #ffffff;
-  text-align: left;
-  cursor: pointer;
-  display: block;
-  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s var(--ease);
-}
-@media (hover: hover) and (pointer: fine) {
-  .journey-stop-btn:hover {
-    background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(255, 255, 255, 0.14);
-    transform: translateY(-1px);
-  }
-}
-.journey-stop.is-active .journey-stop-btn {
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.05));
-  border-color: rgba(255, 255, 255, 0.26);
-  box-shadow: var(--glass-inset), 0 14px 34px rgba(0, 0, 0, 0.34);
-}
-.journey-stop-btn:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-.journey-stop-idx {
-  position: absolute;
-  right: 15px;
-  top: 14px;
-  font: 600 11px/1 var(--sans);
-  letter-spacing: 0.18em;
-  color: rgba(255, 255, 255, 0.5);
-  transition: color 0.35s ease;
-  pointer-events: none;
-}
-.journey-stop.is-active .journey-stop-idx { color: var(--accent); }
-.journey-stop-era {
-  display: block;
-  font: 600 10.5px/1.2 var(--sans);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.72);
-  margin-bottom: 5px;
-}
-.journey-stop-title {
-  display: block;
-  font-family: var(--serif);
-  font-size: 18.5px;
-  line-height: 1.18;
-  color: #ffffff;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-}
-.journey-stop-meta {
-  display: block;
-  font: 500 11.5px/1.4 var(--sans);
-  color: rgba(255, 255, 255, 0.68);
-  margin-top: 3px;
-  letter-spacing: 0.04em;
-}
-.journey-stop-note {
-  display: block;
-  font-size: 13.5px;
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.88);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  margin: 0;
-  transition: max-height 0.5s var(--ease), opacity 0.4s ease, margin 0.4s ease;
-}
-.journey-stop.is-active .journey-stop-note {
-  max-height: 7em;
-  opacity: 1;
-  margin-top: 8px;
-}
-/* keep notes visible until JS confirms the interactive layout */
-.journey:not(.js-on) .journey-stop-note { max-height: 7em; opacity: 1; margin-top: 8px; }
-.journey.js-on .journey-stop:not(.is-active) .journey-stop-note {
-  max-height: 0;
-  opacity: 0;
-  margin-top: 0;
-}
-
-/* ============ stats strip ============ */
-.journey-stats {
-  list-style: none;
-  margin: 26px 0 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-}
-.journey-stats li {
-  border-radius: 16px;
-  background: linear-gradient(160deg, var(--glass-2), var(--glass-1));
-  -webkit-backdrop-filter: blur(var(--glass-blur)) var(--glass-sat);
-  backdrop-filter: blur(var(--glass-blur)) var(--glass-sat);
-  border: 1px solid var(--glass-edge);
-  box-shadow: var(--glass-inset);
-  padding: 14px 16px;
-  display: grid;
-  gap: 3px;
-}
-.journey-stats strong {
-  font-family: var(--serif);
-  font-size: clamp(19px, 2.2vw, 24px);
-  line-height: 1.05;
-  color: #ffffff;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
-}
-.journey-stats strong em { color: var(--accent); font-style: normal; }
-.journey-stats span {
-  font: 600 10.5px/1.3 var(--sans);
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.66);
-}
-
-/* ============ responsive ============ */
-@media (max-width: 1100px) {
-  .journey-grid { grid-template-columns: 1fr; }
-  .journey-map { position: sticky; top: calc(var(--nav-h) + 10px); z-index: 5; }
-  .journey-rail { max-width: 720px; }
-}
-@media (max-width: 640px) {
-  .journey-map-inner { padding-bottom: 30px; }
-  .journey-inset { display: none; }
-  .pin-label { display: none; }
-  .journey-hint .journey-hint-touch { display: inline; }
-  .journey-hint .journey-hint-desktop { display: none; }
-  .journey-hint { right: 10px; bottom: 8px; font-size: 9.5px; letter-spacing: 0.14em; }
-  .journey-readout { padding: 10px 12px 9px; max-width: 64%; }
-  .journey-stats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-}
-@media (max-width: 420px) {
-  .journey-readout .journey-readout-era,
-  .journey-readout .journey-readout-coord { display: none; }
-  .journey-stop-note { font-size: 12.5px; }
-}
-
+/* 2026-09-05e fix: home social strip was hidden behind the fixed full-bleed
+   .home-bg video layer (child of #main's z-index:2 stacking context). Same
+   root cause as wm-page .findme vs .wm-cinema and publications-page .findme
+   vs .pub-stage. Raise .home-page .findme above #main so the buttons render
+   above the video layer and are visible/clickable again. */
+.home-page .findme { position: relative; z-index: 3; }

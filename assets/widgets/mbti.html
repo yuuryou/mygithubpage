@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset="utf-8"></head><body><script>window.onmessage = function(event) {event.source.postMessage({iframeId: event.data, scrollHeight: document.body.getBoundingClientRect().height || document.body.scrollHeight}, event.origin);};</script><body style='margin: 0'><!-- ==== MBTI + Cognitive Functions Radar (Fancy Glass UI) ==== -->
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin: 0"><script>window.onmessage = function(event) {event.source.postMessage({iframeId: event.data, scrollHeight: document.body.getBoundingClientRect().height || document.body.scrollHeight}, event.origin);};</script><!-- ==== MBTI + Cognitive Functions Radar (Fancy Glass UI) ==== -->
 <div id="mbti-radar-wrap" data-theme="light">
   <style>
     :root {
@@ -172,11 +172,10 @@
       <div class="canvas-wrap"><canvas id="mbtiFunctions"></canvas></div>
     </section>
   </div>
-  </div>
 </div>
 
 <!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" integrity="sha384-JUh163oCRItcbPme8pYnROHQMC6fNKTBWtRG3I3I0erJkzNgL7uxKlNwcrcFKeqF" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <script>
   // ======= THEME TOGGLE =======
   const wrap = document.getElementById('mbti-radar-wrap');
@@ -312,4 +311,4 @@
 </script>
 <script>(function(){function wf(){var b=document.body;if(!b)return;var h=Math.max(b.scrollHeight,b.offsetHeight,document.documentElement?document.documentElement.scrollHeight:0);if(h>80&&window.parent!==window){try{parent.postMessage({type:"widget-height",name:"mbti",h:h},"*");}catch(e){}}}
 window.addEventListener("load",function(){setTimeout(wf,200);setTimeout(wf,900);setTimeout(wf,2200);});
-window.addEventListener("resize",wf);})();</script></body></body></html>
+window.addEventListener("resize",wf);})();</script></body></html>
