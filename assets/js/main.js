@@ -6,10 +6,12 @@
   "use strict";
 
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  // Touch devices: skip scroll-triggered reveals/parallax. Content stays
-  // fully visible (no fade-in delay when reaching a card) and the page
-  // avoids per-frame scroll compositing that made effects feel late.
-  var coarse = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+  // Touch devices (incl. iPadOS, which matches hover:hover + pointer:coarse,
+  // so the old "(hover: none) and (pointer: coarse)" never fired there):
+  // skip scroll-triggered reveals/parallax. Content stays fully visible
+  // (no fade-in delay when reaching a card) and the page avoids per-frame
+  // scroll compositing that made effects feel late.
+  var coarse = window.matchMedia("(pointer: coarse)").matches;
 
   /* ---------- Vimeo hero: iframe starts hidden; fade in only when player sends "ready" ---------- */
   var vimeo = document.querySelector(".hero-media iframe");
@@ -180,10 +182,13 @@
     var heroCta = document.querySelector("[data-hero-cta]");
     if (heroTitle) {
       var tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-      if (heroKicker) tl.from(heroKicker, { y: 18, opacity: 0, duration: 0.7 }, 0.1);
-      tl.from(heroTitle.querySelectorAll(".line"), { yPercent: 110, opacity: 0, duration: 1.1, stagger: 0.16 }, 0.3);
-      if (heroSub) tl.from(heroSub, { y: 20, opacity: 0, duration: 0.8 }, 0.9);
-      if (heroCta) tl.from(heroCta.children, { y: 16, opacity: 0, duration: 0.7, stagger: 0.1 }, 1.05);
+      // immediateRender:false — never snap hero text to opacity:0 on tween
+      // creation; if the GSAP ticker is stalled (low-power tablet, background
+      // tab, main thread blocked by fonts/iframe) the text stays visible.
+      if (heroKicker) tl.from(heroKicker, { y: 18, opacity: 0, duration: 0.7, immediateRender: false }, 0.1);
+      tl.from(heroTitle.querySelectorAll(".line"), { yPercent: 110, opacity: 0, duration: 1.1, stagger: 0.16, immediateRender: false }, 0.3);
+      if (heroSub) tl.from(heroSub, { y: 20, opacity: 0, duration: 0.8, immediateRender: false }, 0.9);
+      if (heroCta) tl.from(heroCta.children, { y: 16, opacity: 0, duration: 0.7, stagger: 0.1, immediateRender: false }, 1.05);
     }
   });
 
@@ -489,7 +494,7 @@
   var reduceMotion =
     window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var isTouch =
-    window.matchMedia && window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
 
   root.classList.add("js-on");
 

@@ -519,6 +519,14 @@ a:hover { text-decoration: none; }
 
 /* ---------- reveal initial states (JS removes) ---------- */
 .reveal { opacity: 1; }
+/* Hero entrance fallback: even if the GSAP ticker stalls before the hero
+   timeline runs, hero text/cards must never sit at opacity:0. Animations
+   set inline opacity at play time, so this default is safe. */
+.hero-content [data-hero-kicker],
+.hero-content [data-hero-title],
+.hero-content [data-hero-title] .line,
+.hero-content [data-hero-sub],
+.hero-content [data-hero-cta] > * { opacity: 1; }
 .js-split .split-word { display: inline-block; white-space: nowrap; }
 
 /* ---------- responsive ---------- */
@@ -615,14 +623,27 @@ a:hover { text-decoration: none; }
   .album-next { right: 8px; }
 }
 
-/* Touch devices: no hover → keep captions visible, let taps flip cards */
-@media (hover: none) and (pointer: coarse) {
+/* Touch devices — iPadOS matches hover:hover + pointer:coarse, so the old
+   "(hover: none) and (pointer: coarse)" never fired there; use (pointer:
+   coarse) to cover every phone + tablet. Keep captions visible, let taps
+   flip cards. */
+@media (pointer: coarse) {
   /* Home fixed backdrop: swap looping video for its static poster frame.
      Mobile GPUs re-sample backdrop-filter against the video on every
      frame, which made the background scroll laggy / reveal black space
      and made card blur pop in only after scrolling stopped. */
   .home-bg { background-image: url("../photos/meadow/20260627_114930(1).gif"); }
   .home-bg-video { display: none; }
+  /* 2026-09-17 fix: iPadOS kept the full-screen video + glass layers, and
+     WebKit's backdrop-filter compositing bug blanked hero/card text until
+     a tap re-composited the page. Under coarse pointer, drop the backdrop
+     blur on the home glass layers entirely. */
+  .home-page .hero-content,
+  .home-page .card,
+  .home-page .section--intro .container.narrow {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
   .gallery-item figcaption { transform: none; padding: 22px 12px 10px; }
   .gallery-item:hover img { transform: none; }
   .gallery-item:hover { transform: none; border-color: var(--border); }
@@ -638,6 +659,11 @@ a:hover { text-decoration: none; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   .reveal { opacity: 1 !important; transform: none !important; }
+  /* Hero entrance also falls back to fully visible under reduced motion. */
+  .hero-content [data-hero-kicker],
+  .hero-content [data-hero-title] .line,
+  .hero-content [data-hero-sub],
+  .hero-content [data-hero-cta] > * { opacity: 1 !important; transform: none !important; }
 }
 
 /* ---- embedded widgets (original site HTML blocks) ----
