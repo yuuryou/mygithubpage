@@ -632,7 +632,7 @@ a:hover { text-decoration: none; }
      Mobile GPUs re-sample backdrop-filter against the video on every
      frame, which made the background scroll laggy / reveal black space
      and made card blur pop in only after scrolling stopped. */
-  .home-bg { background-image: url("../photos/meadow/20260627_114930(1).gif"); }
+  .home-bg { background-image: url("../photos/meadow/home-poster.jpg"); }
   .home-bg-video { display: none; }
   /* 2026-09-17 fix: iPadOS kept the full-screen video + glass layers, and
      WebKit's backdrop-filter compositing bug blanked hero/card text until
