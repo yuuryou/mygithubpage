@@ -498,6 +498,24 @@ a:hover { text-decoration: none; }
 .card:hover::after { opacity: 1; }
 .card .card-body { position: relative; z-index: 1; }
 
+/* ---------- glass sheen (home cards, scroll-driven reflection) ----------
+   Scroll reflection WITHOUT backdrop-filter (iPadOS WebKit compositing bug
+   root cause). ::before layers a wide linear-gradient glare strip; JS drives
+   --sheen-x on scroll so the strip sweeps across the card like a glass
+   reflection. Only transform is animated; .card-body stays above it. */
+.home-page .card::before {
+  content: "";
+  position: absolute;
+  left: -120%; right: -120%; top: 0; bottom: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(115deg,
+    transparent 44%, rgba(255,255,255,0.09) 49%,
+    rgba(255,255,255,0.16) 51%, rgba(255,255,255,0.09) 53%, transparent 58%);
+  transform: translateX(var(--sheen-x, -33%));
+  will-change: transform;
+}
+
 /* ---------- gallery caption slide-up ---------- */
 .gallery-item { position: relative; }
 .gallery-item figcaption {
@@ -659,6 +677,7 @@ a:hover { text-decoration: none; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   .reveal { opacity: 1 !important; transform: none !important; }
+  .home-page .card::before { display: none; }
   /* Hero entrance also falls back to fully visible under reduced motion. */
   .hero-content [data-hero-kicker],
   .hero-content [data-hero-title] .line,
