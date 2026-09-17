@@ -63,6 +63,32 @@
   window.addEventListener("scroll", onProgress, { passive: true });
   onProgress();
 
+  /* ---------- glass sheen on home cards (scroll-driven reflection) ----------
+     No backdrop-filter: a wide glare strip in .card::before is shifted via
+     --sheen-x as the card travels through the viewport, so it sweeps like a
+     moving glass reflection. rAF-throttled, passive listener, transform only.
+     Also runs on coarse pointers (mirrors the CSS that still needs a visible
+     reflection without backdrop blur); skipped under prefers-reduced-motion. */
+  if (!reduced) {
+    var sheenCards = document.querySelectorAll(".home-page .card");
+    var sheenTicking = false;
+    function updateSheen() {
+      sheenTicking = false;
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      for (var i = 0; i < sheenCards.length; i++) {
+        var r = sheenCards[i].getBoundingClientRect();
+        var p = (vh + 40 - r.top) / (vh + r.height + 80);
+        p = p < 0 ? 0 : (p > 1 ? 1 : p);
+        sheenCards[i].style.setProperty("--sheen-x", (-52 + p * 24).toFixed(1) + "%");
+      }
+    }
+    function onSheenScroll() {
+      if (!sheenTicking) { sheenTicking = true; requestAnimationFrame(updateSheen); }
+    }
+    window.addEventListener("scroll", onSheenScroll, { passive: true });
+    updateSheen();
+  }
+
   /* ---------- lightbox (works without GSAP) ---------- */
   var lightbox = document.getElementById("lightbox");
   var lightboxImg = document.getElementById("lightboxImg");
