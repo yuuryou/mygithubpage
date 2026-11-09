@@ -1,0 +1,49 @@
+# Normalize line endings in the repo: text files are LF on disk and in the index,
+# no matter which OS the commit comes from. Binary assets are never converted.
+
+* text=auto eol=lf
+
+# --- text (explicit) -------------------------------------------------------
+*.html text eol=lf
+*.htm  text eol=lf
+*.css  text eol=lf
+*.js   text eol=lf
+*.json text eol=lf
+*.webmanifest text eol=lf
+*.md   text eol=lf
+*.xml  text eol=lf
+*.svg  text eol=lf
+*.txt  text eol=lf
+*.py   text eol=lf
+*.sh   text eol=lf
+*.yml  text eol=lf
+*.yaml text eol=lf
+
+# --- binary (never diff, never convert) ------------------------------------
+*.jpg   binary
+*.jpeg  binary
+*.png   binary
+*.gif   binary
+*.webp  binary
+*.avif  binary
+*.jxl   binary
+*.ico   binary
+*.bmp   binary
+*.svgz  binary
+*.mp4   binary
+*.webm  binary
+*.mov   binary
+*.m4v   binary
+*.mp3   binary
+*.m4a   binary
+*.wav   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
+*.pdf   binary
+*.zip   binary
+
+# --- generated / vendored --------------------------------------------------
+*.min.js linguist-generated=true -diff
+sitemap.xml linguist-generated=true

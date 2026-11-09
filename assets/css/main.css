@@ -56,6 +56,11 @@ body {
 ::selection { background: var(--accent); color: #17130f; }
 
 img { max-width: 100%; display: block; }
+/* Intrinsic size attributes (20261109a): <img> now carries real width/height so
+   the browser reserves the correct box before decode (CLS). height:auto keeps
+   that hint from fighting responsive sizing — zero specificity, so any class
+   rule (.card-media, .gallery-item, .album-slide …) still wins. */
+:where(img[width][height]) { height: auto; }
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: none; }
 
@@ -650,7 +655,7 @@ a:hover { text-decoration: none; }
      Mobile GPUs re-sample backdrop-filter against the video on every
      frame, which made the background scroll laggy / reveal black space
      and made card blur pop in only after scrolling stopped. */
-  .home-bg { background-image: url("../photos/meadow/home-poster.jpg"); }
+  .home-bg { background-image: url("../photos/meadow/home-poster.jxl"); }
   .home-bg-video { display: none; }
   /* 2026-09-17 fix: iPadOS kept the full-screen video + glass layers, and
      WebKit's backdrop-filter compositing bug blanked hero/card text until

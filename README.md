@@ -15,13 +15,17 @@ Dark editorial redesign of https://jasonyxu.us/ built with the installed design 
 (GSAP 8-skill set + morphicons / shadcn-ui / awesome-design-md / ui-ux-pro-max / impeccable).
 
 ## Stack
-- Pure static HTML/CSS/JS — no build step, no framework
+- Pure static HTML/CSS/JS — no framework, no runtime build step (the optional
+  maintenance script is `scripts/build_site.py`, see below)
 - GSAP 3.13 (ScrollTrigger + SplitText) via local copies in `assets/js/`
 - Fonts: Fraunces (display) + Inter (body) via Google Fonts
-- All photos served from the existing img1.wsimg.com CDN (no asset migration needed)
+- Photos are served locally as JPEG XL (`.jxl`) from `assets/photos-hero/`,
+  `assets/photos-thumb/`, `assets/photos-keep/` — same pixels as the original
+  JPEG/PNG files, roughly 55–70% smaller. The original images are kept in place;
+  only a handful of legacy editorial images still load from the `img1.wsimg.com` CDN.
 - Home hero uses the existing Vimeo background video
 
-## Pages (30 total — no single-page layout)
+## Pages (47 URLs in `sitemap.xml` — no single-page layout)
 ```
 index.html                     Home (Vimeo hero + site cards + photo strip)
 interests.html                 My interests hub
@@ -41,8 +45,61 @@ prompt-engineering.html        Tools + NotebookLM embed
 │   └── gpts/*.html            8 GPT detail pages
 about.html                     CV, languages, CTUIR links, tiny experiments
 tiny-experiments.html
-404.html
+404.html                       (excluded from sitemap)
+
+cognitive-biases/              Sub-site: Cognitive Bias Atlas (8 pages)
+├── category-I.html … category-IV.html
+├── extension.html
+├── references.html
+└── research.html
+
+childhood-trauma-study/        Sub-site: CPTSD guide PWA (10 pages, en / zh-Hant / zh-Hans)
+├── cptsd-en.html, CPTSD childhood trauma.html, CPTSD childhood trauma-cn.html
+├── development.html, development-en.html, development-cn.html
+└── references.html, references-en.html, references-cn.html
 ```
+
+Embedded HTML fragments live in `assets/widgets/` — they are loaded in iframes by
+their parent pages and are intentionally **not** listed in the sitemap.
+
+## Build & maintenance — `scripts/build_site.py`
+
+There is no bundler and nothing to compile before deploying. `scripts/build_site.py`
+is a zero-dependency (stdlib-only) maintenance script that keeps the hand-written
+pages consistent:
+
+```bash
+python3 scripts/build_site.py --all            # bump version, sitemap, img sizes, then verify
+python3 scripts/build_site.py --version 20261109a   # set ?v= on local assets, all pages
+python3 scripts/build_site.py --sitemap        # rebuild sitemap.xml from the files on disk
+python3 scripts/build_site.py --img-dims       # fill missing <img width height> from real files
+python3 scripts/build_site.py --img-dims --fetch-remote  # also fetch CDN images for sizes
+python3 scripts/build_site.py --canonical      # add self-referencing canonical to new pages
+python3 scripts/build_site.py --check          # validate sitemap XML, internal links, img sizes
+```
+
+What each step guarantees:
+- `--version` rewrites the `?v=` cache-busting parameter on `assets/css/main.css`,
+  `assets/js/main.js` and the three GSAP files, so every page shares one version.
+- `--sitemap` walks the real `.html` files (skipping `404.html`, `assets/`, `scripts/`,
+  `temp/`), URL-encodes spaces, and stamps each `<lastmod>` with that file's last git
+  commit date (falling back to mtime), so the dates actually differ per page.
+- `--img-dims` reads the true pixel size from the image file itself — for `.jxl` it reads
+  the matching original in the same folder, so no dimensions are ever guessed. It only
+  adds the attributes that are missing and never rewrites existing ones.
+- `--check` parses `sitemap.xml` as XML, verifies that every `href`/`src` in the site
+  resolves to a file on disk, and reports any `<img>` still missing a size.
+
+`main.css` pairs these attributes with `:where(img[width][height]) { height: auto; }`
+(zero specificity, so class rules such as `.card-media img` keep full control) — the
+attributes reserve the right box before the image decodes, which removes layout shift
+without changing the rendered layout.
+
+## Text encoding & line endings
+`.gitattributes` normalizes every text file to LF (`text=auto eol=lf`) and marks images,
+video, audio, fonts and archives as `binary`, so `.jxl` / `.mp4` files are never treated
+as text. `.gitignore` keeps OS noise, `temp/` and local backups out of the repo.
+
 
 ## Motion (GSAP)
 - Hero entrance: SplitText line reveal
@@ -62,6 +119,9 @@ tiny-experiments.html
 
 ## To customize
 - Design tokens (colors, fonts): `assets/css/main.css` → `:root`
-- Nav items: edit `NAV` in the build script (`temp/build_site.py`) and rebuild
-- Photos: files reference existing `img1.wsimg.com` URLs — swap the `IMG` constant
+- Nav items live in the markup of each page (no shared NAV array); after editing
+  pages, run `python3 scripts/build_site.py --all` to refresh `sitemap.xml`, the
+  `?v=` asset version and any new `<img>` sizes
+- Photos: local `.jxl` files under `assets/photos-*/`; legacy editorial images still
+  reference the `img1.wsimg.com` CDN
 *（内容由AI生成，仅供参考）*

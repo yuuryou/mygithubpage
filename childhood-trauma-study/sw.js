@@ -17,7 +17,7 @@ const PRECACHE_ASSETS = [
   '/childhood-trauma-study/references-cn.html',
   '/childhood-trauma-study/site-enhancements.css',
   '/childhood-trauma-study/site-enhancements.js',
-  '/childhood-trauma-study/background-poster.jpg',
+  '/childhood-trauma-study/background-poster.jxl',
   '/childhood-trauma-study/forest-ambience.mp3'
 ];
 
