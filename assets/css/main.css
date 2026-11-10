@@ -1728,3 +1728,25 @@ body { text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 8px rgba(0, 0, 0, 0.18)
   .journey-readout .journey-readout-coord { display: none; }
   .journey-stop-note { font-size: 12.5px; }
 }
+
+/* ============ 2026-11-10 hero-sub narrow-screen fix ============
+   The homepage tagline gained a long parenthetical ("(pro AI regulations and
+   educations)"). At 320–480px it previously broke inside the brackets and
+   pushed the tagline to three ragged rows. Two-part fix: keep the
+   parenthetical atomic so it can never split across lines, and tighten the
+   tagline slightly on small phones so it settles on two balanced rows with
+   the breaks falling on the middle-dot separators.
+   Styling only — no copy changes. */
+.hero-sub .hero-sub-tag { white-space: nowrap; }
+
+@media (max-width: 480px) {
+  .home-page .hero-sub {
+    font-size: 13px;
+    line-height: 1.6;
+    letter-spacing: 0;
+    text-wrap: balance;
+  }
+}
+@media (max-width: 360px) {
+  .home-page .hero-sub { font-size: 12px; }
+}
